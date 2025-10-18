@@ -145,6 +145,39 @@
             }, 300);
         }
 
+        function toggleCardsManagement() {
+            const cardsSection = document.getElementById('cards-management-section');
+            const toggleBtn = document.getElementById('toggle-cards-btn');
+            const toggleIcon = document.getElementById('toggle-icon');
+            const toggleText = document.getElementById('toggle-text');
+
+            if (cardsSection.classList.contains('hidden')) {
+                cardsSection.classList.remove('hidden');
+                toggleIcon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"></path>';
+                toggleText.textContent = 'Приховати картки';
+            } else {
+                cardsSection.classList.add('hidden');
+                toggleIcon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>';
+                toggleText.textContent = 'Керувати картками';
+            }
+        }
+
+        function toggleDetailedStats() {
+            const detailedStats = document.getElementById('detailed-stats');
+            const compactStats = document.getElementById('compact-stats');
+            const showMoreBtn = document.getElementById('show-more-stats');
+
+            if (detailedStats.classList.contains('hidden')) {
+                detailedStats.classList.remove('hidden');
+                compactStats.classList.add('hidden');
+                showMoreBtn.classList.add('hidden');
+            } else {
+                detailedStats.classList.add('hidden');
+                compactStats.classList.remove('hidden');
+                showMoreBtn.classList.remove('hidden');
+            }
+        }
+
         // Add event listeners to checkboxes
         document.addEventListener('DOMContentLoaded', function() {
             const checkboxes = document.querySelectorAll('.card-checkbox');
@@ -203,6 +236,155 @@
                 </a>
             </div>
         </div>
+
+        <!-- Deck Statistics -->
+        <div class="mb-6">
+            <!-- Compact Stats -->
+            <div id="compact-stats" class="bg-white rounded-lg border border-gray-200 p-4">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-sm font-semibold text-gray-900">Прогрес вивчення</h3>
+                    <button id="show-more-stats" onclick="toggleDetailedStats()" class="text-xs text-blue-600 hover:text-blue-700 font-medium flex items-center gap-1">
+                        Детальніше
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                        </svg>
+                    </button>
+                </div>
+                <div class="grid grid-cols-4 gap-3">
+                    <div class="text-center">
+                        <div class="text-2xl font-bold text-gray-900">150</div>
+                        <div class="text-xs text-gray-500 mt-1">Всього</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-2xl font-bold text-green-600">89</div>
+                        <div class="text-xs text-gray-500 mt-1">Вивчено</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-2xl font-bold text-yellow-600">45</div>
+                        <div class="text-xs text-gray-500 mt-1">Вивчається</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-2xl font-bold text-blue-600">16</div>
+                        <div class="text-xs text-gray-500 mt-1">Нові</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Detailed Stats -->
+            <div id="detailed-stats" class="hidden bg-white rounded-lg border border-gray-200 p-6">
+                <div class="flex items-center justify-between mb-6">
+                    <h3 class="text-lg font-semibold text-gray-900">Детальна статистика</h3>
+                    <button onclick="toggleDetailedStats()" class="text-gray-400 hover:text-gray-600">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </button>
+                </div>
+
+                <!-- Stats Overview -->
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
+                    <div class="bg-gray-50 rounded-lg p-4 text-center">
+                        <div class="text-3xl font-bold text-gray-900">150</div>
+                        <div class="text-sm text-gray-600 mt-1">Всього карток</div>
+                    </div>
+                    <div class="bg-green-50 rounded-lg p-4 text-center">
+                        <div class="text-3xl font-bold text-green-600">89</div>
+                        <div class="text-sm text-gray-600 mt-1">Вивчено</div>
+                        <div class="text-xs text-gray-500 mt-1">59%</div>
+                    </div>
+                    <div class="bg-yellow-50 rounded-lg p-4 text-center">
+                        <div class="text-3xl font-bold text-yellow-600">45</div>
+                        <div class="text-sm text-gray-600 mt-1">Вивчається</div>
+                        <div class="text-xs text-gray-500 mt-1">30%</div>
+                    </div>
+                    <div class="bg-blue-50 rounded-lg p-4 text-center">
+                        <div class="text-3xl font-bold text-blue-600">16</div>
+                        <div class="text-sm text-gray-600 mt-1">Нові</div>
+                        <div class="text-xs text-gray-500 mt-1">11%</div>
+                    </div>
+                </div>
+
+                <!-- Progress Bar -->
+                <div class="mb-6">
+                    <div class="flex items-center justify-between text-sm mb-2">
+                        <span class="text-gray-600">Загальний прогрес</span>
+                        <span class="font-semibold text-gray-900">59%</span>
+                    </div>
+                    <div class="w-full bg-gray-200 rounded-full h-4 flex overflow-hidden">
+                        <div class="bg-green-500 h-4" style="width: 59%" title="Вивчено: 59%"></div>
+                        <div class="bg-yellow-500 h-4" style="width: 30%" title="Вивчається: 30%"></div>
+                        <div class="bg-blue-500 h-4" style="width: 11%" title="Нові: 11%"></div>
+                    </div>
+                    <div class="flex justify-between text-xs text-gray-500 mt-2">
+                        <span>🟢 Вивчено</span>
+                        <span>🟡 Вивчається</span>
+                        <span>🔵 Нові</span>
+                    </div>
+                </div>
+
+                <!-- Recent Activity -->
+                <div class="mb-6">
+                    <h4 class="text-sm font-semibold text-gray-900 mb-3">Остання активність</h4>
+                    <div class="space-y-2">
+                        <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
+                                    <svg class="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <div class="text-sm font-medium text-gray-900">Навчання завершено</div>
+                                    <div class="text-xs text-gray-500">15 карток · Точність 87%</div>
+                                </div>
+                            </div>
+                            <div class="text-xs text-gray-500">2 год тому</div>
+                        </div>
+                        <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
+                                    <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <div class="text-sm font-medium text-gray-900">Додано нові картки</div>
+                                    <div class="text-xs text-gray-500">5 карток</div>
+                                </div>
+                            </div>
+                            <div class="text-xs text-gray-500">1 день тому</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Study Stats -->
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="border border-gray-200 rounded-lg p-4">
+                        <div class="text-sm text-gray-600 mb-1">Загальний час</div>
+                        <div class="text-2xl font-bold text-gray-900">12 год</div>
+                        <div class="text-xs text-gray-500 mt-1">За весь час</div>
+                    </div>
+                    <div class="border border-gray-200 rounded-lg p-4">
+                        <div class="text-sm text-gray-600 mb-1">Серія днів</div>
+                        <div class="text-2xl font-bold text-orange-600">🔥 7</div>
+                        <div class="text-xs text-gray-500 mt-1">Поспіль</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Toggle Cards Management Button -->
+        <div class="mb-6 text-center">
+            <button id="toggle-cards-btn" onclick="toggleCardsManagement()" class="inline-flex items-center gap-2 text-gray-600 hover:text-gray-900 px-4 py-2 rounded-lg hover:bg-gray-100 transition-colors">
+                <svg id="toggle-icon" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                </svg>
+                <span id="toggle-text" class="font-medium">Керувати картками</span>
+            </button>
+        </div>
+
+        <!-- Cards Management Section (hidden by default) -->
+        <div id="cards-management-section" class="hidden">
 
         <!-- Search and Filter -->
         <div class="mb-6 flex gap-3">
@@ -617,6 +799,8 @@
                 </button>
             </div>
         </div>
+
+        </div><!-- End Cards Management Section -->
     </div>
 </body>
 </html>
