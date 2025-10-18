@@ -6,16 +6,60 @@
     <title>Навчання - Базова англійська</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
+        // Alternate sentences for the word "Hello"
+        const sentences = [
+            {
+                en: '"<span class="font-bold text-blue-600 underline decoration-2 underline-offset-4">Hello</span>, how are you today?"',
+                uk: '"Привіт, як справи сьогодні?"',
+                type: 'question',
+                typeLabel: '❓ Питальне речення',
+                typeColor: 'bg-purple-100 text-purple-800'
+            },
+            {
+                en: '"She said <span class="font-bold text-blue-600 underline decoration-2 underline-offset-4">hello</span> and smiled warmly."',
+                uk: '"Вона привіталася і тепло посміхнулася."',
+                type: 'affirmative',
+                typeLabel: '✓ Стверджувальне речення',
+                typeColor: 'bg-green-100 text-green-800'
+            },
+            {
+                en: '"I didn\'t say <span class="font-bold text-blue-600 underline decoration-2 underline-offset-4">hello</span> to him."',
+                uk: '"Я не привітався з ним."',
+                type: 'negative',
+                typeLabel: '✗ Заперечне речення',
+                typeColor: 'bg-red-100 text-red-800'
+            }
+        ];
+        let currentSentenceIndex = 0;
+
+        function changeSentence() {
+            currentSentenceIndex = (currentSentenceIndex + 1) % sentences.length;
+            const sentenceText = document.getElementById('sentence-text');
+            const translationText = document.querySelector('#translation .text-2xl');
+            const typeBadge = document.querySelector('.inline-flex.items-center.px-3.py-1.rounded-full');
+
+            sentenceText.innerHTML = sentences[currentSentenceIndex].en;
+            translationText.innerHTML = sentences[currentSentenceIndex].uk;
+            typeBadge.textContent = sentences[currentSentenceIndex].typeLabel;
+            typeBadge.className = `inline-flex items-center px-3 py-1 rounded-full text-xs font-medium ${sentences[currentSentenceIndex].typeColor}`;
+        }
+
         function flipCard() {
             const showHint = document.getElementById('show-hint');
             const translation = document.getElementById('translation');
             const answerButtons = document.getElementById('answer-buttons');
+            const changeSentenceBtn = document.getElementById('change-sentence-btn');
 
             if (translation.classList.contains('hidden')) {
                 // Показати переклад і кнопки
                 showHint.classList.add('hidden');
                 translation.classList.remove('hidden');
                 answerButtons.classList.remove('hidden');
+
+                // Вимкнути кнопку зміни речення
+                changeSentenceBtn.disabled = true;
+                changeSentenceBtn.classList.add('opacity-50', 'cursor-not-allowed');
+                changeSentenceBtn.classList.remove('hover:text-blue-600');
             }
         }
     </script>
@@ -52,10 +96,21 @@
         <!-- Flash Card -->
         <div class="mb-8">
             <div id="flashcard" class="bg-white rounded-xl shadow-lg border-2 border-gray-200 p-12 min-h-[400px] flex flex-col items-center justify-center">
-                <!-- Word (завжди показується) -->
+                <!-- Sentence with word (завжди показується) -->
                 <div class="text-center mb-8">
-                    <div class="text-sm text-gray-500 mb-4">Слово</div>
-                    <div class="text-6xl font-bold text-gray-900">Hello</div>
+                    <div class="flex items-center justify-center gap-3 mb-4">
+                        <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-purple-100 text-purple-800">
+                            ❓ Питальне речення
+                        </span>
+                        <button id="change-sentence-btn" onclick="changeSentence()" class="p-1 text-gray-400 hover:text-blue-600 rounded transition-colors" title="Змінити варіант">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+                            </svg>
+                        </button>
+                    </div>
+                    <div id="sentence-text" class="text-3xl text-gray-800 leading-relaxed">
+                        "<span class="font-bold text-blue-600 underline decoration-2 underline-offset-4">Hello</span>, how are you today?"
+                    </div>
                 </div>
 
                 <!-- Show Translation Button -->
@@ -73,7 +128,9 @@
                 <div id="translation" class="text-center hidden">
                     <div class="border-t border-gray-200 pt-8 mt-8">
                         <div class="text-sm text-gray-500 mb-4">Переклад</div>
-                        <div class="text-5xl font-bold text-blue-600">Привіт</div>
+                        <div class="text-2xl text-gray-700">
+                            "Привіт, як справи сьогодні?"
+                        </div>
                     </div>
                 </div>
             </div>
