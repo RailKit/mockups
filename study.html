@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Навчання - Базова англійська</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        function flipCard() {
+            const showHint = document.getElementById('show-hint');
+            const translation = document.getElementById('translation');
+            const answerButtons = document.getElementById('answer-buttons');
+
+            if (translation.classList.contains('hidden')) {
+                // Показати переклад і кнопки
+                showHint.classList.add('hidden');
+                translation.classList.remove('hidden');
+                answerButtons.classList.remove('hidden');
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-50">
+    <div class="max-w-4xl mx-auto p-6">
+        <!-- Header -->
+        <div class="mb-8">
+            <a href="deck-cards.html" class="inline-flex items-center text-blue-600 hover:text-blue-700 mb-4">
+                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+                Завершити навчання
+            </a>
+            <div class="flex items-center justify-between">
+                <div>
+                    <h1 class="text-2xl font-bold text-gray-900">Базова англійська</h1>
+                    <p class="text-gray-600">Картка 3 з 10</p>
+                </div>
+                <div class="text-right">
+                    <div class="text-sm text-gray-600">Прогрес</div>
+                    <div class="text-2xl font-bold text-blue-600">30%</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Progress Bar -->
+        <div class="mb-8">
+            <div class="w-full bg-gray-200 rounded-full h-3">
+                <div class="bg-blue-600 h-3 rounded-full transition-all duration-300" style="width: 30%"></div>
+            </div>
+        </div>
+
+        <!-- Flash Card -->
+        <div class="mb-8">
+            <div id="flashcard" class="bg-white rounded-xl shadow-lg border-2 border-gray-200 p-12 min-h-[400px] flex flex-col items-center justify-center">
+                <!-- Word (завжди показується) -->
+                <div class="text-center mb-8">
+                    <div class="text-sm text-gray-500 mb-4">Слово</div>
+                    <div class="text-6xl font-bold text-gray-900">Hello</div>
+                </div>
+
+                <!-- Show Translation Button -->
+                <div id="show-hint" class="text-center">
+                    <button onclick="flipCard()" class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg font-medium flex items-center gap-2">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                        </svg>
+                        Показати переклад
+                    </button>
+                </div>
+
+                <!-- Translation (показується після кліку) -->
+                <div id="translation" class="text-center hidden">
+                    <div class="border-t border-gray-200 pt-8 mt-8">
+                        <div class="text-sm text-gray-500 mb-4">Переклад</div>
+                        <div class="text-5xl font-bold text-blue-600">Привіт</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Answer Buttons -->
+        <div id="answer-buttons" class="grid grid-cols-3 gap-4 hidden">
+            <button class="bg-red-100 hover:bg-red-200 text-red-700 font-semibold py-4 px-6 rounded-lg transition-colors">
+                <div class="text-2xl mb-1">😕</div>
+                <div class="text-sm">Не знаю</div>
+            </button>
+            <button class="bg-yellow-100 hover:bg-yellow-200 text-yellow-700 font-semibold py-4 px-6 rounded-lg transition-colors">
+                <div class="text-2xl mb-1">🤔</div>
+                <div class="text-sm">Важко</div>
+            </button>
+            <button class="bg-green-100 hover:bg-green-200 text-green-700 font-semibold py-4 px-6 rounded-lg transition-colors">
+                <div class="text-2xl mb-1">😊</div>
+                <div class="text-sm">Легко</div>
+            </button>
+        </div>
+
+        <!-- Stats -->
+        <div class="mt-8 grid grid-cols-3 gap-4">
+            <div class="bg-white rounded-lg border border-gray-200 p-4 text-center">
+                <div class="text-2xl font-bold text-green-600">5</div>
+                <div class="text-xs text-gray-600">Правильних</div>
+            </div>
+            <div class="bg-white rounded-lg border border-gray-200 p-4 text-center">
+                <div class="text-2xl font-bold text-red-600">2</div>
+                <div class="text-xs text-gray-600">Неправильних</div>
+            </div>
+            <div class="bg-white rounded-lg border border-gray-200 p-4 text-center">
+                <div class="text-2xl font-bold text-gray-900">7</div>
+                <div class="text-xs text-gray-600">Залишилось</div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
