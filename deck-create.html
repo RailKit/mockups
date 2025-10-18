@@ -37,13 +37,36 @@
                     >
                 </div>
 
-                <!-- Language Selection -->
+                <!-- Language From (Native) -->
                 <div>
-                    <label for="language" class="block text-sm font-medium text-gray-700 mb-2">
-                        Мова вивчення <span class="text-red-500">*</span>
+                    <label for="language-from" class="block text-sm font-medium text-gray-700 mb-2">
+                        Я знаю <span class="text-red-500">*</span>
                     </label>
                     <select
-                        id="language"
+                        id="language-from"
+                        required
+                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    >
+                        <option value="uk" selected>🇺🇦 Українська</option>
+                        <option value="en">🇬🇧 Англійська</option>
+                        <option value="ru">🇷🇺 Російська</option>
+                        <option value="pl">🇵🇱 Польська</option>
+                        <option value="de">🇩🇪 Німецька</option>
+                        <option value="fr">🇫🇷 Французька</option>
+                        <option value="es">🇪🇸 Іспанська</option>
+                        <option value="it">🇮🇹 Італійська</option>
+                        <option value="pt">🇵🇹 Португальська</option>
+                    </select>
+                    <p class="mt-1 text-xs text-gray-500">Ваша рідна мова (за замовчуванням з профілю)</p>
+                </div>
+
+                <!-- Language To (Learning) -->
+                <div>
+                    <label for="language-to" class="block text-sm font-medium text-gray-700 mb-2">
+                        Я вивчаю <span class="text-red-500">*</span>
+                    </label>
+                    <select
+                        id="language-to"
                         required
                         class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                     >
@@ -58,6 +81,8 @@
                         <option value="ja">🇯🇵 Японська</option>
                         <option value="zh">🇨🇳 Китайська</option>
                         <option value="ko">🇰🇷 Корейська</option>
+                        <option value="ru">🇷🇺 Російська</option>
+                        <option value="uk">🇺🇦 Українська</option>
                     </select>
                 </div>
 
