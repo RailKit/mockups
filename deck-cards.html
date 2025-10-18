@@ -5,6 +5,82 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Базова англійська - Картки</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        let selectionMode = false;
+
+        function toggleSelectionMode() {
+            selectionMode = !selectionMode;
+            const checkboxes = document.querySelectorAll('.card-checkbox');
+            const bulkActionsBar = document.getElementById('bulk-actions-bar');
+            const cardActions = document.querySelectorAll('.card-actions');
+            const selectModeBtn = document.getElementById('select-mode-btn');
+
+            if (selectionMode) {
+                // Show checkboxes and bulk actions bar
+                checkboxes.forEach(cb => cb.classList.remove('hidden'));
+                bulkActionsBar.classList.remove('hidden');
+                cardActions.forEach(actions => actions.classList.add('hidden'));
+                selectModeBtn.classList.add('bg-blue-100', 'text-blue-700', 'border-blue-300');
+            } else {
+                // Hide checkboxes and bulk actions bar
+                checkboxes.forEach(cb => {
+                    cb.classList.add('hidden');
+                    cb.checked = false;
+                });
+                bulkActionsBar.classList.add('hidden');
+                cardActions.forEach(actions => actions.classList.remove('hidden'));
+                selectModeBtn.classList.remove('bg-blue-100', 'text-blue-700', 'border-blue-300');
+                updateSelectedCount();
+            }
+        }
+
+        function selectAll() {
+            const checkboxes = document.querySelectorAll('.card-checkbox');
+            checkboxes.forEach(cb => cb.checked = true);
+            updateSelectedCount();
+        }
+
+        function deselectAll() {
+            const checkboxes = document.querySelectorAll('.card-checkbox');
+            checkboxes.forEach(cb => cb.checked = false);
+            updateSelectedCount();
+        }
+
+        function updateSelectedCount() {
+            const checked = document.querySelectorAll('.card-checkbox:checked').length;
+            document.getElementById('selected-count').textContent = checked;
+        }
+
+        function bulkDelete() {
+            const checked = document.querySelectorAll('.card-checkbox:checked').length;
+            if (checked === 0) {
+                alert('Виберіть хоча б одну картку для видалення');
+                return;
+            }
+            if (confirm(`Видалити ${checked} ${checked === 1 ? 'картку' : 'карток'}? Цю дію неможливо скасувати.`)) {
+                // Here would be the deletion logic
+                alert(`${checked} ${checked === 1 ? 'картка' : 'карток'} буде видалено`);
+            }
+        }
+
+        function bulkMove() {
+            const checked = document.querySelectorAll('.card-checkbox:checked').length;
+            if (checked === 0) {
+                alert('Виберіть хоча б одну картку для переміщення');
+                return;
+            }
+            // Redirect to move page with selected cards
+            window.location.href = 'card-move.html';
+        }
+
+        // Add event listeners to checkboxes
+        document.addEventListener('DOMContentLoaded', function() {
+            const checkboxes = document.querySelectorAll('.card-checkbox');
+            checkboxes.forEach(cb => {
+                cb.addEventListener('change', updateSelectedCount);
+            });
+        });
+    </script>
 </head>
 <body class="bg-gray-50">
     <div class="max-w-4xl mx-auto p-6">
@@ -84,30 +160,70 @@
                 <option>В процесі</option>
                 <option>Вивчені</option>
             </select>
+            <button onclick="toggleSelectionMode()" id="select-mode-btn" class="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 font-medium text-gray-700">
+                Вибрати
+            </button>
+        </div>
+
+        <!-- Bulk Actions Bar (hidden by default) -->
+        <div id="bulk-actions-bar" class="mb-6 bg-blue-50 border border-blue-200 rounded-lg p-4 hidden">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center gap-4">
+                    <span class="text-sm font-medium text-blue-900">
+                        Вибрано: <span id="selected-count">0</span> карток
+                    </span>
+                    <button onclick="selectAll()" class="text-sm text-blue-600 hover:text-blue-700 font-medium">
+                        Вибрати всі
+                    </button>
+                    <button onclick="deselectAll()" class="text-sm text-blue-600 hover:text-blue-700 font-medium">
+                        Скасувати вибір
+                    </button>
+                </div>
+                <div class="flex items-center gap-2">
+                    <button onclick="bulkMove()" class="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-lg font-medium text-sm flex items-center gap-2">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"></path>
+                        </svg>
+                        Перенести
+                    </button>
+                    <button onclick="bulkDelete()" class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg font-medium text-sm flex items-center gap-2">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                        </svg>
+                        Видалити
+                    </button>
+                    <button onclick="toggleSelectionMode()" class="bg-gray-200 hover:bg-gray-300 text-gray-800 px-4 py-2 rounded-lg font-medium text-sm">
+                        Скасувати
+                    </button>
+                </div>
+            </div>
         </div>
 
         <!-- Cards List -->
         <div class="space-y-3">
             <!-- Card 1 -->
-            <div class="bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow p-5 border border-gray-200">
+            <div class="bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow p-5 border border-gray-200 card-item" data-card-id="1">
                 <div class="flex items-center justify-between">
-                    <div class="flex-1 grid grid-cols-2 gap-8">
-                        <div>
-                            <div class="text-xs text-gray-500 mb-1">Слово</div>
-                            <div class="text-lg font-semibold text-gray-900">Hello</div>
-                        </div>
-                        <div>
-                            <div class="text-xs text-gray-500 mb-1">Переклад</div>
-                            <div class="text-lg text-gray-700">Привіт</div>
+                    <div class="flex items-center gap-4 flex-1">
+                        <input type="checkbox" class="card-checkbox w-5 h-5 text-blue-600 border-gray-300 rounded focus:ring-blue-500 hidden">
+                        <div class="flex-1 grid grid-cols-2 gap-8">
+                            <div>
+                                <div class="text-xs text-gray-500 mb-1">Слово</div>
+                                <div class="text-lg font-semibold text-gray-900">Hello</div>
+                            </div>
+                            <div>
+                                <div class="text-xs text-gray-500 mb-1">Переклад</div>
+                                <div class="text-lg text-gray-700">Привіт</div>
+                            </div>
                         </div>
                     </div>
-                    <div class="flex items-center gap-2 ml-4">
-                        <a href="card-edit.html" class="p-2 text-blue-600 hover:bg-blue-50 rounded-lg">
+                    <div class="flex items-center gap-2 ml-4 card-actions">
+                        <a href="card-edit.html" class="p-2 text-blue-600 hover:bg-blue-50 rounded-lg" title="Редагувати">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
                             </svg>
                         </a>
-                        <a href="card-delete.html" class="p-2 text-red-600 hover:bg-red-50 rounded-lg">
+                        <a href="card-delete.html" class="p-2 text-red-600 hover:bg-red-50 rounded-lg" title="Видалити">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
                             </svg>
@@ -117,25 +233,28 @@
             </div>
 
             <!-- Card 2 -->
-            <div class="bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow p-5 border border-gray-200">
+            <div class="bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow p-5 border border-gray-200 card-item" data-card-id="2">
                 <div class="flex items-center justify-between">
-                    <div class="flex-1 grid grid-cols-2 gap-8">
-                        <div>
-                            <div class="text-xs text-gray-500 mb-1">Слово</div>
-                            <div class="text-lg font-semibold text-gray-900">Goodbye</div>
-                        </div>
-                        <div>
-                            <div class="text-xs text-gray-500 mb-1">Переклад</div>
-                            <div class="text-lg text-gray-700">До побачення</div>
+                    <div class="flex items-center gap-4 flex-1">
+                        <input type="checkbox" class="card-checkbox w-5 h-5 text-blue-600 border-gray-300 rounded focus:ring-blue-500 hidden">
+                        <div class="flex-1 grid grid-cols-2 gap-8">
+                            <div>
+                                <div class="text-xs text-gray-500 mb-1">Слово</div>
+                                <div class="text-lg font-semibold text-gray-900">Goodbye</div>
+                            </div>
+                            <div>
+                                <div class="text-xs text-gray-500 mb-1">Переклад</div>
+                                <div class="text-lg text-gray-700">До побачення</div>
+                            </div>
                         </div>
                     </div>
-                    <div class="flex items-center gap-2 ml-4">
-                        <a href="card-edit.html" class="p-2 text-blue-600 hover:bg-blue-50 rounded-lg">
+                    <div class="flex items-center gap-2 ml-4 card-actions">
+                        <a href="card-edit.html" class="p-2 text-blue-600 hover:bg-blue-50 rounded-lg" title="Редагувати">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
                             </svg>
                         </a>
-                        <a href="card-delete.html" class="p-2 text-red-600 hover:bg-red-50 rounded-lg">
+                        <a href="card-delete.html" class="p-2 text-red-600 hover:bg-red-50 rounded-lg" title="Видалити">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
                             </svg>
@@ -145,25 +264,28 @@
             </div>
 
             <!-- Card 3 -->
-            <div class="bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow p-5 border border-gray-200">
+            <div class="bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow p-5 border border-gray-200 card-item" data-card-id="3">
                 <div class="flex items-center justify-between">
-                    <div class="flex-1 grid grid-cols-2 gap-8">
-                        <div>
-                            <div class="text-xs text-gray-500 mb-1">Слово</div>
-                            <div class="text-lg font-semibold text-gray-900">Thank you</div>
-                        </div>
-                        <div>
-                            <div class="text-xs text-gray-500 mb-1">Переклад</div>
-                            <div class="text-lg text-gray-700">Дякую</div>
+                    <div class="flex items-center gap-4 flex-1">
+                        <input type="checkbox" class="card-checkbox w-5 h-5 text-blue-600 border-gray-300 rounded focus:ring-blue-500 hidden">
+                        <div class="flex-1 grid grid-cols-2 gap-8">
+                            <div>
+                                <div class="text-xs text-gray-500 mb-1">Слово</div>
+                                <div class="text-lg font-semibold text-gray-900">Thank you</div>
+                            </div>
+                            <div>
+                                <div class="text-xs text-gray-500 mb-1">Переклад</div>
+                                <div class="text-lg text-gray-700">Дякую</div>
+                            </div>
                         </div>
                     </div>
-                    <div class="flex items-center gap-2 ml-4">
-                        <a href="card-edit.html" class="p-2 text-blue-600 hover:bg-blue-50 rounded-lg">
+                    <div class="flex items-center gap-2 ml-4 card-actions">
+                        <a href="card-edit.html" class="p-2 text-blue-600 hover:bg-blue-50 rounded-lg" title="Редагувати">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
                             </svg>
                         </a>
-                        <a href="card-delete.html" class="p-2 text-red-600 hover:bg-red-50 rounded-lg">
+                        <a href="card-delete.html" class="p-2 text-red-600 hover:bg-red-50 rounded-lg" title="Видалити">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
                             </svg>
@@ -173,25 +295,28 @@
             </div>
 
             <!-- Card 4 -->
-            <div class="bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow p-5 border border-gray-200">
+            <div class="bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow p-5 border border-gray-200 card-item" data-card-id="4">
                 <div class="flex items-center justify-between">
-                    <div class="flex-1 grid grid-cols-2 gap-8">
-                        <div>
-                            <div class="text-xs text-gray-500 mb-1">Слово</div>
-                            <div class="text-lg font-semibold text-gray-900">Please</div>
-                        </div>
-                        <div>
-                            <div class="text-xs text-gray-500 mb-1">Переклад</div>
-                            <div class="text-lg text-gray-700">Будь ласка</div>
+                    <div class="flex items-center gap-4 flex-1">
+                        <input type="checkbox" class="card-checkbox w-5 h-5 text-blue-600 border-gray-300 rounded focus:ring-blue-500 hidden">
+                        <div class="flex-1 grid grid-cols-2 gap-8">
+                            <div>
+                                <div class="text-xs text-gray-500 mb-1">Слово</div>
+                                <div class="text-lg font-semibold text-gray-900">Please</div>
+                            </div>
+                            <div>
+                                <div class="text-xs text-gray-500 mb-1">Переклад</div>
+                                <div class="text-lg text-gray-700">Будь ласка</div>
+                            </div>
                         </div>
                     </div>
-                    <div class="flex items-center gap-2 ml-4">
-                        <a href="card-edit.html" class="p-2 text-blue-600 hover:bg-blue-50 rounded-lg">
+                    <div class="flex items-center gap-2 ml-4 card-actions">
+                        <a href="card-edit.html" class="p-2 text-blue-600 hover:bg-blue-50 rounded-lg" title="Редагувати">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
                             </svg>
                         </a>
-                        <a href="card-delete.html" class="p-2 text-red-600 hover:bg-red-50 rounded-lg">
+                        <a href="card-delete.html" class="p-2 text-red-600 hover:bg-red-50 rounded-lg" title="Видалити">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
                             </svg>
@@ -201,25 +326,28 @@
             </div>
 
             <!-- Card 5 -->
-            <div class="bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow p-5 border border-gray-200">
+            <div class="bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow p-5 border border-gray-200 card-item" data-card-id="5">
                 <div class="flex items-center justify-between">
-                    <div class="flex-1 grid grid-cols-2 gap-8">
-                        <div>
-                            <div class="text-xs text-gray-500 mb-1">Слово</div>
-                            <div class="text-lg font-semibold text-gray-900">Yes</div>
-                        </div>
-                        <div>
-                            <div class="text-xs text-gray-500 mb-1">Переклад</div>
-                            <div class="text-lg text-gray-700">Так</div>
+                    <div class="flex items-center gap-4 flex-1">
+                        <input type="checkbox" class="card-checkbox w-5 h-5 text-blue-600 border-gray-300 rounded focus:ring-blue-500 hidden">
+                        <div class="flex-1 grid grid-cols-2 gap-8">
+                            <div>
+                                <div class="text-xs text-gray-500 mb-1">Слово</div>
+                                <div class="text-lg font-semibold text-gray-900">Yes</div>
+                            </div>
+                            <div>
+                                <div class="text-xs text-gray-500 mb-1">Переклад</div>
+                                <div class="text-lg text-gray-700">Так</div>
+                            </div>
                         </div>
                     </div>
-                    <div class="flex items-center gap-2 ml-4">
-                        <a href="card-edit.html" class="p-2 text-blue-600 hover:bg-blue-50 rounded-lg">
+                    <div class="flex items-center gap-2 ml-4 card-actions">
+                        <a href="card-edit.html" class="p-2 text-blue-600 hover:bg-blue-50 rounded-lg" title="Редагувати">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
                             </svg>
                         </a>
-                        <a href="card-delete.html" class="p-2 text-red-600 hover:bg-red-50 rounded-lg">
+                        <a href="card-delete.html" class="p-2 text-red-600 hover:bg-red-50 rounded-lg" title="Видалити">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
                             </svg>
@@ -229,25 +357,28 @@
             </div>
 
             <!-- Card 6 -->
-            <div class="bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow p-5 border border-gray-200">
+            <div class="bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow p-5 border border-gray-200 card-item" data-card-id="6">
                 <div class="flex items-center justify-between">
-                    <div class="flex-1 grid grid-cols-2 gap-8">
-                        <div>
-                            <div class="text-xs text-gray-500 mb-1">Слово</div>
-                            <div class="text-lg font-semibold text-gray-900">No</div>
-                        </div>
-                        <div>
-                            <div class="text-xs text-gray-500 mb-1">Переклад</div>
-                            <div class="text-lg text-gray-700">Ні</div>
+                    <div class="flex items-center gap-4 flex-1">
+                        <input type="checkbox" class="card-checkbox w-5 h-5 text-blue-600 border-gray-300 rounded focus:ring-blue-500 hidden">
+                        <div class="flex-1 grid grid-cols-2 gap-8">
+                            <div>
+                                <div class="text-xs text-gray-500 mb-1">Слово</div>
+                                <div class="text-lg font-semibold text-gray-900">No</div>
+                            </div>
+                            <div>
+                                <div class="text-xs text-gray-500 mb-1">Переклад</div>
+                                <div class="text-lg text-gray-700">Ні</div>
+                            </div>
                         </div>
                     </div>
-                    <div class="flex items-center gap-2 ml-4">
-                        <a href="card-edit.html" class="p-2 text-blue-600 hover:bg-blue-50 rounded-lg">
+                    <div class="flex items-center gap-2 ml-4 card-actions">
+                        <a href="card-edit.html" class="p-2 text-blue-600 hover:bg-blue-50 rounded-lg" title="Редагувати">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
                             </svg>
                         </a>
-                        <a href="card-delete.html" class="p-2 text-red-600 hover:bg-red-50 rounded-lg">
+                        <a href="card-delete.html" class="p-2 text-red-600 hover:bg-red-50 rounded-lg" title="Видалити">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
                             </svg>
