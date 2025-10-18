@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Імпорт слів</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50">
+    <div class="max-w-3xl mx-auto p-6">
+        <!-- Header -->
+        <div class="mb-8">
+            <a href="deck-cards.html" class="inline-flex items-center text-blue-600 hover:text-blue-700 mb-4">
+                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                </svg>
+                Назад до карток
+            </a>
+            <h1 class="text-3xl font-bold text-gray-900 mb-2">Імпорт слів</h1>
+            <p class="text-gray-600">Базова англійська</p>
+        </div>
+
+        <!-- Import Form -->
+        <div class="bg-white rounded-lg shadow-sm p-6 border border-gray-200">
+            <form class="space-y-6">
+                <!-- File Upload -->
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">
+                        Завантажити файл
+                    </label>
+                    <div class="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center hover:border-blue-400 transition-colors">
+                        <input type="file" id="file-input" accept=".txt,.csv,.json" class="hidden">
+                        <label for="file-input" class="cursor-pointer">
+                            <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
+                            </svg>
+                            <div class="mt-4">
+                                <span class="text-blue-600 hover:text-blue-700 font-medium">Виберіть файл</span>
+                                <span class="text-gray-600"> або перетягніть його сюди</span>
+                            </div>
+                            <p class="mt-2 text-sm text-gray-500">TXT, CSV, JSON (макс. 10MB)</p>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Format Instructions -->
+                <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                    <h3 class="font-medium text-blue-900 mb-2">Підтримувані формати:</h3>
+
+                    <div class="space-y-4">
+                        <!-- TXT Format -->
+                        <div>
+                            <p class="text-sm font-medium text-blue-800 mb-1">📄 TXT файл:</p>
+                            <ul class="text-sm text-blue-800 space-y-1 ml-4 list-disc">
+                                <li>Кожне слово з нового рядка</li>
+                                <li>Або формат: слово - переклад</li>
+                            </ul>
+                            <div class="mt-2 bg-white rounded border border-blue-300 p-3 font-mono text-xs">
+                                <div class="text-gray-700">
+                                    hello - привіт<br>
+                                    goodbye - до побачення<br>
+                                    apple<br>
+                                    cat - кіт
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- CSV Format -->
+                        <div>
+                            <p class="text-sm font-medium text-blue-800 mb-1">📊 CSV файл:</p>
+                            <ul class="text-sm text-blue-800 space-y-1 ml-4 list-disc">
+                                <li>Два стовпці: слово, переклад</li>
+                                <li>Можна без заголовків</li>
+                            </ul>
+                            <div class="mt-2 bg-white rounded border border-blue-300 p-3 font-mono text-xs">
+                                <div class="text-gray-700">
+                                    hello,привіт<br>
+                                    goodbye,до побачення<br>
+                                    apple,яблуко
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- JSON Format -->
+                        <div>
+                            <p class="text-sm font-medium text-blue-800 mb-1">🔧 JSON файл:</p>
+                            <ul class="text-sm text-blue-800 space-y-1 ml-4 list-disc">
+                                <li>Масив об'єктів з полями word та translation</li>
+                            </ul>
+                            <div class="mt-2 bg-white rounded border border-blue-300 p-3 font-mono text-xs">
+                                <div class="text-gray-700">
+                                    [<br>
+                                    &nbsp;&nbsp;{"word": "hello", "translation": "привіт"},<br>
+                                    &nbsp;&nbsp;{"word": "goodbye", "translation": "до побачення"}<br>
+                                    ]
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Import Settings -->
+                <div class="border-t border-gray-200 pt-6">
+                    <h3 class="text-sm font-medium text-gray-700 mb-4">Налаштування імпорту</h3>
+
+                    <div class="space-y-3">
+                        <label class="flex items-center">
+                            <input type="checkbox" checked class="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
+                            <span class="ml-2 text-sm text-gray-700">Пропустити дублікати (якщо слово вже існує в колоді)</span>
+                        </label>
+
+                        <label class="flex items-center">
+                            <input type="checkbox" class="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
+                            <span class="ml-2 text-sm text-gray-700">Автоматично згенерувати переклад для порожніх полів</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="flex gap-3 pt-6">
+                    <button
+                        type="submit"
+                        class="flex-1 bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-medium"
+                    >
+                        Імпортувати
+                    </button>
+                    <a
+                        href="deck-cards.html"
+                        class="flex-1 bg-gray-200 hover:bg-gray-300 text-gray-800 px-6 py-3 rounded-lg font-medium text-center"
+                    >
+                        Скасувати
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
