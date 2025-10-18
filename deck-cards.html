@@ -128,6 +128,23 @@
             }
         });
 
+        function toggleLearningDirection() {
+            const langFrom = document.getElementById('lang-from');
+            const langTo = document.getElementById('lang-to');
+            const arrow = document.getElementById('direction-arrow');
+
+            // Swap content
+            const tempHTML = langFrom.innerHTML;
+            langFrom.innerHTML = langTo.innerHTML;
+            langTo.innerHTML = tempHTML;
+
+            // Add rotation animation to arrow
+            arrow.classList.add('rotate-180');
+            setTimeout(() => {
+                arrow.classList.remove('rotate-180');
+            }, 300);
+        }
+
         // Add event listeners to checkboxes
         document.addEventListener('DOMContentLoaded', function() {
             const checkboxes = document.querySelectorAll('.card-checkbox');
@@ -147,21 +164,9 @@
                 </svg>
                 Назад до колод
             </a>
-            <div class="flex flex-col sm:flex-row items-start sm:justify-between gap-3 sm:gap-0">
+            <div class="flex items-start justify-between">
                 <div>
                     <h1 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">Базова англійська</h1>
-                    <div class="flex items-center gap-3 flex-wrap">
-                        <span class="inline-flex items-center px-3 py-1 rounded-full text-xs sm:text-sm font-medium bg-gray-100 text-gray-700">
-                            🇺🇦 Українська
-                        </span>
-                        <svg class="w-3 h-3 sm:w-4 sm:h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                        </svg>
-                        <span class="inline-flex items-center px-3 py-1 rounded-full text-xs sm:text-sm font-medium bg-blue-100 text-blue-800">
-                            🇬🇧 Англійська
-                        </span>
-                        <span class="text-sm sm:text-base text-gray-600">150 карток</span>
-                    </div>
                 </div>
                 <a href="deck-edit.html" class="text-gray-600 hover:text-gray-800">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -172,15 +177,31 @@
             </div>
         </div>
 
-        <!-- Action Buttons -->
-        <div class="flex flex-col sm:flex-row gap-3 mb-6">
-            <a href="study.html" class="flex-1 bg-blue-600 hover:bg-blue-700 text-white px-4 sm:px-6 py-3 rounded-lg font-medium flex items-center justify-center gap-2 text-sm sm:text-base">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"></path>
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                </svg>
-                Почати навчання
-            </a>
+        <!-- Study Section -->
+        <div class="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
+            <div class="text-center">
+                <div class="text-sm text-gray-600 mb-3">Напрямок навчання</div>
+                <div class="flex justify-center mb-4">
+                    <button onclick="toggleLearningDirection()" class="flex items-center gap-2 hover:bg-blue-100 rounded-lg px-3 py-2 transition-colors group" title="Змінити напрямок вивчення">
+                        <span id="lang-from" class="inline-flex items-center px-3 py-1 rounded-full text-xs sm:text-sm font-medium bg-white text-gray-700 shadow-sm">
+                            🇺🇦 Українська
+                        </span>
+                        <svg id="direction-arrow" class="w-4 h-4 text-gray-400 group-hover:text-blue-600 transition-all duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                        </svg>
+                        <span id="lang-to" class="inline-flex items-center px-3 py-1 rounded-full text-xs sm:text-sm font-medium bg-blue-600 text-white shadow-sm">
+                            🇬🇧 Англійська
+                        </span>
+                    </button>
+                </div>
+                <a href="study.html" class="inline-flex bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg font-medium items-center gap-2 shadow-sm">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"></path>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                    Почати навчання
+                </a>
+            </div>
         </div>
 
         <!-- Search and Filter -->
@@ -562,6 +583,38 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+
+        <!-- Pagination -->
+        <div class="mt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div class="text-sm text-gray-600">
+                Показано <span class="font-medium">1-6</span> з <span class="font-medium">150</span> карток
+            </div>
+            <div class="flex items-center gap-2">
+                <button class="px-3 py-2 border border-gray-300 rounded-lg text-gray-400 cursor-not-allowed" disabled>
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                    </svg>
+                </button>
+                <button class="px-4 py-2 border-2 border-blue-600 bg-blue-600 text-white rounded-lg font-medium">
+                    1
+                </button>
+                <button class="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50">
+                    2
+                </button>
+                <button class="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50">
+                    3
+                </button>
+                <span class="px-2 text-gray-500">...</span>
+                <button class="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50">
+                    25
+                </button>
+                <button class="px-3 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                    </svg>
+                </button>
             </div>
         </div>
     </div>
