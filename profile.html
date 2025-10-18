@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Мій профіль</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50">
+    <div class="max-w-4xl mx-auto p-4 sm:p-6">
+        <!-- Header -->
+        <div class="mb-6 sm:mb-8">
+            <a href="index.html" class="inline-flex items-center text-blue-600 hover:text-blue-700 mb-4">
+                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                </svg>
+                Назад до колод
+            </a>
+            <h1 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">Мій профіль</h1>
+            <p class="text-sm sm:text-base text-gray-600">Керуйте своїми персональними даними</p>
+        </div>
+
+        <!-- Profile Form -->
+        <div class="bg-white rounded-lg shadow-sm p-4 sm:p-6 border border-gray-200">
+            <form class="space-y-6">
+                <!-- Avatar Section -->
+                <div class="flex items-center gap-6">
+                    <div class="w-24 h-24 bg-blue-600 rounded-full flex items-center justify-center text-white text-3xl font-semibold">
+                        СП
+                    </div>
+                    <div>
+                        <button type="button" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-medium text-sm">
+                            Змінити фото
+                        </button>
+                        <p class="text-xs text-gray-500 mt-2">JPG, PNG або GIF (макс. 2MB)</p>
+                    </div>
+                </div>
+
+                <!-- Full Name -->
+                <div>
+                    <label for="name" class="block text-sm font-medium text-gray-700 mb-2">
+                        Повне ім'я <span class="text-red-500">*</span>
+                    </label>
+                    <input
+                        type="text"
+                        id="name"
+                        value="Савелій Петренко"
+                        required
+                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        placeholder="Введіть ваше ім'я"
+                    >
+                </div>
+
+                <!-- Email -->
+                <div>
+                    <label for="email" class="block text-sm font-medium text-gray-700 mb-2">
+                        Email <span class="text-red-500">*</span>
+                    </label>
+                    <input
+                        type="email"
+                        id="email"
+                        value="savely@example.com"
+                        required
+                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        placeholder="your@email.com"
+                    >
+                </div>
+
+                <!-- Native Language -->
+                <div>
+                    <label for="native-language" class="block text-sm font-medium text-gray-700 mb-2">
+                        Рідна мова
+                    </label>
+                    <select
+                        id="native-language"
+                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    >
+                        <option value="uk" selected>🇺🇦 Українська</option>
+                        <option value="en">🇬🇧 Англійська</option>
+                        <option value="ru">🇷🇺 Російська</option>
+                        <option value="pl">🇵🇱 Польська</option>
+                        <option value="de">🇩🇪 Німецька</option>
+                    </select>
+                </div>
+
+                <!-- Bio -->
+                <div>
+                    <label for="bio" class="block text-sm font-medium text-gray-700 mb-2">
+                        Про себе
+                    </label>
+                    <textarea
+                        id="bio"
+                        rows="4"
+                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        placeholder="Розкажіть трохи про себе..."
+                    ></textarea>
+                </div>
+
+                <!-- Statistics -->
+                <div class="pt-4 border-t border-gray-200">
+                    <h3 class="text-sm font-medium text-gray-700 mb-3">Інформація про акаунт</h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div class="bg-gray-50 rounded-lg p-4">
+                            <div class="text-xs text-gray-500 mb-1">Дата реєстрації</div>
+                            <div class="text-sm font-medium text-gray-900">15 січня 2024</div>
+                        </div>
+                        <div class="bg-gray-50 rounded-lg p-4">
+                            <div class="text-xs text-gray-500 mb-1">Останній вхід</div>
+                            <div class="text-sm font-medium text-gray-900">Сьогодні, 14:32</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="flex flex-col sm:flex-row gap-3 pt-6">
+                    <button
+                        type="submit"
+                        class="flex-1 bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-medium"
+                    >
+                        Зберегти зміни
+                    </button>
+                    <a
+                        href="index.html"
+                        class="flex-1 bg-gray-200 hover:bg-gray-300 text-gray-800 px-6 py-3 rounded-lg font-medium text-center"
+                    >
+                        Скасувати
+                    </a>
+                </div>
+
+                <!-- Delete Account -->
+                <div class="pt-6 border-t border-gray-200">
+                    <h3 class="text-sm font-medium text-red-700 mb-2">Небезпечна зона</h3>
+                    <button
+                        type="button"
+                        class="text-red-600 hover:text-red-700 font-medium text-sm"
+                    >
+                        Видалити акаунт
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
