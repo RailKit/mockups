@@ -34,6 +34,13 @@
             }
         }
 
+        function toggleSelectAll() {
+            const selectAllCheckbox = document.getElementById('select-all-checkbox');
+            const checkboxes = document.querySelectorAll('.card-checkbox');
+            checkboxes.forEach(cb => cb.checked = selectAllCheckbox.checked);
+            updateSelectedCount();
+        }
+
         function selectAll() {
             const checkboxes = document.querySelectorAll('.card-checkbox');
             checkboxes.forEach(cb => cb.checked = true);
@@ -47,8 +54,17 @@
         }
 
         function updateSelectedCount() {
+            const checkboxes = document.querySelectorAll('.card-checkbox');
             const checked = document.querySelectorAll('.card-checkbox:checked').length;
+            const selectAllCheckbox = document.getElementById('select-all-checkbox');
+
             document.getElementById('selected-count').textContent = checked;
+
+            // Update select all checkbox state
+            if (selectAllCheckbox) {
+                selectAllCheckbox.checked = checked === checkboxes.length && checkboxes.length > 0;
+                selectAllCheckbox.indeterminate = checked > 0 && checked < checkboxes.length;
+            }
         }
 
         function bulkDelete() {
@@ -183,8 +199,10 @@
                 <option>В процесі</option>
                 <option>Вивчені</option>
             </select>
-            <button onclick="toggleSelectionMode()" id="select-mode-btn" class="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 font-medium text-gray-700">
-                Вибрати
+            <button onclick="toggleSelectionMode()" id="select-mode-btn" class="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 font-medium text-gray-700" title="Вибрати">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path>
+                </svg>
             </button>
         </div>
 
@@ -192,15 +210,16 @@
         <div id="bulk-actions-bar" class="mb-6 bg-blue-50 border border-blue-200 rounded-lg p-4 hidden">
             <div class="flex items-center justify-between">
                 <div class="flex items-center gap-4">
+                    <input
+                        type="checkbox"
+                        id="select-all-checkbox"
+                        onchange="toggleSelectAll()"
+                        class="w-5 h-5 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+                        title="Вибрати всі / Скасувати вибір"
+                    >
                     <span class="text-sm font-medium text-blue-900">
                         Вибрано: <span id="selected-count">0</span> карток
                     </span>
-                    <button onclick="selectAll()" class="text-sm text-blue-600 hover:text-blue-700 font-medium">
-                        Вибрати всі
-                    </button>
-                    <button onclick="deselectAll()" class="text-sm text-blue-600 hover:text-blue-700 font-medium">
-                        Скасувати вибір
-                    </button>
                 </div>
                 <div class="flex items-center gap-2">
                     <button onclick="bulkMove()" class="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-lg font-medium text-sm flex items-center gap-2">
