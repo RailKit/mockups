@@ -10,21 +10,21 @@
         const sentences = [
             {
                 en: '"<span class="font-bold text-blue-600 underline decoration-2 underline-offset-4">Hello</span>, how are you today?"',
-                uk: '"Привіт, як справи сьогодні?"',
+                uk: '"<span class="font-bold text-blue-600 underline decoration-2 underline-offset-4">Привіт</span>, як справи сьогодні?"',
                 type: 'question',
                 typeLabel: '❓ Питальне речення',
                 typeColor: 'bg-purple-100 text-purple-800'
             },
             {
                 en: '"She said <span class="font-bold text-blue-600 underline decoration-2 underline-offset-4">hello</span> and smiled warmly."',
-                uk: '"Вона привіталася і тепло посміхнулася."',
+                uk: '"Вона <span class="font-bold text-blue-600 underline decoration-2 underline-offset-4">привіталася</span> і тепло посміхнулася."',
                 type: 'affirmative',
                 typeLabel: '✓ Стверджувальне речення',
                 typeColor: 'bg-green-100 text-green-800'
             },
             {
                 en: '"I didn\'t say <span class="font-bold text-blue-600 underline decoration-2 underline-offset-4">hello</span> to him."',
-                uk: '"Я не привітався з ним."',
+                uk: '"Я не <span class="font-bold text-blue-600 underline decoration-2 underline-offset-4">привітався</span> з ним."',
                 type: 'negative',
                 typeLabel: '✗ Заперечне речення',
                 typeColor: 'bg-red-100 text-red-800'
@@ -32,6 +32,7 @@
         ];
         let currentSentenceIndex = 0;
         let hiddenSentences = new Set(); // Зберігає індекси прихованих речень
+        let isReversed = false; // Напрямок вивчення (false: EN→UK, true: UK→EN)
 
         function getNextVisibleSentence() {
             let nextIndex = (currentSentenceIndex + 1) % sentences.length;
@@ -59,14 +60,65 @@
             }
 
             currentSentenceIndex = nextIndex;
-            const sentenceText = document.getElementById('sentence-text');
-            const translationText = document.querySelector('#translation .text-2xl');
+            updateCardContent();
+        }
+
+        function updateCardContent() {
+            const sentenceContainer = document.getElementById('sentence-container');
+            const translationContainer = document.getElementById('translation-container');
             const typeBadge = document.querySelector('.inline-flex.items-center.px-3.py-1.rounded-full');
 
-            sentenceText.innerHTML = sentences[currentSentenceIndex].en;
-            translationText.innerHTML = sentences[currentSentenceIndex].uk;
+            if (isReversed) {
+                // Режим UK → EN: зверху українське (без звуку), знизу англійське (зі звуком)
+                sentenceContainer.innerHTML = `<div class="text-xl sm:text-3xl text-gray-800 leading-relaxed">
+                    ${sentences[currentSentenceIndex].uk}
+                </div>`;
+
+                translationContainer.innerHTML = `<div class="flex items-center justify-center gap-3">
+                    <div class="text-lg sm:text-2xl text-gray-700">
+                        ${sentences[currentSentenceIndex].en}
+                    </div>
+                    <button class="flex-shrink-0 p-2 text-blue-600 hover:text-blue-700 hover:bg-blue-50 rounded-full transition-colors" title="Прослухати вимову">
+                        <svg class="w-6 h-6 sm:w-8 sm:h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path>
+                        </svg>
+                    </button>
+                </div>`;
+            } else {
+                // Режим EN → UK: зверху англійське (зі звуком), знизу українське (без звуку)
+                sentenceContainer.innerHTML = `<div class="flex items-center justify-center gap-3">
+                    <div id="sentence-text" class="text-xl sm:text-3xl text-gray-800 leading-relaxed">
+                        ${sentences[currentSentenceIndex].en}
+                    </div>
+                    <button class="flex-shrink-0 p-2 text-blue-600 hover:text-blue-700 hover:bg-blue-50 rounded-full transition-colors" title="Прослухати вимову">
+                        <svg class="w-6 h-6 sm:w-8 sm:h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path>
+                        </svg>
+                    </button>
+                </div>`;
+
+                translationContainer.innerHTML = `<div class="text-lg sm:text-2xl text-gray-700">
+                    ${sentences[currentSentenceIndex].uk}
+                </div>`;
+            }
+
             typeBadge.textContent = sentences[currentSentenceIndex].typeLabel;
             typeBadge.className = `inline-flex items-center px-3 py-1 rounded-full text-xs font-medium ${sentences[currentSentenceIndex].typeColor}`;
+        }
+
+        function toggleDirection() {
+            isReversed = !isReversed;
+            const directionText = document.getElementById('direction-text');
+
+            if (isReversed) {
+                directionText.textContent = '🇺🇦 → 🇬🇧';
+            } else {
+                directionText.textContent = '🇬🇧 → 🇺🇦';
+            }
+
+            // Скинути стан картки перед оновленням контенту
+            resetCard();
+            updateCardContent();
         }
 
         function hideSentence() {
@@ -105,6 +157,28 @@
                 hideSentenceBtn.classList.remove('hover:text-red-600');
             }
         }
+
+        function resetCard() {
+            const showHint = document.getElementById('show-hint');
+            const translation = document.getElementById('translation');
+            const answerButtons = document.getElementById('answer-buttons');
+            const changeSentenceBtn = document.getElementById('change-sentence-btn');
+            const hideSentenceBtn = document.getElementById('hide-sentence-btn');
+
+            // Сховати переклад і кнопки відповідей
+            showHint.classList.remove('hidden');
+            translation.classList.add('hidden');
+            answerButtons.classList.add('hidden');
+
+            // Увімкнути кнопки зміни та приховування речення
+            changeSentenceBtn.disabled = false;
+            changeSentenceBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+            changeSentenceBtn.classList.add('hover:text-blue-600');
+
+            hideSentenceBtn.disabled = false;
+            hideSentenceBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+            hideSentenceBtn.classList.add('hover:text-red-600');
+        }
     </script>
 </head>
 <body class="bg-gray-50 min-h-screen">
@@ -120,7 +194,16 @@
             <div class="flex flex-col sm:flex-row items-start sm:items-center sm:justify-between gap-3">
                 <div>
                     <h1 class="text-xl sm:text-2xl font-bold text-gray-900">Базова англійська</h1>
-                    <p class="text-sm sm:text-base text-gray-600">Картка 3 з 10</p>
+                    <div class="flex items-center gap-2 mt-1">
+                        <p class="text-sm sm:text-base text-gray-600">Картка 3 з 10</p>
+                        <span class="text-gray-300">•</span>
+                        <button onclick="toggleDirection()" class="inline-flex items-center gap-1 text-sm text-blue-600 hover:text-blue-700 font-medium" title="Змінити напрямок вивчення">
+                            <span id="direction-text">🇬🇧 → 🇺🇦</span>
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"></path>
+                            </svg>
+                        </button>
+                    </div>
                 </div>
                 <div class="sm:text-right">
                     <div class="text-xs sm:text-sm text-gray-600">Прогрес</div>
@@ -156,15 +239,17 @@
                             </svg>
                         </button>
                     </div>
-                    <div class="flex items-center justify-center gap-3">
-                        <div id="sentence-text" class="text-xl sm:text-3xl text-gray-800 leading-relaxed">
-                            "<span class="font-bold text-blue-600 underline decoration-2 underline-offset-4">Hello</span>, how are you today?"
+                    <div id="sentence-container">
+                        <div class="flex items-center justify-center gap-3">
+                            <div id="sentence-text" class="text-xl sm:text-3xl text-gray-800 leading-relaxed">
+                                "<span class="font-bold text-blue-600 underline decoration-2 underline-offset-4">Hello</span>, how are you today?"
+                            </div>
+                            <button class="flex-shrink-0 p-2 text-blue-600 hover:text-blue-700 hover:bg-blue-50 rounded-full transition-colors" title="Прослухати вимову">
+                                <svg class="w-6 h-6 sm:w-8 sm:h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path>
+                                </svg>
+                            </button>
                         </div>
-                        <button class="flex-shrink-0 p-2 text-blue-600 hover:text-blue-700 hover:bg-blue-50 rounded-full transition-colors" title="Прослухати вимову">
-                            <svg class="w-6 h-6 sm:w-8 sm:h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path>
-                            </svg>
-                        </button>
                     </div>
                 </div>
 
@@ -183,8 +268,10 @@
                 <div id="translation" class="text-center hidden">
                     <div class="border-t border-gray-200 pt-6 sm:pt-8 mt-6 sm:mt-8">
                         <div class="text-sm text-gray-500 mb-4">Переклад</div>
-                        <div class="text-lg sm:text-2xl text-gray-700">
-                            "Привіт, як справи сьогодні?"
+                        <div id="translation-container">
+                            <div class="text-lg sm:text-2xl text-gray-700">
+                                "Привіт, як справи сьогодні?"
+                            </div>
                         </div>
                     </div>
                 </div>
