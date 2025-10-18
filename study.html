@@ -32,7 +32,6 @@
         ];
         let currentSentenceIndex = 0;
         let hiddenSentences = new Set(); // Зберігає індекси прихованих речень
-        let isReversed = false; // Напрямок вивчення (false: EN→UK, true: UK→EN)
 
         function getNextVisibleSentence() {
             let nextIndex = (currentSentenceIndex + 1) % sentences.length;
@@ -68,57 +67,24 @@
             const translationContainer = document.getElementById('translation-container');
             const typeBadge = document.querySelector('.inline-flex.items-center.px-3.py-1.rounded-full');
 
-            if (isReversed) {
-                // Режим UK → EN: зверху українське (без звуку), знизу англійське (зі звуком)
-                sentenceContainer.innerHTML = `<div class="text-xl sm:text-3xl text-gray-800 leading-relaxed">
-                    ${sentences[currentSentenceIndex].uk}
-                </div>`;
+            // Завжди показуємо англійське зверху зі звуком, українське знизу
+            sentenceContainer.innerHTML = `<div class="flex items-center justify-center gap-3">
+                <div id="sentence-text" class="text-xl sm:text-3xl text-gray-800 leading-relaxed">
+                    ${sentences[currentSentenceIndex].en}
+                </div>
+                <button class="flex-shrink-0 p-2 text-blue-600 hover:text-blue-700 hover:bg-blue-50 rounded-full transition-colors" title="Прослухати вимову">
+                    <svg class="w-6 h-6 sm:w-8 sm:h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path>
+                    </svg>
+                </button>
+            </div>`;
 
-                translationContainer.innerHTML = `<div class="flex items-center justify-center gap-3">
-                    <div class="text-lg sm:text-2xl text-gray-700">
-                        ${sentences[currentSentenceIndex].en}
-                    </div>
-                    <button class="flex-shrink-0 p-2 text-blue-600 hover:text-blue-700 hover:bg-blue-50 rounded-full transition-colors" title="Прослухати вимову">
-                        <svg class="w-6 h-6 sm:w-8 sm:h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path>
-                        </svg>
-                    </button>
-                </div>`;
-            } else {
-                // Режим EN → UK: зверху англійське (зі звуком), знизу українське (без звуку)
-                sentenceContainer.innerHTML = `<div class="flex items-center justify-center gap-3">
-                    <div id="sentence-text" class="text-xl sm:text-3xl text-gray-800 leading-relaxed">
-                        ${sentences[currentSentenceIndex].en}
-                    </div>
-                    <button class="flex-shrink-0 p-2 text-blue-600 hover:text-blue-700 hover:bg-blue-50 rounded-full transition-colors" title="Прослухати вимову">
-                        <svg class="w-6 h-6 sm:w-8 sm:h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path>
-                        </svg>
-                    </button>
-                </div>`;
-
-                translationContainer.innerHTML = `<div class="text-lg sm:text-2xl text-gray-700">
-                    ${sentences[currentSentenceIndex].uk}
-                </div>`;
-            }
+            translationContainer.innerHTML = `<div class="text-lg sm:text-2xl text-gray-700">
+                ${sentences[currentSentenceIndex].uk}
+            </div>`;
 
             typeBadge.textContent = sentences[currentSentenceIndex].typeLabel;
             typeBadge.className = `inline-flex items-center px-3 py-1 rounded-full text-xs font-medium ${sentences[currentSentenceIndex].typeColor}`;
-        }
-
-        function toggleDirection() {
-            isReversed = !isReversed;
-            const directionText = document.getElementById('direction-text');
-
-            if (isReversed) {
-                directionText.textContent = '🇺🇦 → 🇬🇧';
-            } else {
-                directionText.textContent = '🇬🇧 → 🇺🇦';
-            }
-
-            // Скинути стан картки перед оновленням контенту
-            resetCard();
-            updateCardContent();
         }
 
         function hideSentence() {
@@ -137,7 +103,6 @@
         function flipCard() {
             const showHint = document.getElementById('show-hint');
             const translation = document.getElementById('translation');
-            const answerButtons = document.getElementById('answer-buttons');
             const changeSentenceBtn = document.getElementById('change-sentence-btn');
             const hideSentenceBtn = document.getElementById('hide-sentence-btn');
 
@@ -145,7 +110,6 @@
                 // Показати переклад і кнопки
                 showHint.classList.add('hidden');
                 translation.classList.remove('hidden');
-                answerButtons.classList.remove('hidden');
 
                 // Вимкнути кнопки зміни та приховування речення
                 changeSentenceBtn.disabled = true;
@@ -161,14 +125,12 @@
         function resetCard() {
             const showHint = document.getElementById('show-hint');
             const translation = document.getElementById('translation');
-            const answerButtons = document.getElementById('answer-buttons');
             const changeSentenceBtn = document.getElementById('change-sentence-btn');
             const hideSentenceBtn = document.getElementById('hide-sentence-btn');
 
             // Сховати переклад і кнопки відповідей
             showHint.classList.remove('hidden');
             translation.classList.add('hidden');
-            answerButtons.classList.add('hidden');
 
             // Увімкнути кнопки зміни та приховування речення
             changeSentenceBtn.disabled = false;
@@ -194,16 +156,7 @@
             <div class="flex flex-col sm:flex-row items-start sm:items-center sm:justify-between gap-3">
                 <div>
                     <h1 class="text-xl sm:text-2xl font-bold text-gray-900">Базова англійська</h1>
-                    <div class="flex items-center gap-2 mt-1">
-                        <p class="text-sm sm:text-base text-gray-600">Картка 3 з 10</p>
-                        <span class="text-gray-300">•</span>
-                        <button onclick="toggleDirection()" class="inline-flex items-center gap-1 text-sm text-blue-600 hover:text-blue-700 font-medium" title="Змінити напрямок вивчення">
-                            <span id="direction-text">🇬🇧 → 🇺🇦</span>
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"></path>
-                            </svg>
-                        </button>
-                    </div>
+                    <p class="text-sm sm:text-base text-gray-600 mt-1">Картка 3 з 10</p>
                 </div>
                 <div class="sm:text-right">
                     <div class="text-xs sm:text-sm text-gray-600">Прогрес</div>
@@ -273,25 +226,25 @@
                                 "Привіт, як справи сьогодні?"
                             </div>
                         </div>
+
+                        <!-- Answer Buttons -->
+                        <div id="answer-buttons" class="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 mt-6">
+                            <button class="bg-red-100 hover:bg-red-200 text-red-700 font-semibold py-4 px-6 rounded-lg transition-colors">
+                                <div class="text-2xl mb-1">😕</div>
+                                <div class="text-sm">Не знаю</div>
+                            </button>
+                            <button class="bg-yellow-100 hover:bg-yellow-200 text-yellow-700 font-semibold py-4 px-6 rounded-lg transition-colors">
+                                <div class="text-2xl mb-1">🤔</div>
+                                <div class="text-sm">Важко</div>
+                            </button>
+                            <button class="bg-green-100 hover:bg-green-200 text-green-700 font-semibold py-4 px-6 rounded-lg transition-colors">
+                                <div class="text-2xl mb-1">😊</div>
+                                <div class="text-sm">Легко</div>
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-
-        <!-- Answer Buttons -->
-        <div id="answer-buttons" class="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 hidden">
-            <button class="bg-red-100 hover:bg-red-200 text-red-700 font-semibold py-4 px-6 rounded-lg transition-colors">
-                <div class="text-2xl mb-1">😕</div>
-                <div class="text-sm">Не знаю</div>
-            </button>
-            <button class="bg-yellow-100 hover:bg-yellow-200 text-yellow-700 font-semibold py-4 px-6 rounded-lg transition-colors">
-                <div class="text-2xl mb-1">🤔</div>
-                <div class="text-sm">Важко</div>
-            </button>
-            <button class="bg-green-100 hover:bg-green-200 text-green-700 font-semibold py-4 px-6 rounded-lg transition-colors">
-                <div class="text-2xl mb-1">😊</div>
-                <div class="text-sm">Легко</div>
-            </button>
         </div>
 
         <!-- Stats -->
