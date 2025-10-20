@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Базова англійська - Картки</title>
+    <title>Базова англійська - GoodWords</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         let selectionMode = false;
@@ -145,22 +145,6 @@
             }, 300);
         }
 
-        function toggleCardsManagement() {
-            const cardsSection = document.getElementById('cards-management-section');
-            const toggleBtn = document.getElementById('toggle-cards-btn');
-            const toggleIcon = document.getElementById('toggle-icon');
-            const toggleText = document.getElementById('toggle-text');
-
-            if (cardsSection.classList.contains('hidden')) {
-                cardsSection.classList.remove('hidden');
-                toggleIcon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"></path>';
-                toggleText.textContent = 'Приховати картки';
-            } else {
-                cardsSection.classList.add('hidden');
-                toggleIcon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>';
-                toggleText.textContent = 'Керувати картками';
-            }
-        }
 
         function toggleDetailedStats() {
             const detailedStats = document.getElementById('detailed-stats');
@@ -408,18 +392,8 @@
             </div>
         </div>
 
-        <!-- Toggle Cards Management Button -->
-        <div class="mb-6 text-center">
-            <button id="toggle-cards-btn" onclick="toggleCardsManagement()" class="inline-flex items-center gap-2 text-gray-600 hover:text-gray-900 px-4 py-2 rounded-lg hover:bg-gray-100 transition-colors">
-                <svg id="toggle-icon" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-                </svg>
-                <span id="toggle-text" class="font-medium">Керувати картками</span>
-            </button>
-        </div>
-
-        <!-- Cards Management Section (hidden by default) -->
-        <div id="cards-management-section" class="hidden">
+        <!-- Cards Management Section -->
+        <div id="cards-management-section">
 
         <!-- Search and Filter -->
         <div class="mb-6 flex gap-3">
