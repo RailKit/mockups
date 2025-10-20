@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Імпорт речень</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/flowbite@2.5.1/dist/flowbite.min.css" rel="stylesheet" />
+</head>
+<body class="bg-gray-50">
+    <div class="max-w-3xl mx-auto p-6">
+        <!-- Header -->
+        <div class="mb-8">
+            <a href="card-sentences.html" class="inline-flex items-center text-blue-600 hover:text-blue-700 mb-4">
+                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                </svg>
+                Назад до речень
+            </a>
+            <h1 class="text-3xl font-bold text-gray-900 mb-2">Імпорт речень</h1>
+            <p class="text-gray-600">Слово: Hello</p>
+        </div>
+
+        <!-- Import Form -->
+        <div class="bg-white rounded-lg shadow-sm p-6 border border-gray-200">
+            <form class="space-y-6">
+                <!-- File Upload -->
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">
+                        Виберіть файл для імпорту
+                    </label>
+                    <div class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-lg hover:border-blue-400 transition-colors">
+                        <div class="space-y-1 text-center">
+                            <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
+                            </svg>
+                            <div class="flex text-sm text-gray-600">
+                                <label for="file-upload" class="relative cursor-pointer bg-white rounded-md font-medium text-blue-600 hover:text-blue-500">
+                                    <span>Завантажити файл</span>
+                                    <input id="file-upload" name="file-upload" type="file" class="sr-only" accept=".csv,.txt,.json">
+                                </label>
+                                <p class="pl-1">або перетягніть сюди</p>
+                            </div>
+                            <p class="text-xs text-gray-500">CSV, TXT або JSON до 10MB</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Format Info -->
+                <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                    <h3 class="font-medium text-blue-900 mb-2">Підтримувані формати:</h3>
+
+                    <div class="space-y-3">
+                        <div>
+                            <p class="text-sm font-medium text-blue-800">CSV/TXT файли:</p>
+                            <p class="text-sm text-blue-700 ml-2">Формат: англійське | український переклад | тип</p>
+                            <div class="mt-2 bg-white rounded border border-blue-300 p-2 font-mono text-xs">
+                                <div class="text-gray-700">
+                                    Hello, how are you? | Привіт, як справи? | question<br>
+                                    She said hello. | Вона привіталася. | affirmative
+                                </div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <p class="text-sm font-medium text-blue-800">JSON файли:</p>
+                            <div class="mt-2 bg-white rounded border border-blue-300 p-2 font-mono text-xs">
+                                <div class="text-gray-700">
+                                    [<br>
+                                    &nbsp;&nbsp;{<br>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;"en": "Hello, how are you?",<br>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;"uk": "Привіт, як справи?",<br>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;"type": "question"<br>
+                                    &nbsp;&nbsp;},<br>
+                                    &nbsp;&nbsp;{<br>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;"en": "She said hello.",<br>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;"uk": "Вона привіталася.",<br>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;"type": "affirmative"<br>
+                                    &nbsp;&nbsp;}<br>
+                                    ]
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Import Options -->
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-3">
+                        Параметри імпорту
+                    </label>
+                    <div class="space-y-3">
+                        <label class="flex items-start p-4 border-2 border-gray-200 rounded-lg cursor-pointer hover:bg-gray-50 transition-colors">
+                            <input type="radio" name="import-mode" value="add" checked class="mt-1 w-4 h-4 text-blue-600 border-gray-300 focus:ring-blue-500">
+                            <div class="ml-3">
+                                <div class="font-medium text-gray-900">Додати до існуючих</div>
+                                <p class="text-sm text-gray-600 mt-1">
+                                    Нові речення будуть додані до існуючих
+                                </p>
+                            </div>
+                        </label>
+
+                        <label class="flex items-start p-4 border-2 border-gray-200 rounded-lg cursor-pointer hover:bg-gray-50 transition-colors">
+                            <input type="radio" name="import-mode" value="replace" class="mt-1 w-4 h-4 text-blue-600 border-gray-300 focus:ring-blue-500">
+                            <div class="ml-3">
+                                <div class="font-medium text-gray-900">Замінити всі</div>
+                                <p class="text-sm text-gray-600 mt-1">
+                                    Всі існуючі речення будуть видалені і замінені на нові
+                                </p>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="flex gap-3 pt-6">
+                    <button
+                        type="submit"
+                        class="flex-1 bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-medium"
+                    >
+                        Імпортувати речення
+                    </button>
+                    <a
+                        href="card-sentences.html"
+                        class="flex-1 bg-gray-200 hover:bg-gray-300 text-gray-800 px-6 py-3 rounded-lg font-medium text-center"
+                    >
+                        Скасувати
+                    </a>
+                </div>
+            </form>
+        </div>
+
+        <!-- Download Template -->
+        <div class="mt-6 bg-gray-50 border border-gray-200 rounded-lg p-4">
+            <h3 class="font-medium text-gray-900 mb-2">Завантажити шаблон:</h3>
+            <div class="flex gap-3">
+                <a href="#" class="inline-flex items-center gap-2 text-sm text-blue-600 hover:text-blue-700">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                    </svg>
+                    Шаблон CSV
+                </a>
+                <a href="#" class="inline-flex items-center gap-2 text-sm text-blue-600 hover:text-blue-700">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                    </svg>
+                    Шаблон JSON
+                </a>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.1/dist/flowbite.min.js"></script>
+</body>
+</html>
