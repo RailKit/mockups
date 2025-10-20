@@ -600,6 +600,9 @@
                                 <button type="button" onclick="loadImageFromUrl()" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg">
                                     Завантажити
                                 </button>
+                                <button type="button" onclick="cancelUrlInput()" class="px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-800 rounded-lg">
+                                    Скасувати
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -760,6 +763,13 @@
             uploadOptions.classList.remove('hidden');
             fileInput.value = '';
             urlInput.value = '';
+        }
+
+        // Cancel URL input
+        function cancelUrlInput() {
+            document.getElementById('url-input').classList.add('hidden');
+            document.getElementById('upload-options').classList.remove('hidden');
+            document.getElementById('word-image-url').value = '';
         }
 
         // Add word to deck
