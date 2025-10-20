@@ -7,6 +7,17 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdn.jsdelivr.net/npm/flowbite@2.5.1/dist/flowbite.min.css" rel="stylesheet" />
     <script>
+        // Modal options for all modals
+        const modalOptions = {
+            placement: 'center',
+            backdrop: 'dynamic',
+            backdropClasses: 'bg-gray-900/50 fixed inset-0 z-40',
+            closable: true,
+            onHide: () => {},
+            onShow: () => {},
+            onToggle: () => {}
+        };
+
         let selectionMode = false;
 
         function toggleSelectionMode() {
@@ -93,8 +104,15 @@
             const selectedCount = document.querySelectorAll('.card-checkbox:checked').length;
             document.getElementById('selectedCardsCount').textContent = selectedCount;
             document.getElementById('move-error-message').classList.add('hidden');
-            const modal = new Modal(document.getElementById('moveCardsModal'));
+            const $modalElement = document.getElementById('moveCardsModal');
+            const modal = new Modal($modalElement, modalOptions);
             modal.show();
+        }
+
+        function closeMoveModal() {
+            const $modalElement = document.getElementById('moveCardsModal');
+            const modal = new Modal($modalElement, modalOptions);
+            modal.hide();
         }
 
         function moveCards() {
@@ -105,7 +123,8 @@
             }
             const deckName = selectedDeck.closest('label').querySelector('.font-medium').textContent.trim();
             alert(`Картки успішно переміщено до колоди "${deckName}"!`);
-            const modal = Modal.getInstance(document.getElementById('moveCardsModal'));
+            const $modalElement = document.getElementById('moveCardsModal');
+            const modal = new Modal($modalElement, modalOptions);
             modal.hide();
             // Reset selection mode
             toggleSelectionMode();
@@ -465,7 +484,7 @@
                                 <div class="text-xs text-gray-500">Швидке додавання з списку</div>
                             </div>
                         </a>
-                        <a href="deck-import.html" class="flex items-center gap-3 px-4 py-3 text-sm text-gray-700 hover:bg-gray-100">
+                        <button onclick="openImportModal()" class="w-full flex items-center gap-3 px-4 py-3 text-sm text-gray-700 hover:bg-gray-100 text-left">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
                             </svg>
@@ -473,7 +492,7 @@
                                 <div class="font-medium">Імпортувати з файлу</div>
                                 <div class="text-xs text-gray-500">TXT, CSV, JSON</div>
                             </div>
-                        </a>
+                        </button>
                     </div>
                 </div>
                 <button onclick="toggleSelectionMode()" id="select-mode-btn" class="h-[42px] px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 font-medium text-gray-700" title="Вибрати">
@@ -550,12 +569,12 @@
                                 </svg>
                                 Редагувати
                             </a>
-                            <a href="card-stats.html" class="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                            <button onclick="openCardStatsModal(1, 'Hello', 'Привіт', 'Hello, how are you today?')" class="w-full flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 text-left">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
                                 </svg>
                                 Статистика
-                            </a>
+                            </button>
                             <div class="border-t border-gray-200 my-1"></div>
                             <button onclick="openDeleteModal(1, 'Hello', 'Привіт')" class="w-full flex items-center gap-2 px-4 py-2 text-sm text-red-600 hover:bg-red-50 text-left">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -597,12 +616,12 @@
                                 </svg>
                                 Редагувати
                             </a>
-                            <a href="card-stats.html" class="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                            <button onclick="openCardStatsModal(1, 'Hello', 'Привіт', 'Hello, how are you today?')" class="w-full flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 text-left">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
                                 </svg>
                                 Статистика
-                            </a>
+                            </button>
                             <div class="border-t border-gray-200 my-1"></div>
                             <button onclick="openDeleteModal(1, 'Hello', 'Привіт')" class="w-full flex items-center gap-2 px-4 py-2 text-sm text-red-600 hover:bg-red-50 text-left">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -644,12 +663,12 @@
                                 </svg>
                                 Редагувати
                             </a>
-                            <a href="card-stats.html" class="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                            <button onclick="openCardStatsModal(1, 'Hello', 'Привіт', 'Hello, how are you today?')" class="w-full flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 text-left">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
                                 </svg>
                                 Статистика
-                            </a>
+                            </button>
                             <div class="border-t border-gray-200 my-1"></div>
                             <button onclick="openDeleteModal(1, 'Hello', 'Привіт')" class="w-full flex items-center gap-2 px-4 py-2 text-sm text-red-600 hover:bg-red-50 text-left">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -691,12 +710,12 @@
                                 </svg>
                                 Редагувати
                             </a>
-                            <a href="card-stats.html" class="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                            <button onclick="openCardStatsModal(1, 'Hello', 'Привіт', 'Hello, how are you today?')" class="w-full flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 text-left">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
                                 </svg>
                                 Статистика
-                            </a>
+                            </button>
                             <div class="border-t border-gray-200 my-1"></div>
                             <button onclick="openDeleteModal(1, 'Hello', 'Привіт')" class="w-full flex items-center gap-2 px-4 py-2 text-sm text-red-600 hover:bg-red-50 text-left">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -738,12 +757,12 @@
                                 </svg>
                                 Редагувати
                             </a>
-                            <a href="card-stats.html" class="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                            <button onclick="openCardStatsModal(1, 'Hello', 'Привіт', 'Hello, how are you today?')" class="w-full flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 text-left">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
                                 </svg>
                                 Статистика
-                            </a>
+                            </button>
                             <div class="border-t border-gray-200 my-1"></div>
                             <button onclick="openDeleteModal(1, 'Hello', 'Привіт')" class="w-full flex items-center gap-2 px-4 py-2 text-sm text-red-600 hover:bg-red-50 text-left">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -785,12 +804,12 @@
                                 </svg>
                                 Редагувати
                             </a>
-                            <a href="card-stats.html" class="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                            <button onclick="openCardStatsModal(1, 'Hello', 'Привіт', 'Hello, how are you today?')" class="w-full flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 text-left">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
                                 </svg>
                                 Статистика
-                            </a>
+                            </button>
                             <div class="border-t border-gray-200 my-1"></div>
                             <button onclick="openDeleteModal(1, 'Hello', 'Привіт')" class="w-full flex items-center gap-2 px-4 py-2 text-sm text-red-600 hover:bg-red-50 text-left">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -852,7 +871,7 @@
                         </h3>
                         <p class="text-sm text-gray-500 mt-1">Оберіть колоду призначення</p>
                     </div>
-                    <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center" data-modal-hide="moveCardsModal">
+                    <button type="button" onclick="closeMoveModal()" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center">
                         <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
                         </svg>
@@ -955,8 +974,264 @@
                 </div>
                 <!-- Modal footer -->
                 <div class="flex items-center p-4 md:p-5 border-t border-gray-200 rounded-b gap-3">
-                    <button data-modal-hide="moveCardsModal" type="button" class="flex-1 text-gray-900 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5">Скасувати</button>
+                    <button onclick="closeMoveModal()" type="button" class="flex-1 text-gray-900 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5">Скасувати</button>
                     <button type="button" class="flex-1 text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5" onclick="moveCards()">Перемістити</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Import Deck Modal -->
+    <div id="importDeckModal" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+        <div class="relative p-4 w-full max-w-3xl max-h-full">
+            <!-- Modal content -->
+            <div class="relative bg-white rounded-lg shadow">
+                <!-- Modal header -->
+                <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t">
+                    <div>
+                        <h3 class="text-xl font-semibold text-gray-900">Імпорт слів</h3>
+                        <p class="text-sm text-gray-600 mt-1">Базова англійська</p>
+                    </div>
+                    <button type="button" onclick="closeImportModal()" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center">
+                        <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                        </svg>
+                        <span class="sr-only">Close modal</span>
+                    </button>
+                </div>
+                <!-- Modal body -->
+                <div class="p-4 md:p-5 space-y-4 max-h-[70vh] overflow-y-auto">
+                    <!-- File Upload -->
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">
+                            Завантажити файл
+                        </label>
+                        <div class="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-blue-400 transition-colors">
+                            <input type="file" id="import-file-input" accept=".txt,.csv,.json" class="hidden">
+                            <label for="import-file-input" class="cursor-pointer">
+                                <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
+                                </svg>
+                                <div class="mt-4">
+                                    <span class="text-blue-600 hover:text-blue-700 font-medium">Виберіть файл</span>
+                                    <span class="text-gray-600"> або перетягніть його сюди</span>
+                                </div>
+                                <p class="mt-2 text-sm text-gray-500">TXT, CSV, JSON (макс. 10MB)</p>
+                            </label>
+                        </div>
+                        <p class="text-xs text-gray-500 mt-2" id="selectedFileName" style="display: none;">
+                            Обрано: <span id="fileName"></span>
+                        </p>
+                    </div>
+
+                    <!-- Format Instructions (Collapsible) -->
+                    <details class="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                        <summary class="font-medium text-blue-900 cursor-pointer">Підтримувані формати</summary>
+                        <div class="mt-3 space-y-3">
+                            <!-- TXT Format -->
+                            <div>
+                                <p class="text-sm font-medium text-blue-800 mb-1">📄 TXT файл:</p>
+                                <div class="mt-1 bg-white rounded border border-blue-300 p-2 font-mono text-xs text-gray-700">
+                                    hello - привіт<br>
+                                    goodbye - до побачення<br>
+                                    apple
+                                </div>
+                            </div>
+
+                            <!-- CSV Format -->
+                            <div>
+                                <p class="text-sm font-medium text-blue-800 mb-1">📊 CSV файл:</p>
+                                <div class="mt-1 bg-white rounded border border-blue-300 p-2 font-mono text-xs text-gray-700">
+                                    hello,привіт<br>
+                                    goodbye,до побачення<br>
+                                    apple,яблуко
+                                </div>
+                            </div>
+
+                            <!-- JSON Format -->
+                            <div>
+                                <p class="text-sm font-medium text-blue-800 mb-1">🔧 JSON файл:</p>
+                                <div class="mt-1 bg-white rounded border border-blue-300 p-2 font-mono text-xs text-gray-700">
+                                    [{"word": "hello", "translation": "привіт"}]
+                                </div>
+                            </div>
+                        </div>
+                    </details>
+
+                    <!-- Import Settings -->
+                    <div class="space-y-3">
+                        <h3 class="text-sm font-medium text-gray-700">Налаштування імпорту</h3>
+                        <label class="flex items-start">
+                            <input type="checkbox" id="skipDuplicates" checked class="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500 mt-0.5">
+                            <span class="ml-2 text-sm text-gray-700">Пропустити дублікати (якщо слово вже існує в колоді)</span>
+                        </label>
+                        <label class="flex items-start">
+                            <input type="checkbox" id="autoTranslate" class="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500 mt-0.5">
+                            <span class="ml-2 text-sm text-gray-700">Автоматично згенерувати переклад для порожніх полів</span>
+                        </label>
+                    </div>
+                </div>
+                <!-- Modal footer -->
+                <div class="flex items-center p-4 md:p-5 border-t border-gray-200 rounded-b gap-3">
+                    <button onclick="closeImportModal()" type="button" class="flex-1 text-gray-900 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10">Скасувати</button>
+                    <button type="button" onclick="importCards()" class="flex-1 text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Імпортувати</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Card Statistics Modal -->
+    <div id="cardStatsModal" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+        <div class="relative p-4 w-full max-w-3xl max-h-full">
+            <!-- Modal content -->
+            <div class="relative bg-white rounded-lg shadow">
+                <!-- Modal header -->
+                <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t">
+                    <h3 class="text-xl font-semibold text-gray-900">
+                        Статистика картки
+                    </h3>
+                    <button type="button" onclick="closeCardStatsModal()" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center">
+                        <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                        </svg>
+                        <span class="sr-only">Close modal</span>
+                    </button>
+                </div>
+                <!-- Modal body -->
+                <div class="p-4 md:p-5 space-y-4 max-h-[70vh] overflow-y-auto">
+                    <!-- Card Info -->
+                    <div class="bg-gray-50 rounded-lg p-4 border border-gray-200">
+                        <div class="grid grid-cols-2 gap-4 mb-3">
+                            <div>
+                                <div class="text-xs text-gray-500 mb-1">Слово</div>
+                                <div class="text-xl font-bold text-gray-900" id="statsCardWord">Hello</div>
+                            </div>
+                            <div>
+                                <div class="text-xs text-gray-500 mb-1">Переклад</div>
+                                <div class="text-xl text-gray-700" id="statsCardTranslation">Привіт</div>
+                            </div>
+                        </div>
+                        <div class="pt-3 border-t border-gray-300">
+                            <div class="text-xs text-gray-500 mb-1">Контекст</div>
+                            <div class="text-sm text-gray-700" id="statsCardContext">Hello, how are you today?</div>
+                        </div>
+                    </div>
+
+                    <!-- Statistics Overview -->
+                    <div class="grid grid-cols-4 gap-3">
+                        <div class="bg-white rounded-lg p-3 border border-gray-200">
+                            <div class="text-xs text-gray-500 mb-1">Статус</div>
+                            <div class="text-sm font-bold text-green-600" id="statsCardStatus">Вивчена</div>
+                        </div>
+                        <div class="bg-white rounded-lg p-3 border border-gray-200">
+                            <div class="text-xs text-gray-500 mb-1">Повторень</div>
+                            <div class="text-lg font-bold text-gray-900" id="statsCardReviews">23</div>
+                        </div>
+                        <div class="bg-white rounded-lg p-3 border border-gray-200">
+                            <div class="text-xs text-gray-500 mb-1">Правильно</div>
+                            <div class="text-lg font-bold text-green-600" id="statsCardCorrect">19</div>
+                        </div>
+                        <div class="bg-white rounded-lg p-3 border border-gray-200">
+                            <div class="text-xs text-gray-500 mb-1">Помилково</div>
+                            <div class="text-lg font-bold text-red-600" id="statsCardIncorrect">4</div>
+                        </div>
+                    </div>
+
+                    <!-- Success Rate -->
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-sm font-medium text-gray-700">Відсоток правильних відповідей</span>
+                            <span class="text-lg font-bold text-green-600" id="statsSuccessRate">83%</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-3">
+                            <div class="bg-green-600 h-3 rounded-full" id="statsSuccessBar" style="width: 83%"></div>
+                        </div>
+                    </div>
+
+                    <!-- Timeline Info -->
+                    <div class="grid grid-cols-2 gap-3">
+                        <div class="bg-gray-50 rounded-lg p-3">
+                            <div class="text-xs text-gray-500 mb-1">Додано</div>
+                            <div class="text-sm font-medium text-gray-900">15 жовтня 2024</div>
+                            <div class="text-xs text-gray-500 mt-1">5 днів тому</div>
+                        </div>
+                        <div class="bg-gray-50 rounded-lg p-3">
+                            <div class="text-xs text-gray-500 mb-1">Останнє повторення</div>
+                            <div class="text-sm font-medium text-gray-900">18 жовтня 2024</div>
+                            <div class="text-xs text-gray-500 mt-1">2 дні тому</div>
+                        </div>
+                        <div class="bg-gray-50 rounded-lg p-3">
+                            <div class="text-xs text-gray-500 mb-1">Наступне повторення</div>
+                            <div class="text-sm font-medium text-gray-900">25 жовтня 2024</div>
+                            <div class="text-xs text-gray-500 mt-1">через 5 днів</div>
+                        </div>
+                        <div class="bg-gray-50 rounded-lg p-3">
+                            <div class="text-xs text-gray-500 mb-1">Вивчена</div>
+                            <div class="text-sm font-medium text-gray-900">17 жовтня 2024</div>
+                            <div class="text-xs text-gray-500 mt-1">3 дні тому</div>
+                        </div>
+                    </div>
+
+                    <!-- Recent Activity -->
+                    <div>
+                        <h3 class="text-sm font-semibold text-gray-900 mb-3">Остання активність</h3>
+                        <div class="space-y-2 max-h-48 overflow-y-auto">
+                            <div class="flex items-start gap-2 pb-2 border-b border-gray-100">
+                                <div class="flex-shrink-0 w-8 h-8 bg-green-100 rounded-full flex items-center justify-center">
+                                    <svg class="w-4 h-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                    </svg>
+                                </div>
+                                <div class="flex-1 min-w-0">
+                                    <div class="text-sm font-medium text-gray-900">Правильна відповідь</div>
+                                    <div class="text-xs text-gray-500">18 жовтня, 14:23</div>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-2 pb-2 border-b border-gray-100">
+                                <div class="flex-shrink-0 w-8 h-8 bg-green-100 rounded-full flex items-center justify-center">
+                                    <svg class="w-4 h-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                    </svg>
+                                </div>
+                                <div class="flex-1 min-w-0">
+                                    <div class="text-sm font-medium text-gray-900">Правильна відповідь</div>
+                                    <div class="text-xs text-gray-500">17 жовтня, 18:45</div>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-2 pb-2 border-b border-gray-100">
+                                <div class="flex-shrink-0 w-8 h-8 bg-red-100 rounded-full flex items-center justify-center">
+                                    <svg class="w-4 h-4 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                                    </svg>
+                                </div>
+                                <div class="flex-1 min-w-0">
+                                    <div class="text-sm font-medium text-gray-900">Неправильна відповідь</div>
+                                    <div class="text-xs text-gray-500">17 жовтня, 09:12</div>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-2 pb-2 border-b border-gray-100">
+                                <div class="flex-shrink-0 w-8 h-8 bg-green-100 rounded-full flex items-center justify-center">
+                                    <svg class="w-4 h-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                    </svg>
+                                </div>
+                                <div class="flex-1 min-w-0">
+                                    <div class="text-sm font-medium text-gray-900">Правильна відповідь</div>
+                                    <div class="text-xs text-gray-500">16 жовтня, 20:34</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Modal footer -->
+                <div class="flex items-center p-4 md:p-5 border-t border-gray-200 rounded-b gap-3">
+                    <button type="button" onclick="resetCardProgress()" class="flex-1 text-gray-900 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 flex items-center justify-center gap-2">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+                        </svg>
+                        Скинути прогрес
+                    </button>
+                    <button onclick="closeCardStatsModal()" type="button" class="flex-1 text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Закрити</button>
                 </div>
             </div>
         </div>
@@ -972,7 +1247,7 @@
                     <h3 class="text-xl font-semibold text-gray-900">
                         Поділитись колодою
                     </h3>
-                    <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center" data-modal-hide="shareDeckModal">
+                    <button type="button" onclick="closeShareModal()" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center">
                         <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
                         </svg>
@@ -1059,7 +1334,7 @@
                 </div>
                 <!-- Modal footer -->
                 <div class="flex items-center p-4 md:p-5 border-t border-gray-200 rounded-b">
-                    <button data-modal-hide="shareDeckModal" type="button" class="w-full text-gray-900 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10">Закрити</button>
+                    <button onclick="closeShareModal()" type="button" class="w-full text-gray-900 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10">Закрити</button>
                 </div>
             </div>
         </div>
@@ -1075,7 +1350,7 @@
                     <h3 class="text-xl font-semibold text-gray-900">
                         Видалити картку?
                     </h3>
-                    <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center" data-modal-hide="deleteCardModal">
+                    <button type="button" onclick="closeDeleteModal()" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center">
                         <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
                         </svg>
@@ -1114,7 +1389,7 @@
                 </div>
                 <!-- Modal footer -->
                 <div class="flex items-center p-4 md:p-5 border-t border-gray-200 rounded-b gap-3">
-                    <button data-modal-hide="deleteCardModal" type="button" class="flex-1 text-gray-900 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10">Скасувати</button>
+                    <button onclick="closeDeleteModal()" type="button" class="flex-1 text-gray-900 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10">Скасувати</button>
                     <button type="button" class="flex-1 text-white bg-red-600 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center" onclick="deleteCard()">Видалити</button>
                 </div>
             </div>
@@ -1126,20 +1401,33 @@
         function openDeleteModal(cardId, word, translation) {
             document.getElementById('deleteCardWord').textContent = word;
             document.getElementById('deleteCardTranslation').textContent = translation;
-            const modal = new Modal(document.getElementById('deleteCardModal'));
+            const $modalElement = document.getElementById('deleteCardModal');
+            const modal = new Modal($modalElement, modalOptions);
             modal.show();
+        }
+
+        function closeDeleteModal() {
+            const $modalElement = document.getElementById('deleteCardModal');
+            const modal = new Modal($modalElement, modalOptions);
+            modal.hide();
         }
 
         function deleteCard() {
             // Here would be the actual delete logic
             alert('Картку видалено!');
-            const modal = Modal.getInstance(document.getElementById('deleteCardModal'));
-            modal.hide();
+            closeDeleteModal();
         }
 
         function openShareModal() {
-            const modal = new Modal(document.getElementById('shareDeckModal'));
+            const $modalElement = document.getElementById('shareDeckModal');
+            const modal = new Modal($modalElement, modalOptions);
             modal.show();
+        }
+
+        function closeShareModal() {
+            const $modalElement = document.getElementById('shareDeckModal');
+            const modal = new Modal($modalElement, modalOptions);
+            modal.hide();
         }
 
         function copyShareLink() {
@@ -1155,6 +1443,63 @@
                 }, 3000);
             });
         }
+
+        function openCardStatsModal(cardId, word, translation, context) {
+            document.getElementById('statsCardWord').textContent = word;
+            document.getElementById('statsCardTranslation').textContent = translation;
+            document.getElementById('statsCardContext').textContent = context || 'Контекст відсутній';
+            const $modalElement = document.getElementById('cardStatsModal');
+            const modal = new Modal($modalElement, modalOptions);
+            modal.show();
+        }
+
+        function closeCardStatsModal() {
+            const $modalElement = document.getElementById('cardStatsModal');
+            const modal = new Modal($modalElement, modalOptions);
+            modal.hide();
+        }
+
+        function resetCardProgress() {
+            if (confirm('Скинути весь прогрес навчання для цієї картки? Цю дію неможливо скасувати.')) {
+                alert('Прогрес скинуто!');
+                closeCardStatsModal();
+            }
+        }
+
+        function openImportModal() {
+            const $modalElement = document.getElementById('importDeckModal');
+            const modal = new Modal($modalElement, modalOptions);
+            modal.show();
+        }
+
+        function closeImportModal() {
+            const $modalElement = document.getElementById('importDeckModal');
+            const modal = new Modal($modalElement, modalOptions);
+            modal.hide();
+        }
+
+        function importCards() {
+            const fileInput = document.getElementById('import-file-input');
+            if (!fileInput.files || fileInput.files.length === 0) {
+                alert('Будь ласка, виберіть файл для імпорту');
+                return;
+            }
+            alert('Імпорт розпочато! Буде імпортовано слова з файлу.');
+            closeImportModal();
+        }
+
+        // Handle file selection display
+        document.addEventListener('DOMContentLoaded', function() {
+            const fileInput = document.getElementById('import-file-input');
+            if (fileInput) {
+                fileInput.addEventListener('change', function(e) {
+                    if (e.target.files.length > 0) {
+                        document.getElementById('fileName').textContent = e.target.files[0].name;
+                        document.getElementById('selectedFileName').style.display = 'block';
+                    }
+                });
+            }
+        });
     </script>
 </body>
 </html>
