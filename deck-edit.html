@@ -88,6 +88,80 @@
                     </select>
                 </div>
 
+                <!-- Deck Logo (Optional) -->
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">
+                        Логотип колоди <span class="text-gray-400">(опціонально)</span>
+                    </label>
+                    <div class="space-y-3">
+                        <!-- Image preview -->
+                        <div id="logo-preview" class="hidden">
+                            <div class="relative w-32 h-32 mx-auto">
+                                <img id="logo-img" src="" alt="Logo" class="w-full h-full object-cover rounded-lg border-2 border-gray-300">
+                            </div>
+                            <button type="button" onclick="removeLogo()" class="mt-2 mx-auto flex items-center gap-1 text-sm text-red-600 hover:text-red-700">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                                </svg>
+                                Видалити логотип
+                            </button>
+                        </div>
+
+                        <!-- Upload options -->
+                        <div id="logo-upload-options" class="flex gap-2">
+                            <label class="flex-1 cursor-pointer">
+                                <div class="border-2 border-dashed border-gray-300 rounded-lg p-4 text-center hover:border-blue-500 hover:bg-blue-50 transition-colors">
+                                    <svg class="w-8 h-8 mx-auto mb-2 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                                    </svg>
+                                    <span class="text-sm text-gray-600">Завантажити файл</span>
+                                </div>
+                                <input
+                                    type="file"
+                                    id="logo-file"
+                                    accept="image/*"
+                                    class="hidden"
+                                    onchange="handleLogoUpload(event)"
+                                />
+                            </label>
+
+                            <button type="button" onclick="showLogoUrlInput()" class="flex-1 border-2 border-dashed border-gray-300 rounded-lg p-4 text-center hover:border-blue-500 hover:bg-blue-50 transition-colors">
+                                <svg class="w-8 h-8 mx-auto mb-2 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path>
+                                </svg>
+                                <span class="text-sm text-gray-600">Вставити URL</span>
+                            </button>
+                        </div>
+
+                        <!-- URL input (hidden by default) -->
+                        <div id="logo-url-input" class="hidden">
+                            <div class="flex gap-2">
+                                <input
+                                    type="url"
+                                    id="logo-url"
+                                    placeholder="https://example.com/logo.jpg"
+                                    class="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                />
+                                <button type="button" onclick="loadLogoFromUrl()" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg">
+                                    Завантажити
+                                </button>
+                                <button type="button" onclick="cancelLogoUrlInput()" class="px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-800 rounded-lg">
+                                    Скасувати
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="bg-blue-50 border border-blue-200 rounded-lg p-3 flex items-start gap-2">
+                            <svg class="w-5 h-5 text-blue-600 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                            <p class="text-sm text-blue-800">
+                                Логотип буде відображатися на картці колоди. Рекомендований розмір: 256x256 пікселів.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- Learning Mode -->
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-2">
@@ -145,5 +219,70 @@
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.1/dist/flowbite.min.js"></script>
+    <script>
+        // Handle logo upload from file
+        function handleLogoUpload(event) {
+            const file = event.target.files[0];
+            if (file && file.type.startsWith('image/')) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    showLogoPreview(e.target.result);
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        // Show logo URL input
+        function showLogoUrlInput() {
+            document.getElementById('logo-url-input').classList.remove('hidden');
+            document.getElementById('logo-upload-options').classList.add('hidden');
+        }
+
+        // Load logo from URL
+        function loadLogoFromUrl() {
+            const url = document.getElementById('logo-url').value;
+            if (url) {
+                showLogoPreview(url);
+            } else {
+                alert('Будь ласка, введіть URL зображення');
+            }
+        }
+
+        // Show logo preview
+        function showLogoPreview(imageSrc) {
+            const preview = document.getElementById('logo-preview');
+            const logoImg = document.getElementById('logo-img');
+            const uploadOptions = document.getElementById('logo-upload-options');
+            const urlInput = document.getElementById('logo-url-input');
+
+            logoImg.src = imageSrc;
+            preview.classList.remove('hidden');
+            uploadOptions.classList.add('hidden');
+            urlInput.classList.add('hidden');
+        }
+
+        // Remove logo
+        function removeLogo() {
+            const preview = document.getElementById('logo-preview');
+            const logoImg = document.getElementById('logo-img');
+            const uploadOptions = document.getElementById('logo-upload-options');
+            const fileInput = document.getElementById('logo-file');
+            const urlInput = document.getElementById('logo-url');
+
+            logoImg.src = '';
+            preview.classList.add('hidden');
+            uploadOptions.classList.remove('hidden');
+            fileInput.value = '';
+            urlInput.value = '';
+            document.getElementById('logo-url-input').classList.add('hidden');
+        }
+
+        // Cancel URL input
+        function cancelLogoUrlInput() {
+            document.getElementById('logo-url-input').classList.add('hidden');
+            document.getElementById('logo-upload-options').classList.remove('hidden');
+            document.getElementById('logo-url').value = '';
+        }
+    </script>
 </body>
 </html>
