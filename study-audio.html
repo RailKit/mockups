@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Навчання - Аудіювання</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/flowbite@2.5.1/dist/flowbite.min.css" rel="stylesheet" />
+</head>
+<body class="bg-gray-50 dark:bg-gray-900">
+    <div class="max-w-4xl mx-auto p-4 sm:p-6 min-h-screen flex flex-col">
+        <!-- Header -->
+        <div class="mb-6">
+            <div class="flex items-center justify-between mb-4">
+                <a href="deck-cards.html" class="inline-flex items-center text-gray-600 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300">
+                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                    Завершити
+                </a>
+                <div class="flex items-center gap-4">
+                    <div class="text-sm text-gray-600 dark:text-gray-400">
+                        <span class="font-semibold text-green-600 dark:text-green-400" id="current-card">1</span>
+                        <span class="mx-1">/</span>
+                        <span id="total-cards">23</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Progress Bar -->
+            <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+                <div id="progress-bar" class="bg-green-600 h-2 rounded-full transition-all duration-300" style="width: 4.3%"></div>
+            </div>
+        </div>
+
+        <!-- Study Mode Indicator -->
+        <div class="mb-4 flex items-center justify-center gap-2">
+            <div class="inline-flex items-center gap-2 px-3 py-1.5 bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-300 rounded-full text-sm">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path>
+                </svg>
+                <span class="font-medium">Аудіювання</span>
+            </div>
+        </div>
+
+        <!-- Card Display -->
+        <div class="flex-1 flex items-center justify-center mb-6">
+            <div id="card-container" class="w-full">
+                <!-- Question State -->
+                <div id="question-state" class="text-center">
+                    <!-- Card Image -->
+                    <div class="mb-6">
+                        <img id="card-image" src="https://images.unsplash.com/photo-1599687351724-dfa3c4ff81b1?w=400&h=300&fit=crop" alt="Card" class="w-full max-w-md mx-auto h-64 object-cover rounded-xl shadow-lg">
+                    </div>
+
+                    <!-- Audio Player -->
+                    <div class="bg-white dark:bg-gray-800 rounded-xl p-6 sm:p-8 shadow-lg mb-6 max-w-2xl mx-auto">
+                        <div class="text-gray-500 dark:text-gray-400 text-sm mb-4">Прослухайте слово та введіть його переклад:</div>
+
+                        <!-- Audio Control -->
+                        <div class="mb-6 flex flex-col items-center gap-4">
+                            <button onclick="playAudio()" id="play-btn" class="w-20 h-20 bg-green-100 dark:bg-green-900 hover:bg-green-200 dark:hover:bg-green-800 rounded-full flex items-center justify-center transition-all shadow-lg hover:shadow-xl">
+                                <svg id="play-icon" class="w-10 h-10 text-green-600 dark:text-green-400" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M8 5v14l11-7z"/>
+                                </svg>
+                                <svg id="pause-icon" class="w-10 h-10 text-green-600 dark:text-green-400 hidden" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z"/>
+                                </svg>
+                            </button>
+
+                            <!-- Play count indicator -->
+                            <div class="text-sm text-gray-500 dark:text-gray-400">
+                                <span>Прослухано: </span>
+                                <span id="play-count" class="font-semibold text-green-600 dark:text-green-400">0</span>
+                                <span> разів</span>
+                            </div>
+                        </div>
+
+                        <!-- Sentence hint (initially hidden, shows after first play) -->
+                        <div id="sentence-hint" class="hidden mb-6">
+                            <div class="text-gray-500 dark:text-gray-400 text-sm mb-2">Слово у контексті:</div>
+                            <p id="sentence" class="text-lg text-gray-700 dark:text-gray-300 leading-relaxed italic">
+                                <span class="font-semibold text-green-600 dark:text-green-400">______</span>, how are you today?
+                            </p>
+                        </div>
+
+                        <!-- Input Field -->
+                        <div class="mb-4">
+                            <input
+                                type="text"
+                                id="answer-input"
+                                placeholder="Введіть переклад..."
+                                class="w-full px-4 py-3 text-lg border-2 border-gray-300 dark:border-gray-600 rounded-xl focus:outline-none focus:border-green-500 dark:focus:border-green-400 bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-gray-100"
+                                autocomplete="off"
+                                autofocus
+                            >
+                        </div>
+
+                        <!-- Check Button -->
+                        <button onclick="checkAnswer()" id="check-btn" class="w-full bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-xl font-medium text-lg shadow-lg transition-all hover:shadow-xl">
+                            Перевірити
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Result State (hidden by default) -->
+                <div id="result-state" class="hidden text-center">
+                    <!-- Correct Answer -->
+                    <div id="correct-result" class="hidden">
+                        <div class="mb-6 flex justify-center">
+                            <div class="w-20 h-20 bg-green-100 dark:bg-green-900 rounded-full flex items-center justify-center">
+                                <svg class="w-12 h-12 text-green-600 dark:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                            </div>
+                        </div>
+                        <h2 class="text-3xl font-bold text-green-600 dark:text-green-400 mb-4">Правильно!</h2>
+                        <div class="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg max-w-2xl mx-auto mb-6">
+                            <div class="mb-4">
+                                <div class="text-sm text-gray-500 dark:text-gray-400 mb-1">Ваша відповідь:</div>
+                                <div class="text-xl font-semibold text-green-600 dark:text-green-400" id="user-answer-correct"></div>
+                            </div>
+                            <div class="flex items-center justify-center gap-3 mb-4">
+                                <span class="text-2xl font-bold text-gray-900 dark:text-gray-100">Hello</span>
+                                <span class="text-gray-400">→</span>
+                                <span class="text-2xl font-bold text-green-600 dark:text-green-400">Привіт</span>
+                            </div>
+                            <p class="text-gray-600 dark:text-gray-400 text-lg italic">"Hello, how are you today?"</p>
+                        </div>
+                    </div>
+
+                    <!-- Wrong Answer -->
+                    <div id="wrong-result" class="hidden">
+                        <div class="mb-6 flex justify-center">
+                            <div class="w-20 h-20 bg-red-100 dark:bg-red-900 rounded-full flex items-center justify-center">
+                                <svg class="w-12 h-12 text-red-600 dark:text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                                </svg>
+                            </div>
+                        </div>
+                        <h2 class="text-3xl font-bold text-red-600 dark:text-red-400 mb-4">Неправильно</h2>
+                        <div class="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg max-w-2xl mx-auto mb-6">
+                            <div class="mb-4">
+                                <div class="text-sm text-gray-500 dark:text-gray-400 mb-1">Ваша відповідь:</div>
+                                <div class="text-xl font-semibold text-red-600 dark:text-red-400 line-through" id="user-answer-wrong"></div>
+                            </div>
+                            <div class="mb-4">
+                                <div class="text-sm text-gray-500 dark:text-gray-400 mb-1">Правильна відповідь:</div>
+                                <div class="flex items-center justify-center gap-3">
+                                    <span class="text-2xl font-bold text-gray-900 dark:text-gray-100">Hello</span>
+                                    <span class="text-gray-400">→</span>
+                                    <span class="text-2xl font-bold text-green-600 dark:text-green-400">Привіт</span>
+                                </div>
+                            </div>
+                            <p class="text-gray-600 dark:text-gray-400 text-lg italic">"Hello, how are you today?"</p>
+                        </div>
+                    </div>
+
+                    <!-- Next Button -->
+                    <button onclick="nextCard()" class="bg-green-600 hover:bg-green-700 text-white px-8 py-4 rounded-xl font-medium text-lg shadow-lg transition-all hover:shadow-xl">
+                        Наступна картка
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Stats Footer -->
+        <div class="mt-auto pt-6 border-t border-gray-200 dark:border-gray-700">
+            <div class="flex justify-center gap-8 text-center">
+                <div>
+                    <div class="text-2xl font-bold text-green-600 dark:text-green-400" id="correct-count">0</div>
+                    <div class="text-sm text-gray-600 dark:text-gray-400">Правильно</div>
+                </div>
+                <div>
+                    <div class="text-2xl font-bold text-red-600 dark:text-red-400" id="wrong-count">0</div>
+                    <div class="text-sm text-gray-600 dark:text-gray-400">Помилки</div>
+                </div>
+                <div>
+                    <div class="text-2xl font-bold text-green-600 dark:text-green-400" id="accuracy">100%</div>
+                    <div class="text-sm text-gray-600 dark:text-gray-400">Точність</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.1/dist/flowbite.min.js"></script>
+    <script>
+        let currentCard = 1;
+        const totalCards = 23;
+        let correctAnswers = 0;
+        let wrongAnswers = 0;
+        let playCount = 0;
+        const correctAnswer = "Привіт"; // In real app, this would come from card data
+        let isPlaying = false;
+
+        // Allow Enter key to submit
+        document.getElementById('answer-input').addEventListener('keypress', function(event) {
+            if (event.key === 'Enter') {
+                checkAnswer();
+            }
+        });
+
+        function playAudio() {
+            // In real app, this would play actual audio
+            // For mockup, we'll simulate audio playback
+
+            if (isPlaying) return;
+
+            isPlaying = true;
+            playCount++;
+
+            // Update UI
+            document.getElementById('play-icon').classList.add('hidden');
+            document.getElementById('pause-icon').classList.remove('hidden');
+            document.getElementById('play-count').textContent = playCount;
+
+            // Show sentence hint after first play
+            if (playCount === 1) {
+                document.getElementById('sentence-hint').classList.remove('hidden');
+            }
+
+            // Simulate audio duration (2 seconds)
+            setTimeout(() => {
+                isPlaying = false;
+                document.getElementById('play-icon').classList.remove('hidden');
+                document.getElementById('pause-icon').classList.add('hidden');
+            }, 2000);
+        }
+
+        function checkAnswer() {
+            const input = document.getElementById('answer-input');
+            const userAnswer = input.value.trim();
+
+            if (!userAnswer) {
+                // Shake animation for empty input
+                input.classList.add('animate-shake');
+                setTimeout(() => input.classList.remove('animate-shake'), 500);
+                return;
+            }
+
+            // Disable input and button
+            input.disabled = true;
+            document.getElementById('check-btn').disabled = true;
+            document.getElementById('play-btn').disabled = true;
+
+            // Check if answer is correct (case-insensitive)
+            const isCorrect = userAnswer.toLowerCase() === correctAnswer.toLowerCase();
+
+            // Show result
+            if (isCorrect) {
+                input.classList.add('border-green-500', 'bg-green-50', 'dark:bg-green-900');
+                correctAnswers++;
+                document.getElementById('user-answer-correct').textContent = userAnswer;
+
+                // Show correct result after delay
+                setTimeout(() => {
+                    document.getElementById('question-state').classList.add('hidden');
+                    document.getElementById('result-state').classList.remove('hidden');
+                    document.getElementById('correct-result').classList.remove('hidden');
+                    document.getElementById('wrong-result').classList.add('hidden');
+                }, 500);
+            } else {
+                input.classList.add('border-red-500', 'bg-red-50', 'dark:bg-red-900');
+                wrongAnswers++;
+                document.getElementById('user-answer-wrong').textContent = userAnswer || '(порожньо)';
+
+                // Show wrong result after delay
+                setTimeout(() => {
+                    document.getElementById('question-state').classList.add('hidden');
+                    document.getElementById('result-state').classList.remove('hidden');
+                    document.getElementById('correct-result').classList.add('hidden');
+                    document.getElementById('wrong-result').classList.remove('hidden');
+                }, 800);
+            }
+
+            // Update stats
+            updateStats();
+        }
+
+        function nextCard() {
+            if (currentCard >= totalCards) {
+                // Redirect to results page
+                window.location.href = 'study-results.html';
+                return;
+            }
+
+            currentCard++;
+
+            // Reset UI
+            document.getElementById('question-state').classList.remove('hidden');
+            document.getElementById('result-state').classList.add('hidden');
+            document.getElementById('sentence-hint').classList.add('hidden');
+
+            // Reset input
+            const input = document.getElementById('answer-input');
+            input.value = '';
+            input.disabled = false;
+            input.classList.remove('border-green-500', 'bg-green-50', 'border-red-500', 'bg-red-50', 'dark:bg-green-900', 'dark:bg-red-900');
+            input.focus();
+
+            // Re-enable buttons
+            document.getElementById('check-btn').disabled = false;
+            document.getElementById('play-btn').disabled = false;
+
+            // Reset play count
+            playCount = 0;
+            document.getElementById('play-count').textContent = playCount;
+
+            // Update progress
+            updateProgress();
+
+            // In real app, load next card data here
+        }
+
+        function updateProgress() {
+            document.getElementById('current-card').textContent = currentCard;
+            const progressPercent = (currentCard / totalCards) * 100;
+            document.getElementById('progress-bar').style.width = progressPercent + '%';
+        }
+
+        function updateStats() {
+            document.getElementById('correct-count').textContent = correctAnswers;
+            document.getElementById('wrong-count').textContent = wrongAnswers;
+
+            const total = correctAnswers + wrongAnswers;
+            const accuracy = total > 0 ? Math.round((correctAnswers / total) * 100) : 100;
+            document.getElementById('accuracy').textContent = accuracy + '%';
+        }
+    </script>
+</body>
+</html>
