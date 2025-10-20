@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Експорт колоди - GoodWords</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50">
+    <div class="max-w-2xl mx-auto p-4 sm:p-6">
+        <!-- Header -->
+        <div class="mb-6 sm:mb-8">
+            <a href="deck-cards.html" class="inline-flex items-center text-blue-600 hover:text-blue-700 mb-4">
+                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                </svg>
+                Назад до колоди
+            </a>
+            <h1 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">Експорт колоди</h1>
+            <p class="text-sm sm:text-base text-gray-600">Базова англійська</p>
+        </div>
+
+        <!-- Deck Info -->
+        <div class="bg-white rounded-lg shadow-sm p-4 sm:p-6 border border-gray-200 mb-6">
+            <div class="flex items-center justify-between mb-4">
+                <div>
+                    <h2 class="text-lg font-semibold text-gray-900 mb-1">Інформація про колоду</h2>
+                    <div class="flex items-center gap-2 mt-2">
+                        <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-gray-100 text-gray-700">
+                            🇺🇦 Українська
+                        </span>
+                        <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                        </svg>
+                        <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-blue-100 text-blue-800">
+                            🇬🇧 Англійська
+                        </span>
+                    </div>
+                </div>
+                <div class="text-right">
+                    <div class="text-3xl font-bold text-gray-900">150</div>
+                    <div class="text-sm text-gray-600">карток</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Export Format Selection -->
+        <div class="bg-white rounded-lg shadow-sm p-4 sm:p-6 border border-gray-200 mb-6">
+            <h2 class="text-lg font-semibold text-gray-900 mb-4">Оберіть формат експорту</h2>
+
+            <div class="space-y-3">
+                <!-- CSV Format -->
+                <label class="flex items-start p-4 border-2 border-gray-200 rounded-lg cursor-pointer hover:bg-gray-50 transition-colors">
+                    <input type="radio" name="export-format" value="csv" checked class="w-4 h-4 text-blue-600 border-gray-300 focus:ring-blue-500 mt-1">
+                    <div class="ml-3 flex-1">
+                        <div class="flex items-center gap-2">
+                            <span class="font-medium text-gray-900">CSV</span>
+                            <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-green-100 text-green-800">
+                                Рекомендовано
+                            </span>
+                        </div>
+                        <p class="text-sm text-gray-600 mt-1">
+                            Універсальний формат для таблиць. Підходить для Excel, Google Sheets та інших додатків.
+                        </p>
+                    </div>
+                </label>
+
+                <!-- JSON Format -->
+                <label class="flex items-start p-4 border-2 border-gray-200 rounded-lg cursor-pointer hover:bg-gray-50 transition-colors">
+                    <input type="radio" name="export-format" value="json" class="w-4 h-4 text-blue-600 border-gray-300 focus:ring-blue-500 mt-1">
+                    <div class="ml-3 flex-1">
+                        <div class="font-medium text-gray-900">JSON</div>
+                        <p class="text-sm text-gray-600 mt-1">
+                            Структурований формат для програмування. Включає всі дані та метадані.
+                        </p>
+                    </div>
+                </label>
+
+                <!-- TXT Format -->
+                <label class="flex items-start p-4 border-2 border-gray-200 rounded-lg cursor-pointer hover:bg-gray-50 transition-colors">
+                    <input type="radio" name="export-format" value="txt" class="w-4 h-4 text-blue-600 border-gray-300 focus:ring-blue-500 mt-1">
+                    <div class="ml-3 flex-1">
+                        <div class="font-medium text-gray-900">TXT</div>
+                        <p class="text-sm text-gray-600 mt-1">
+                            Простий текстовий файл. Кожна картка на окремому рядку, розділена табуляцією.
+                        </p>
+                    </div>
+                </label>
+
+                <!-- Anki Format -->
+                <label class="flex items-start p-4 border-2 border-gray-200 rounded-lg cursor-pointer hover:bg-gray-50 transition-colors">
+                    <input type="radio" name="export-format" value="anki" class="w-4 h-4 text-blue-600 border-gray-300 focus:ring-blue-500 mt-1">
+                    <div class="ml-3 flex-1">
+                        <div class="font-medium text-gray-900">Anki (APKG)</div>
+                        <p class="text-sm text-gray-600 mt-1">
+                            Формат для імпорту в Anki. Зберігає всі дані та прогрес навчання.
+                        </p>
+                    </div>
+                </label>
+            </div>
+        </div>
+
+        <!-- Export Options -->
+        <div class="bg-white rounded-lg shadow-sm p-4 sm:p-6 border border-gray-200 mb-6">
+            <h2 class="text-lg font-semibold text-gray-900 mb-4">Опції експорту</h2>
+
+            <div class="space-y-4">
+                <!-- Include Statistics -->
+                <label class="flex items-start">
+                    <input type="checkbox" checked class="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500 mt-1">
+                    <div class="ml-3">
+                        <span class="text-sm text-gray-700 font-medium">Включити статистику навчання</span>
+                        <p class="text-xs text-gray-500 mt-1">Експортувати дані про прогрес вивчення кожної картки</p>
+                    </div>
+                </label>
+
+                <!-- Include Context -->
+                <label class="flex items-start">
+                    <input type="checkbox" checked class="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500 mt-1">
+                    <div class="ml-3">
+                        <span class="text-sm text-gray-700 font-medium">Включити контекст</span>
+                        <p class="text-xs text-gray-500 mt-1">Експортувати речення-приклади для кожного слова</p>
+                    </div>
+                </label>
+
+                <!-- Filter by Status -->
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">
+                        Фільтрувати за статусом
+                    </label>
+                    <select class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                        <option value="all">Всі картки (150)</option>
+                        <option value="new">Тільки нові (16)</option>
+                        <option value="learning">В процесі вивчення (45)</option>
+                        <option value="learned">Тільки вивчені (89)</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <!-- Info Note -->
+        <div class="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
+            <div class="flex items-start gap-2">
+                <svg class="w-5 h-5 text-blue-600 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+                <div>
+                    <p class="text-sm text-blue-800">
+                        <strong>Порада:</strong> CSV формат найкраще підходить для редагування карток в таблицях та подальшого імпорту назад в GoodWords.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="flex flex-col sm:flex-row gap-3">
+            <button class="flex-1 bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-medium flex items-center justify-center gap-2">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
+                </svg>
+                Експортувати
+            </button>
+            <a href="deck-cards.html" class="flex-1 bg-gray-200 hover:bg-gray-300 text-gray-800 px-6 py-3 rounded-lg font-medium text-center">
+                Скасувати
+            </a>
+        </div>
+    </div>
+</body>
+</html>
