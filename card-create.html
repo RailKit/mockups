@@ -60,6 +60,40 @@
                     </div>
                 </div>
 
+                <!-- Image Upload (Optional) -->
+                <div>
+                    <label for="image" class="block text-sm font-medium text-gray-700 mb-2">
+                        Картинка <span class="text-gray-400">(опціонально)</span>
+                    </label>
+                    <div class="flex items-start gap-4">
+                        <div class="flex-1">
+                            <input
+                                type="file"
+                                id="image"
+                                accept="image/*"
+                                class="block w-full text-sm text-gray-500
+                                    file:mr-4 file:py-2 file:px-4
+                                    file:rounded-lg file:border-0
+                                    file:text-sm file:font-medium
+                                    file:bg-blue-50 file:text-blue-700
+                                    hover:file:bg-blue-100
+                                    cursor-pointer"
+                            >
+                            <div class="mt-2 bg-blue-50 border border-blue-200 rounded-lg p-3 flex items-start gap-2">
+                                <svg class="w-5 h-5 text-blue-600 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                                <p class="text-sm text-blue-800">
+                                    Якщо не завантажити картинку, ми автоматично підберемо відповідне зображення для вашого слова
+                                </p>
+                            </div>
+                        </div>
+                        <div id="imagePreview" class="hidden">
+                            <img src="" alt="Preview" class="w-24 h-24 object-cover rounded-lg border-2 border-gray-200">
+                        </div>
+                    </div>
+                </div>
+
                 <!-- Deck Selection -->
                 <div>
                     <label for="deck" class="block text-sm font-medium text-gray-700 mb-2">
@@ -96,5 +130,25 @@
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.1/dist/flowbite.min.js"></script>
+    <script>
+        // Image preview functionality
+        document.getElementById('image').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            const preview = document.getElementById('imagePreview');
+            const img = preview.querySelector('img');
+
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    img.src = e.target.result;
+                    preview.classList.remove('hidden');
+                };
+                reader.readAsDataURL(file);
+            } else {
+                preview.classList.add('hidden');
+                img.src = '';
+            }
+        });
+    </script>
 </body>
 </html>
