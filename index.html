@@ -24,6 +24,12 @@
             menu.classList.toggle('hidden');
         }
 
+        function toggleMainStudyMenu(event) {
+            event.stopPropagation();
+            const menu = document.getElementById('main-study-menu');
+            menu.classList.toggle('hidden');
+        }
+
         function toggleDeckMenu(deckId) {
             const menu = document.getElementById('deck-menu-' + deckId);
             // Close all other deck menus
@@ -202,6 +208,13 @@
             // Close user menu if click is outside
             if (userMenuButton && userMenu && !userMenuButton.contains(event.target) && !userMenu.contains(event.target)) {
                 userMenu.classList.add('hidden');
+            }
+
+            // Close main study menu when clicking outside
+            const mainStudyMenu = document.getElementById('main-study-menu');
+            const mainStudyButton = event.target.closest('button[onclick*="toggleMainStudyMenu"]');
+            if (mainStudyMenu && !mainStudyMenu.contains(event.target) && !mainStudyButton) {
+                mainStudyMenu.classList.add('hidden');
             }
 
             // Create menu
@@ -573,24 +586,75 @@
         </div>
 
         <!-- Start Learning All -->
-        <div class="mb-6">
-            <a href="study.html" class="block bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white p-6 rounded-lg shadow-md transition-all dark:from-blue-700 dark:to-blue-800 dark:hover:from-blue-800 dark:hover:to-blue-900">
-                <div class="flex items-center justify-between">
-                    <div>
-                        <h2 class="text-xl font-bold mb-1">Почати навчання</h2>
-                        <p class="text-blue-100 text-sm dark:text-blue-200">Вивчати картки з усіх колод</p>
-                    </div>
-                    <div class="flex items-center gap-4">
-                        <div class="text-right hidden sm:block">
-                            <div class="text-2xl font-bold">23</div>
-                            <div class="text-xs text-blue-100 dark:text-blue-200">карток готові</div>
+        <div class="mb-6 relative">
+            <div class="flex gap-0">
+                <a href="study.html" class="flex-1 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white p-6 rounded-l-lg shadow-md transition-all dark:from-blue-700 dark:to-blue-800 dark:hover:from-blue-800 dark:hover:to-blue-900">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <h2 class="text-xl font-bold mb-1">Почати навчання</h2>
+                            <p class="text-blue-100 text-sm dark:text-blue-200">Вивчати картки з усіх колод</p>
                         </div>
-                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                        <div class="flex items-center gap-4">
+                            <div class="text-right hidden sm:block">
+                                <div class="text-2xl font-bold">23</div>
+                                <div class="text-xs text-blue-100 dark:text-blue-200">карток готові</div>
+                            </div>
+                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                            </svg>
+                        </div>
+                    </div>
+                </a>
+                <button onclick="toggleMainStudyMenu(event)" class="bg-gradient-to-r from-blue-700 to-blue-800 hover:from-blue-800 hover:to-blue-900 text-white px-4 rounded-r-lg shadow-md border-l border-blue-500 dark:from-blue-800 dark:to-blue-900 dark:hover:from-blue-900 dark:hover:to-blue-950">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Study Mode Dropdown -->
+            <div id="main-study-menu" class="hidden absolute top-full mt-2 right-0 bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 py-2 z-10 w-80">
+                <div class="px-4 py-2 border-b border-gray-200 dark:border-gray-700">
+                    <p class="text-sm font-semibold text-gray-900 dark:text-gray-100">Оберіть режим навчання</p>
+                </div>
+
+                <a href="study.html" class="flex items-start gap-3 px-4 py-3 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
+                    <div class="w-10 h-10 bg-blue-100 dark:bg-blue-900 rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5">
+                        <svg class="w-5 h-5 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
                         </svg>
                     </div>
-                </div>
-            </a>
+                    <div class="flex-1">
+                        <div class="font-medium text-gray-900 dark:text-gray-100">🎯 Швидкий вибір</div>
+                        <p class="text-sm text-gray-600 dark:text-gray-400 mt-0.5">Натискайте кнопки для вибору відповіді. Швидко та зручно.</p>
+                    </div>
+                </a>
+
+                <a href="study.html?mode=typing" class="flex items-start gap-3 px-4 py-3 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
+                    <div class="w-10 h-10 bg-purple-100 dark:bg-purple-900 rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5">
+                        <svg class="w-5 h-5 text-purple-600 dark:text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
+                        </svg>
+                    </div>
+                    <div class="flex-1">
+                        <div class="font-medium text-gray-900 dark:text-gray-100">⌨️ Ввід тексту</div>
+                        <p class="text-sm text-gray-600 dark:text-gray-400 mt-0.5">Вводьте відповідь вручну та натискайте "Перевірити". Кращі результати запам'ятовування.</p>
+                    </div>
+                </a>
+
+                <a href="study.html?mode=audio" class="flex items-start gap-3 px-4 py-3 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
+                    <div class="w-10 h-10 bg-green-100 dark:bg-green-900 rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5">
+                        <svg class="w-5 h-5 text-green-600 dark:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path>
+                        </svg>
+                    </div>
+                    <div class="flex-1">
+                        <div class="font-medium text-gray-900 dark:text-gray-100">🎧 Аудіювання</div>
+                        <p class="text-sm text-gray-600 dark:text-gray-400 mt-0.5">Слухайте і повторюйте. Розвиває навички сприйняття на слух.</p>
+                    </div>
+                </a>
+            </div>
         </div>
 
         <!-- Search and Add Deck -->

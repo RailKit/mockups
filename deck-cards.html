@@ -175,7 +175,20 @@
                     menu.classList.add('hidden');
                 }
             }
+
+            // Close study menu when clicking outside
+            const studyMenu = document.getElementById('study-menu');
+            const studyButton = event.target.closest('button[onclick="toggleStudyMenu()"]');
+            if (studyMenu && !studyMenu.contains(event.target) && !studyButton) {
+                studyMenu.classList.add('hidden');
+            }
         });
+
+        function toggleStudyMenu(event) {
+            event.stopPropagation();
+            const menu = document.getElementById('study-menu');
+            menu.classList.toggle('hidden');
+        }
 
         function toggleLearningDirection() {
             const langFrom = document.getElementById('lang-from');
@@ -299,13 +312,67 @@
                         </span>
                     </button>
                 </div>
-                <a href="study.html" class="inline-flex bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg font-medium items-center gap-2 shadow-sm">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"></path>
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                    </svg>
-                    Почати навчання
-                </a>
+                <div class="relative inline-flex">
+                    <!-- Main button -->
+                    <a href="study.html" class="inline-flex bg-blue-600 hover:bg-blue-700 text-white pl-8 pr-4 py-3 rounded-l-lg font-medium items-center gap-2 shadow-sm">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                        Почати навчання
+                    </a>
+
+                    <!-- Dropdown button -->
+                    <button onclick="toggleStudyMenu(event)" class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-3 rounded-r-lg border-l border-blue-500 shadow-sm">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+
+                    <!-- Study Mode Dropdown -->
+                    <div id="study-menu" class="hidden absolute top-full mt-2 right-0 bg-white rounded-lg shadow-lg border border-gray-200 py-2 z-10 w-80">
+                        <div class="px-4 py-2 border-b border-gray-200">
+                            <p class="text-sm font-semibold text-gray-900">Оберіть режим навчання</p>
+                        </div>
+
+                        <a href="study.html" class="flex items-start gap-3 px-4 py-3 hover:bg-gray-50 transition-colors">
+                            <div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5">
+                                <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                                </svg>
+                            </div>
+                            <div class="flex-1">
+                                <div class="font-medium text-gray-900">🎯 Швидкий вибір</div>
+                                <p class="text-sm text-gray-600 mt-0.5">Натискайте кнопки для вибору відповіді. Швидко та зручно.</p>
+                            </div>
+                        </a>
+
+                        <a href="study.html?mode=typing" class="flex items-start gap-3 px-4 py-3 hover:bg-gray-50 transition-colors">
+                            <div class="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5">
+                                <svg class="w-5 h-5 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
+                                </svg>
+                            </div>
+                            <div class="flex-1">
+                                <div class="font-medium text-gray-900">⌨️ Ввід тексту</div>
+                                <p class="text-sm text-gray-600 mt-0.5">Вводьте відповідь вручну та натискайте "Перевірити". Кращі результати запам'ятовування.</p>
+                            </div>
+                        </a>
+
+                        <a href="study.html?mode=audio" class="flex items-start gap-3 px-4 py-3 hover:bg-gray-50 transition-colors">
+                            <div class="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5">
+                                <svg class="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path>
+                                </svg>
+                            </div>
+                            <div class="flex-1">
+                                <div class="font-medium text-gray-900">🎧 Аудіювання</div>
+                                <p class="text-sm text-gray-600 mt-0.5">Слухайте і повторюйте. Розвиває навички сприйняття на слух.</p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
 
