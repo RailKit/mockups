@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Рейтинг учасників</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/flowbite@2.5.1/dist/flowbite.min.css" rel="stylesheet" />
+</head>
+<body class="bg-gray-50 dark:bg-gray-900">
+    <div class="max-w-4xl mx-auto p-4 sm:p-6">
+        <!-- Header -->
+        <div class="mb-6 sm:mb-8">
+            <a href="stats.html" class="inline-flex items-center text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 mb-4">
+                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                </svg>
+                Назад до статистики
+            </a>
+            <div class="flex items-center gap-3 mb-2">
+                <svg class="w-8 h-8 text-yellow-500" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                </svg>
+                <h1 class="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-gray-100">Рейтинг учасників</h1>
+            </div>
+            <p class="text-sm sm:text-base text-gray-600 dark:text-gray-400">Змагайтеся з іншими користувачами та покращуйте свої результати</p>
+        </div>
+
+        <!-- Time Period Filter -->
+        <div class="mb-6 flex gap-2 overflow-x-auto">
+            <button onclick="switchPeriod('week')" id="period-week" class="px-4 py-2 bg-blue-600 text-white rounded-lg font-medium text-sm whitespace-nowrap">
+                Тиждень
+            </button>
+            <button onclick="switchPeriod('month')" id="period-month" class="px-4 py-2 bg-gray-200 text-gray-800 dark:bg-gray-700 dark:text-gray-200 rounded-lg font-medium text-sm whitespace-nowrap hover:bg-gray-300 dark:hover:bg-gray-600">
+                Місяць
+            </button>
+            <button onclick="switchPeriod('alltime')" id="period-alltime" class="px-4 py-2 bg-gray-200 text-gray-800 dark:bg-gray-700 dark:text-gray-200 rounded-lg font-medium text-sm whitespace-nowrap hover:bg-gray-300 dark:hover:bg-gray-600">
+                Весь час
+            </button>
+        </div>
+
+        <!-- Current User Position -->
+        <div class="mb-6 bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg shadow-lg p-4 sm:p-6 text-white">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center gap-4">
+                    <div class="w-12 h-12 sm:w-16 sm:h-16 rounded-full bg-white flex items-center justify-center">
+                        <span class="text-2xl sm:text-3xl">👤</span>
+                    </div>
+                    <div>
+                        <p class="text-sm opacity-90">Ваша позиція</p>
+                        <h3 class="text-xl sm:text-2xl font-bold">@savioua</h3>
+                        <p class="text-sm opacity-90">1,245 балів</p>
+                    </div>
+                </div>
+                <div class="text-right">
+                    <div class="text-3xl sm:text-5xl font-bold">#18</div>
+                    <p class="text-sm opacity-90 mt-1">з 5,432</p>
+                </div>
+            </div>
+            <div class="mt-4 grid grid-cols-3 gap-2 sm:gap-4">
+                <div class="bg-white/20 rounded-lg p-2 sm:p-3 text-center">
+                    <div class="text-lg sm:text-2xl font-bold">342</div>
+                    <div class="text-xs sm:text-sm opacity-90">карток</div>
+                </div>
+                <div class="bg-white/20 rounded-lg p-2 sm:p-3 text-center">
+                    <div class="text-lg sm:text-2xl font-bold">15</div>
+                    <div class="text-xs sm:text-sm opacity-90">днів підряд</div>
+                </div>
+                <div class="bg-white/20 rounded-lg p-2 sm:p-3 text-center">
+                    <div class="text-lg sm:text-2xl font-bold">94%</div>
+                    <div class="text-xs sm:text-sm opacity-90">точність</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Top 3 -->
+        <div class="mb-6 grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <!-- 2nd Place -->
+            <div class="sm:order-1 order-2">
+                <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-4 border-2 border-gray-300 dark:border-gray-600">
+                    <div class="text-center mb-3">
+                        <div class="text-4xl mb-2">🥈</div>
+                        <div class="text-2xl font-bold text-gray-700 dark:text-gray-300">#2</div>
+                    </div>
+                    <div class="flex flex-col items-center">
+                        <div class="w-16 h-16 rounded-full bg-gradient-to-br from-gray-300 to-gray-400 flex items-center justify-center mb-2">
+                            <span class="text-3xl">👨</span>
+                        </div>
+                        <h3 class="font-bold text-gray-900 dark:text-gray-100">@linguist_pro</h3>
+                        <p class="text-sm text-gray-600 dark:text-gray-400 mb-2">2,856 балів</p>
+                        <div class="text-xs text-gray-500 dark:text-gray-500">1,124 карток</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 1st Place -->
+            <div class="sm:order-2 order-1">
+                <div class="bg-gradient-to-br from-yellow-100 to-yellow-200 dark:from-yellow-900/40 dark:to-yellow-800/40 rounded-lg shadow-lg p-4 border-4 border-yellow-400 dark:border-yellow-600 transform sm:scale-110">
+                    <div class="text-center mb-3">
+                        <div class="text-5xl mb-2">👑</div>
+                        <div class="text-3xl font-bold text-yellow-600 dark:text-yellow-400">#1</div>
+                    </div>
+                    <div class="flex flex-col items-center">
+                        <div class="w-20 h-20 rounded-full bg-gradient-to-br from-yellow-400 to-yellow-600 flex items-center justify-center mb-2 shadow-lg">
+                            <span class="text-4xl">🎓</span>
+                        </div>
+                        <h3 class="font-bold text-lg text-gray-900 dark:text-gray-100">@polyglot_master</h3>
+                        <p class="text-sm text-gray-700 dark:text-gray-300 mb-2 font-semibold">3,124 балів</p>
+                        <div class="text-xs text-gray-600 dark:text-gray-400">1,456 карток</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3rd Place -->
+            <div class="sm:order-3 order-3">
+                <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-4 border-2 border-orange-300 dark:border-orange-700">
+                    <div class="text-center mb-3">
+                        <div class="text-4xl mb-2">🥉</div>
+                        <div class="text-2xl font-bold text-orange-600 dark:text-orange-400">#3</div>
+                    </div>
+                    <div class="flex flex-col items-center">
+                        <div class="w-16 h-16 rounded-full bg-gradient-to-br from-orange-300 to-orange-500 flex items-center justify-center mb-2">
+                            <span class="text-3xl">👩</span>
+                        </div>
+                        <h3 class="font-bold text-gray-900 dark:text-gray-100">@studyhard_ua</h3>
+                        <p class="text-sm text-gray-600 dark:text-gray-400 mb-2">2,445 балів</p>
+                        <div class="text-xs text-gray-500 dark:text-gray-500">987 карток</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Leaderboard List -->
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700">
+            <div class="p-4 border-b border-gray-200 dark:border-gray-700">
+                <h2 class="text-lg font-semibold text-gray-900 dark:text-gray-100">Топ учасників</h2>
+            </div>
+            <div class="divide-y divide-gray-200 dark:divide-gray-700">
+                <!-- Rank 4 -->
+                <div class="p-4 hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-4">
+                            <div class="w-8 text-center font-bold text-gray-600 dark:text-gray-400">#4</div>
+                            <div class="w-10 h-10 rounded-full bg-gradient-to-br from-blue-400 to-blue-600 flex items-center justify-center">
+                                <span class="text-xl">🧑</span>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold text-gray-900 dark:text-gray-100">@learning_journey</h3>
+                                <p class="text-sm text-gray-600 dark:text-gray-400">842 карток • 22 дні підряд</p>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <div class="font-bold text-gray-900 dark:text-gray-100">2,156 балів</div>
+                            <div class="text-xs text-gray-500 dark:text-gray-500">95% точність</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Rank 5 -->
+                <div class="p-4 hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-4">
+                            <div class="w-8 text-center font-bold text-gray-600 dark:text-gray-400">#5</div>
+                            <div class="w-10 h-10 rounded-full bg-gradient-to-br from-green-400 to-green-600 flex items-center justify-center">
+                                <span class="text-xl">👨</span>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold text-gray-900 dark:text-gray-100">@vocab_ninja</h3>
+                                <p class="text-sm text-gray-600 dark:text-gray-400">756 карток • 18 днів підряд</p>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <div class="font-bold text-gray-900 dark:text-gray-100">1,987 балів</div>
+                            <div class="text-xs text-gray-500 dark:text-gray-500">92% точність</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Rank 6 -->
+                <div class="p-4 hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-4">
+                            <div class="w-8 text-center font-bold text-gray-600 dark:text-gray-400">#6</div>
+                            <div class="w-10 h-10 rounded-full bg-gradient-to-br from-purple-400 to-purple-600 flex items-center justify-center">
+                                <span class="text-xl">👩</span>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold text-gray-900 dark:text-gray-100">@daily_learner</h3>
+                                <p class="text-sm text-gray-600 dark:text-gray-400">689 карток • 31 день підряд</p>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <div class="font-bold text-gray-900 dark:text-gray-100">1,823 балів</div>
+                            <div class="text-xs text-gray-500 dark:text-gray-500">89% точність</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- More ranks... -->
+                <div class="p-4 text-center text-gray-500 dark:text-gray-500">
+                    <span class="text-2xl">...</span>
+                </div>
+
+                <!-- Current User Position Highlighted -->
+                <div class="p-4 bg-blue-50 dark:bg-blue-900/20 border-l-4 border-blue-500">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-4">
+                            <div class="w-8 text-center font-bold text-blue-600 dark:text-blue-400">#18</div>
+                            <div class="w-10 h-10 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center ring-2 ring-blue-400">
+                                <span class="text-xl">👤</span>
+                            </div>
+                            <div>
+                                <div class="flex items-center gap-2">
+                                    <h3 class="font-semibold text-gray-900 dark:text-gray-100">@savioua</h3>
+                                    <span class="px-2 py-0.5 bg-blue-500 text-white text-xs rounded-full">Ви</span>
+                                </div>
+                                <p class="text-sm text-gray-600 dark:text-gray-400">342 карток • 15 днів підряд</p>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <div class="font-bold text-gray-900 dark:text-gray-100">1,245 балів</div>
+                            <div class="text-xs text-gray-500 dark:text-gray-500">94% точність</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- More ranks after user... -->
+                <div class="p-4 text-center text-gray-500 dark:text-gray-500">
+                    <span class="text-2xl">...</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Motivation Message -->
+        <div class="mt-6 bg-gradient-to-r from-green-50 to-blue-50 dark:from-green-900/20 dark:to-blue-900/20 rounded-lg p-4 border border-green-200 dark:border-green-800">
+            <div class="flex items-start gap-3">
+                <svg class="w-6 h-6 text-green-600 dark:text-green-400 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                </svg>
+                <div>
+                    <h3 class="font-semibold text-gray-900 dark:text-gray-100 mb-1">Продовжуйте в тому ж дусі!</h3>
+                    <p class="text-sm text-gray-700 dark:text-gray-300">
+                        Ви в топ 1% користувачів! Вивчіть ще 98 карток, щоб піднятися до топ-15.
+                        <span class="font-semibold">Ви можете це зробити! 💪</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.1/dist/flowbite.min.js"></script>
+    <script>
+        function switchPeriod(period) {
+            // Remove active class from all buttons
+            document.querySelectorAll('[id^="period-"]').forEach(btn => {
+                btn.className = 'px-4 py-2 bg-gray-200 text-gray-800 dark:bg-gray-700 dark:text-gray-200 rounded-lg font-medium text-sm whitespace-nowrap hover:bg-gray-300 dark:hover:bg-gray-600';
+            });
+
+            // Add active class to selected button
+            const selectedBtn = document.getElementById('period-' + period);
+            selectedBtn.className = 'px-4 py-2 bg-blue-600 text-white rounded-lg font-medium text-sm whitespace-nowrap';
+
+            // In a real app, this would fetch new data based on the period
+            console.log('Switched to period:', period);
+        }
+    </script>
+</body>
+</html>
