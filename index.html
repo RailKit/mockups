@@ -40,6 +40,41 @@
             modal.classList.add('hidden');
         }
 
+        function toggleLanguageMenu() {
+            const menu = document.getElementById('language-menu');
+            menu.classList.toggle('hidden');
+        }
+
+        function changeLanguage(langCode, langFlag, langName) {
+            // Update the language icon
+            const languageIcon = document.getElementById('language-icon');
+            languageIcon.textContent = langFlag;
+            languageIcon.className = 'text-2xl';
+
+            // Update active state in menu
+            document.querySelectorAll('#language-menu button').forEach(btn => {
+                btn.classList.remove('bg-blue-50', 'border-l-2', 'border-blue-600');
+                const span = btn.querySelector('span:last-child');
+                if (span) {
+                    span.classList.remove('font-medium', 'text-blue-600');
+                }
+            });
+
+            event.target.closest('button').classList.add('bg-blue-50', 'border-l-2', 'border-blue-600');
+            const targetSpan = event.target.closest('button').querySelector('span:last-child');
+            if (targetSpan) {
+                targetSpan.classList.add('font-medium', 'text-blue-600');
+            }
+
+            // Close menu
+            toggleLanguageMenu();
+        }
+
+        function toggleNotificationsMenu() {
+            const menu = document.getElementById('notifications-menu');
+            menu.classList.toggle('hidden');
+        }
+
         // Close menus when clicking outside
         document.addEventListener('click', function(event) {
             const userMenuContainer = document.getElementById('user-menu-container');
@@ -65,6 +100,24 @@
                     menu.classList.add('hidden');
                 });
             }
+
+            // Close language menu when clicking outside
+            const languageMenuContainer = document.getElementById('language-menu-container');
+            if (languageMenuContainer && !languageMenuContainer.contains(event.target)) {
+                const menu = document.getElementById('language-menu');
+                if (menu) {
+                    menu.classList.add('hidden');
+                }
+            }
+
+            // Close notifications menu when clicking outside
+            const notificationsMenuContainer = document.getElementById('notifications-menu-container');
+            if (notificationsMenuContainer && !notificationsMenuContainer.contains(event.target)) {
+                const menu = document.getElementById('notifications-menu');
+                if (menu) {
+                    menu.classList.add('hidden');
+                }
+            }
         });
     </script>
 </head>
@@ -77,13 +130,146 @@
                     <h1 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">Мої колоди</h1>
                     <p class="text-sm sm:text-base text-gray-600">Виберіть колоду для навчання</p>
                 </div>
-                <!-- User Menu -->
-                <div id="user-menu-container" class="relative">
-                    <button onclick="toggleUserMenu()" class="flex items-center gap-2 hover:bg-gray-100 rounded-lg p-2 transition-colors">
-                        <div class="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center text-white font-semibold">
-                            СП
+                <!-- Notifications, Language and User Menu -->
+                <div class="flex items-center gap-2">
+                    <!-- Notifications Menu -->
+                    <div id="notifications-menu-container" class="relative">
+                        <button onclick="toggleNotificationsMenu()" class="flex items-center justify-center hover:bg-gray-100 rounded-lg p-2 transition-colors w-10 h-10 relative">
+                            <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path>
+                            </svg>
+                            <!-- Notification badge -->
+                            <span class="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span>
+                        </button>
+                        <div id="notifications-menu" class="hidden absolute right-0 top-12 bg-white rounded-lg shadow-lg border border-gray-200 w-80 z-10">
+                            <div class="px-4 py-3 border-b border-gray-200 flex items-center justify-between">
+                                <h3 class="text-sm font-semibold text-gray-900">Сповіщення</h3>
+                                <button class="text-xs text-blue-600 hover:text-blue-700">Позначити всі прочитаними</button>
+                            </div>
+                            <div class="max-h-96 overflow-y-auto">
+                                <!-- Notification 1 - Unread -->
+                                <div class="px-4 py-3 hover:bg-gray-50 cursor-pointer border-l-2 border-blue-600 bg-blue-50">
+                                    <div class="flex items-start gap-3">
+                                        <div class="flex-shrink-0 w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
+                                            <svg class="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                                            </svg>
+                                        </div>
+                                        <div class="flex-1 min-w-0">
+                                            <p class="text-sm font-medium text-gray-900">Нова колода готова</p>
+                                            <p class="text-sm text-gray-600 mt-1">Колода "Базова англійська" оновлена з 10 новими картками</p>
+                                            <p class="text-xs text-gray-500 mt-1">5 хвилин тому</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Notification 2 - Read -->
+                                <div class="px-4 py-3 hover:bg-gray-50 cursor-pointer">
+                                    <div class="flex items-start gap-3">
+                                        <div class="flex-shrink-0 w-8 h-8 bg-green-100 rounded-full flex items-center justify-center">
+                                            <svg class="w-4 h-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                            </svg>
+                                        </div>
+                                        <div class="flex-1 min-w-0">
+                                            <p class="text-sm text-gray-900">Відмінна серія!</p>
+                                            <p class="text-sm text-gray-600 mt-1">Ви відповіли правильно на 10 карток поспіль</p>
+                                            <p class="text-xs text-gray-500 mt-1">2 години тому</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Notification 3 - Read -->
+                                <div class="px-4 py-3 hover:bg-gray-50 cursor-pointer">
+                                    <div class="flex items-start gap-3">
+                                        <div class="flex-shrink-0 w-8 h-8 bg-purple-100 rounded-full flex items-center justify-center">
+                                            <svg class="w-4 h-4 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                            </svg>
+                                        </div>
+                                        <div class="flex-1 min-w-0">
+                                            <p class="text-sm text-gray-900">Час повторити!</p>
+                                            <p class="text-sm text-gray-600 mt-1">У вас 15 карток готові до повторення</p>
+                                            <p class="text-xs text-gray-500 mt-1">Вчора</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Notification 4 - Read -->
+                                <div class="px-4 py-3 hover:bg-gray-50 cursor-pointer">
+                                    <div class="flex items-start gap-3">
+                                        <div class="flex-shrink-0 w-8 h-8 bg-orange-100 rounded-full flex items-center justify-center">
+                                            <svg class="w-4 h-4 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path>
+                                            </svg>
+                                        </div>
+                                        <div class="flex-1 min-w-0">
+                                            <p class="text-sm text-gray-900">Досягнення розблоковано!</p>
+                                            <p class="text-sm text-gray-600 mt-1">Ви вивчили 100 нових слів цього місяця</p>
+                                            <p class="text-xs text-gray-500 mt-1">2 дні тому</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="px-4 py-3 border-t border-gray-200">
+                                <button class="text-sm text-blue-600 hover:text-blue-700 font-medium w-full text-center">
+                                    Переглянути всі сповіщення
+                                </button>
+                            </div>
                         </div>
-                    </button>
+                    </div>
+
+                    <!-- Language Menu -->
+                    <div id="language-menu-container" class="relative">
+                        <button onclick="toggleLanguageMenu()" class="flex items-center justify-center hover:bg-gray-100 rounded-lg p-2 transition-colors w-10 h-10">
+                            <span id="language-icon" class="text-2xl">🇺🇦</span>
+                        </button>
+                        <div id="language-menu" class="hidden absolute right-0 top-12 bg-white rounded-lg shadow-lg border border-gray-200 py-1 w-48 z-10">
+                            <div class="px-4 py-2 border-b border-gray-200">
+                                <p class="text-xs font-medium text-gray-500">Мова інтерфейсу</p>
+                            </div>
+                            <button onclick="changeLanguage('uk', '🇺🇦', 'Українська')" class="flex items-center gap-3 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-left bg-blue-50 border-l-2 border-blue-600">
+                                <span class="text-lg">🇺🇦</span>
+                                <span class="font-medium text-blue-600">Українська</span>
+                            </button>
+                            <button onclick="changeLanguage('en', '🇬🇧', 'English')" class="flex items-center gap-3 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-left">
+                                <span class="text-lg">🇬🇧</span>
+                                <span>English</span>
+                            </button>
+                            <button onclick="changeLanguage('ru', '🇷🇺', 'Русский')" class="flex items-center gap-3 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-left">
+                                <span class="text-lg">🇷🇺</span>
+                                <span>Русский</span>
+                            </button>
+                            <button onclick="changeLanguage('pl', '🇵🇱', 'Polski')" class="flex items-center gap-3 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-left">
+                                <span class="text-lg">🇵🇱</span>
+                                <span>Polski</span>
+                            </button>
+                            <button onclick="changeLanguage('de', '🇩🇪', 'Deutsch')" class="flex items-center gap-3 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-left">
+                                <span class="text-lg">🇩🇪</span>
+                                <span>Deutsch</span>
+                            </button>
+                            <button onclick="changeLanguage('fr', '🇫🇷', 'Français')" class="flex items-center gap-3 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-left">
+                                <span class="text-lg">🇫🇷</span>
+                                <span>Français</span>
+                            </button>
+                            <button onclick="changeLanguage('es', '🇪🇸', 'Español')" class="flex items-center gap-3 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-left">
+                                <span class="text-lg">🇪🇸</span>
+                                <span>Español</span>
+                            </button>
+                            <button onclick="changeLanguage('it', '🇮🇹', 'Italiano')" class="flex items-center gap-3 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-left">
+                                <span class="text-lg">🇮🇹</span>
+                                <span>Italiano</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- User Menu -->
+                    <div id="user-menu-container" class="relative">
+                        <button onclick="toggleUserMenu()" class="flex items-center gap-2 hover:bg-gray-100 rounded-lg p-2 transition-colors">
+                            <div class="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center text-white font-semibold">
+                                СП
+                            </div>
+                        </button>
                     <div id="user-menu" class="hidden absolute right-0 top-12 bg-white rounded-lg shadow-lg border border-gray-200 py-1 w-56 z-10">
                         <div class="px-4 py-3 border-b border-gray-200">
                             <p class="text-sm font-medium text-gray-900">Савелій Петренко</p>
@@ -121,6 +307,7 @@
                             </svg>
                             Вийти
                         </a>
+                    </div>
                     </div>
                 </div>
             </div>
