@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Навчання - Швидкий вибір</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/flowbite@2.5.1/dist/flowbite.min.css" rel="stylesheet" />
+</head>
+<body class="bg-gray-50 dark:bg-gray-900">
+    <div class="max-w-4xl mx-auto p-4 sm:p-6 min-h-screen flex flex-col">
+        <!-- Header -->
+        <div class="mb-6">
+            <div class="flex items-center justify-between mb-4">
+                <a href="deck-cards.html" class="inline-flex items-center text-gray-600 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300">
+                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                    Завершити
+                </a>
+                <div class="flex items-center gap-4">
+                    <div class="text-sm text-gray-600 dark:text-gray-400">
+                        <span class="font-semibold text-blue-600 dark:text-blue-400" id="current-card">1</span>
+                        <span class="mx-1">/</span>
+                        <span id="total-cards">23</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Progress Bar -->
+            <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+                <div id="progress-bar" class="bg-blue-600 h-2 rounded-full transition-all duration-300" style="width: 4.3%"></div>
+            </div>
+        </div>
+
+        <!-- Study Mode Indicator -->
+        <div class="mb-4 flex items-center justify-center gap-2">
+            <div class="inline-flex items-center gap-2 px-3 py-1.5 bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300 rounded-full text-sm">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                </svg>
+                <span class="font-medium">Швидкий вибір</span>
+            </div>
+        </div>
+
+        <!-- Card Display -->
+        <div class="flex-1 flex items-center justify-center mb-6">
+            <div id="card-container" class="w-full">
+                <!-- Question State -->
+                <div id="question-state" class="text-center">
+                    <!-- Card Image -->
+                    <div class="mb-6">
+                        <img id="card-image" src="https://images.unsplash.com/photo-1599687351724-dfa3c4ff81b1?w=400&h=300&fit=crop" alt="Card" class="w-full max-w-md mx-auto h-64 object-cover rounded-xl shadow-lg">
+                    </div>
+
+                    <!-- Sentence with word -->
+                    <div class="bg-white dark:bg-gray-800 rounded-xl p-6 sm:p-8 shadow-lg mb-6 max-w-2xl mx-auto">
+                        <div class="text-gray-500 dark:text-gray-400 text-sm mb-2">Оберіть правильний переклад:</div>
+                        <p id="sentence" class="text-xl sm:text-2xl text-gray-900 dark:text-gray-100 leading-relaxed">
+                            <span class="font-bold text-blue-600 dark:text-blue-400 underline decoration-2 underline-offset-4">Hello</span>, how are you today?
+                        </p>
+                    </div>
+
+                    <!-- Answer Options -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 max-w-2xl mx-auto">
+                        <button onclick="checkAnswer(this, false)" class="answer-btn bg-white dark:bg-gray-800 hover:bg-blue-50 dark:hover:bg-gray-700 border-2 border-gray-200 dark:border-gray-700 rounded-xl p-4 sm:p-6 text-left transition-all hover:border-blue-400 dark:hover:border-blue-500 hover:shadow-md">
+                            <div class="text-lg sm:text-xl font-medium text-gray-900 dark:text-gray-100">Привіт</div>
+                        </button>
+                        <button onclick="checkAnswer(this, false)" class="answer-btn bg-white dark:bg-gray-800 hover:bg-blue-50 dark:hover:bg-gray-700 border-2 border-gray-200 dark:border-gray-700 rounded-xl p-4 sm:p-6 text-left transition-all hover:border-blue-400 dark:hover:border-blue-500 hover:shadow-md">
+                            <div class="text-lg sm:text-xl font-medium text-gray-900 dark:text-gray-100">До побачення</div>
+                        </button>
+                        <button onclick="checkAnswer(this, true)" class="answer-btn bg-white dark:bg-gray-800 hover:bg-blue-50 dark:hover:bg-gray-700 border-2 border-gray-200 dark:border-gray-700 rounded-xl p-4 sm:p-6 text-left transition-all hover:border-blue-400 dark:hover:border-blue-500 hover:shadow-md">
+                            <div class="text-lg sm:text-xl font-medium text-gray-900 dark:text-gray-100">Вітаю</div>
+                        </button>
+                        <button onclick="checkAnswer(this, false)" class="answer-btn bg-white dark:bg-gray-800 hover:bg-blue-50 dark:hover:bg-gray-700 border-2 border-gray-200 dark:border-gray-700 rounded-xl p-4 sm:p-6 text-left transition-all hover:border-blue-400 dark:hover:border-blue-500 hover:shadow-md">
+                            <div class="text-lg sm:text-xl font-medium text-gray-900 dark:text-gray-100">Дякую</div>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Result State (hidden by default) -->
+                <div id="result-state" class="hidden text-center">
+                    <!-- Correct Answer -->
+                    <div id="correct-result" class="hidden">
+                        <div class="mb-6 flex justify-center">
+                            <div class="w-20 h-20 bg-green-100 dark:bg-green-900 rounded-full flex items-center justify-center">
+                                <svg class="w-12 h-12 text-green-600 dark:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                            </div>
+                        </div>
+                        <h2 class="text-3xl font-bold text-green-600 dark:text-green-400 mb-4">Правильно!</h2>
+                        <div class="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg max-w-2xl mx-auto mb-6">
+                            <div class="flex items-center justify-center gap-3 mb-4">
+                                <span class="text-2xl font-bold text-gray-900 dark:text-gray-100">Hello</span>
+                                <span class="text-gray-400">→</span>
+                                <span class="text-2xl font-bold text-blue-600 dark:text-blue-400">Привіт</span>
+                            </div>
+                            <p class="text-gray-600 dark:text-gray-400 text-lg italic">"Hello, how are you today?"</p>
+                        </div>
+                    </div>
+
+                    <!-- Wrong Answer -->
+                    <div id="wrong-result" class="hidden">
+                        <div class="mb-6 flex justify-center">
+                            <div class="w-20 h-20 bg-red-100 dark:bg-red-900 rounded-full flex items-center justify-center">
+                                <svg class="w-12 h-12 text-red-600 dark:text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                                </svg>
+                            </div>
+                        </div>
+                        <h2 class="text-3xl font-bold text-red-600 dark:text-red-400 mb-4">Неправильно</h2>
+                        <div class="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg max-w-2xl mx-auto mb-6">
+                            <div class="mb-4">
+                                <div class="text-sm text-gray-500 dark:text-gray-400 mb-1">Правильна відповідь:</div>
+                                <div class="flex items-center justify-center gap-3">
+                                    <span class="text-2xl font-bold text-gray-900 dark:text-gray-100">Hello</span>
+                                    <span class="text-gray-400">→</span>
+                                    <span class="text-2xl font-bold text-green-600 dark:text-green-400">Привіт</span>
+                                </div>
+                            </div>
+                            <p class="text-gray-600 dark:text-gray-400 text-lg italic">"Hello, how are you today?"</p>
+                        </div>
+                    </div>
+
+                    <!-- Next Button -->
+                    <button onclick="nextCard()" class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-xl font-medium text-lg shadow-lg transition-all hover:shadow-xl">
+                        Наступна картка
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Stats Footer -->
+        <div class="mt-auto pt-6 border-t border-gray-200 dark:border-gray-700">
+            <div class="flex justify-center gap-8 text-center">
+                <div>
+                    <div class="text-2xl font-bold text-green-600 dark:text-green-400" id="correct-count">0</div>
+                    <div class="text-sm text-gray-600 dark:text-gray-400">Правильно</div>
+                </div>
+                <div>
+                    <div class="text-2xl font-bold text-red-600 dark:text-red-400" id="wrong-count">0</div>
+                    <div class="text-sm text-gray-600 dark:text-gray-400">Помилки</div>
+                </div>
+                <div>
+                    <div class="text-2xl font-bold text-blue-600 dark:text-blue-400" id="accuracy">100%</div>
+                    <div class="text-sm text-gray-600 dark:text-gray-400">Точність</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.1/dist/flowbite.min.js"></script>
+    <script>
+        let currentCard = 1;
+        const totalCards = 23;
+        let correctAnswers = 0;
+        let wrongAnswers = 0;
+
+        function checkAnswer(button, isCorrect) {
+            // Disable all answer buttons
+            const answerButtons = document.querySelectorAll('.answer-btn');
+            answerButtons.forEach(btn => {
+                btn.disabled = true;
+                btn.classList.remove('hover:bg-blue-50', 'hover:border-blue-400', 'hover:shadow-md');
+            });
+
+            // Show result
+            if (isCorrect) {
+                button.classList.add('bg-green-100', 'border-green-500', 'dark:bg-green-900', 'dark:border-green-500');
+                button.classList.remove('bg-white', 'dark:bg-gray-800');
+                correctAnswers++;
+
+                // Show correct result after delay
+                setTimeout(() => {
+                    document.getElementById('question-state').classList.add('hidden');
+                    document.getElementById('result-state').classList.remove('hidden');
+                    document.getElementById('correct-result').classList.remove('hidden');
+                    document.getElementById('wrong-result').classList.add('hidden');
+                }, 500);
+            } else {
+                button.classList.add('bg-red-100', 'border-red-500', 'dark:bg-red-900', 'dark:border-red-500');
+                button.classList.remove('bg-white', 'dark:bg-gray-800');
+                wrongAnswers++;
+
+                // Highlight correct answer
+                answerButtons.forEach(btn => {
+                    if (btn.onclick.toString().includes('true')) {
+                        btn.classList.add('bg-green-100', 'border-green-500', 'dark:bg-green-900', 'dark:border-green-500');
+                        btn.classList.remove('bg-white', 'dark:bg-gray-800');
+                    }
+                });
+
+                // Show wrong result after delay
+                setTimeout(() => {
+                    document.getElementById('question-state').classList.add('hidden');
+                    document.getElementById('result-state').classList.remove('hidden');
+                    document.getElementById('correct-result').classList.add('hidden');
+                    document.getElementById('wrong-result').classList.remove('hidden');
+                }, 800);
+            }
+
+            // Update stats
+            updateStats();
+        }
+
+        function nextCard() {
+            if (currentCard >= totalCards) {
+                // Redirect to results page
+                window.location.href = 'study-results.html';
+                return;
+            }
+
+            currentCard++;
+
+            // Reset UI
+            document.getElementById('question-state').classList.remove('hidden');
+            document.getElementById('result-state').classList.add('hidden');
+
+            // Re-enable answer buttons
+            const answerButtons = document.querySelectorAll('.answer-btn');
+            answerButtons.forEach(btn => {
+                btn.disabled = false;
+                btn.classList.remove('bg-green-100', 'border-green-500', 'bg-red-100', 'border-red-500', 'dark:bg-green-900', 'dark:border-green-500', 'dark:bg-red-900', 'dark:border-red-500');
+                btn.classList.add('bg-white', 'hover:bg-blue-50', 'hover:border-blue-400', 'hover:shadow-md', 'dark:bg-gray-800');
+            });
+
+            // Update progress
+            updateProgress();
+
+            // In real app, load next card data here
+        }
+
+        function updateProgress() {
+            document.getElementById('current-card').textContent = currentCard;
+            const progressPercent = (currentCard / totalCards) * 100;
+            document.getElementById('progress-bar').style.width = progressPercent + '%';
+        }
+
+        function updateStats() {
+            document.getElementById('correct-count').textContent = correctAnswers;
+            document.getElementById('wrong-count').textContent = wrongAnswers;
+
+            const total = correctAnswers + wrongAnswers;
+            const accuracy = total > 0 ? Math.round((correctAnswers / total) * 100) : 100;
+            document.getElementById('accuracy').textContent = accuracy + '%';
+        }
+    </script>
+</body>
+</html>
