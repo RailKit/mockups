@@ -7,35 +7,35 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdn.jsdelivr.net/npm/flowbite@2.5.1/dist/flowbite.min.css" rel="stylesheet" />
 </head>
-<body class="bg-gray-50">
+<body class="bg-gray-50 dark:bg-gray-900">
     <div class="max-w-4xl mx-auto p-4 sm:p-6">
         <!-- Header -->
         <div class="mb-6 sm:mb-8">
-            <a href="index.html" class="inline-flex items-center text-blue-600 hover:text-blue-700 mb-4">
+            <a href="index.html" class="inline-flex items-center text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 mb-4">
                 <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
                 </svg>
                 Назад до колод
             </a>
-            <h1 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">Налаштування</h1>
-            <p class="text-sm sm:text-base text-gray-600">Керуйте параметрами додатку</p>
+            <h1 class="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-gray-100 mb-2">Налаштування</h1>
+            <p class="text-sm sm:text-base text-gray-600 dark:text-gray-400">Керуйте параметрами додатку</p>
         </div>
 
         <!-- Settings Sections -->
         <div class="space-y-6">
             <!-- Learning Settings -->
-            <div class="bg-white rounded-lg shadow-sm p-4 sm:p-6 border border-gray-200">
-                <h2 class="text-lg font-semibold text-gray-900 mb-4">Налаштування навчання</h2>
+            <div class="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-4 sm:p-6 border border-gray-200 dark:border-gray-700">
+                <h2 class="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">Налаштування навчання</h2>
 
                 <div class="space-y-4">
                     <!-- Cards per session -->
                     <div>
-                        <label for="cards-per-session" class="block text-sm font-medium text-gray-700 mb-2">
+                        <label for="cards-per-session" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                             Карток на сесію
                         </label>
                         <select
                             id="cards-per-session"
-                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
                         >
                             <option value="10" selected>10 карток</option>
                             <option value="15">15 карток</option>
@@ -48,86 +48,86 @@
                     <!-- Auto-play audio -->
                     <div class="flex items-center justify-between">
                         <div>
-                            <div class="text-sm font-medium text-gray-700">Автовідтворення аудіо</div>
-                            <div class="text-xs text-gray-500 mt-1">Автоматично програвати вимову слів</div>
+                            <div class="text-sm font-medium text-gray-700 dark:text-gray-300">Автовідтворення аудіо</div>
+                            <div class="text-xs text-gray-500 dark:text-gray-400 mt-1">Автоматично програвати вимову слів</div>
                         </div>
                         <label class="relative inline-flex items-center cursor-pointer">
                             <input type="checkbox" checked class="sr-only peer">
-                            <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                            <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
                         </label>
                     </div>
 
                     <!-- Show hints -->
                     <div class="flex items-center justify-between">
                         <div>
-                            <div class="text-sm font-medium text-gray-700">Показувати підказки</div>
-                            <div class="text-xs text-gray-500 mt-1">Відображати частину перекладу як підказку</div>
+                            <div class="text-sm font-medium text-gray-700 dark:text-gray-300">Показувати підказки</div>
+                            <div class="text-xs text-gray-500 dark:text-gray-400 mt-1">Відображати частину перекладу як підказку</div>
                         </div>
                         <label class="relative inline-flex items-center cursor-pointer">
                             <input type="checkbox" class="sr-only peer">
-                            <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                            <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
                         </label>
                     </div>
                 </div>
             </div>
 
             <!-- Notifications -->
-            <div class="bg-white rounded-lg shadow-sm p-4 sm:p-6 border border-gray-200">
-                <h2 class="text-lg font-semibold text-gray-900 mb-4">Сповіщення</h2>
+            <div class="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-4 sm:p-6 border border-gray-200 dark:border-gray-700">
+                <h2 class="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">Сповіщення</h2>
 
                 <div class="space-y-4">
                     <!-- Daily reminder -->
                     <div class="flex items-center justify-between">
                         <div>
-                            <div class="text-sm font-medium text-gray-700">Щоденне нагадування</div>
-                            <div class="text-xs text-gray-500 mt-1">Отримувати нагадування про навчання</div>
+                            <div class="text-sm font-medium text-gray-700 dark:text-gray-300">Щоденне нагадування</div>
+                            <div class="text-xs text-gray-500 dark:text-gray-400 mt-1">Отримувати нагадування про навчання</div>
                         </div>
                         <label class="relative inline-flex items-center cursor-pointer">
                             <input type="checkbox" checked class="sr-only peer">
-                            <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                            <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
                         </label>
                     </div>
 
                     <!-- Reminder time -->
                     <div>
-                        <label for="reminder-time" class="block text-sm font-medium text-gray-700 mb-2">
+                        <label for="reminder-time" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                             Час нагадування
                         </label>
                         <input
                             type="time"
                             id="reminder-time"
                             value="18:00"
-                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
                         >
                     </div>
 
                     <!-- Email notifications -->
                     <div class="flex items-center justify-between">
                         <div>
-                            <div class="text-sm font-medium text-gray-700">Email-сповіщення</div>
-                            <div class="text-xs text-gray-500 mt-1">Отримувати новини та оновлення</div>
+                            <div class="text-sm font-medium text-gray-700 dark:text-gray-300">Email-сповіщення</div>
+                            <div class="text-xs text-gray-500 dark:text-gray-400 mt-1">Отримувати новини та оновлення</div>
                         </div>
                         <label class="relative inline-flex items-center cursor-pointer">
                             <input type="checkbox" class="sr-only peer">
-                            <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                            <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
                         </label>
                     </div>
                 </div>
             </div>
 
             <!-- Appearance -->
-            <div class="bg-white rounded-lg shadow-sm p-4 sm:p-6 border border-gray-200">
-                <h2 class="text-lg font-semibold text-gray-900 mb-4">Зовнішній вигляд</h2>
+            <div class="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-4 sm:p-6 border border-gray-200 dark:border-gray-700">
+                <h2 class="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">Зовнішній вигляд</h2>
 
                 <div class="space-y-4">
                     <!-- Theme -->
                     <div>
-                        <label for="theme" class="block text-sm font-medium text-gray-700 mb-2">
+                        <label for="theme" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                             Тема оформлення
                         </label>
                         <select
                             id="theme"
-                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
                         >
                             <option value="light" selected>☀️ Світла</option>
                             <option value="dark">🌙 Темна</option>
@@ -137,12 +137,12 @@
 
                     <!-- Language -->
                     <div>
-                        <label for="interface-language" class="block text-sm font-medium text-gray-700 mb-2">
+                        <label for="interface-language" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                             Мова інтерфейсу
                         </label>
                         <select
                             id="interface-language"
-                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
                         >
                             <option value="uk" selected>🇺🇦 Українська</option>
                             <option value="en">🇬🇧 English</option>
@@ -154,15 +154,15 @@
             </div>
 
             <!-- Privacy & Security -->
-            <div class="bg-white rounded-lg shadow-sm p-4 sm:p-6 border border-gray-200">
-                <h2 class="text-lg font-semibold text-gray-900 mb-4">Конфіденційність і безпека</h2>
+            <div class="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-4 sm:p-6 border border-gray-200 dark:border-gray-700">
+                <h2 class="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">Конфіденційність і безпека</h2>
 
                 <div class="space-y-4">
-                    <button type="button" class="w-full text-left px-4 py-3 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors">
+                    <button type="button" class="w-full text-left px-4 py-3 border border-gray-300 rounded-lg hover:bg-gray-50 dark:border-gray-600 dark:hover:bg-gray-700 transition-colors">
                         <div class="flex items-center justify-between">
                             <div>
-                                <div class="text-sm font-medium text-gray-700">Змінити пароль</div>
-                                <div class="text-xs text-gray-500 mt-1">Оновіть свій пароль</div>
+                                <div class="text-sm font-medium text-gray-700 dark:text-gray-300">Змінити пароль</div>
+                                <div class="text-xs text-gray-500 dark:text-gray-400 mt-1">Оновіть свій пароль</div>
                             </div>
                             <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
@@ -170,11 +170,11 @@
                         </div>
                     </button>
 
-                    <button type="button" class="w-full text-left px-4 py-3 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors">
+                    <button type="button" class="w-full text-left px-4 py-3 border border-gray-300 rounded-lg hover:bg-gray-50 dark:border-gray-600 dark:hover:bg-gray-700 transition-colors">
                         <div class="flex items-center justify-between">
                             <div>
-                                <div class="text-sm font-medium text-gray-700">Експорт даних</div>
-                                <div class="text-xs text-gray-500 mt-1">Завантажте копію ваших даних</div>
+                                <div class="text-sm font-medium text-gray-700 dark:text-gray-300">Експорт даних</div>
+                                <div class="text-xs text-gray-500 dark:text-gray-400 mt-1">Завантажте копію ваших даних</div>
                             </div>
                             <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
@@ -194,7 +194,7 @@
                 </button>
                 <a
                     href="index.html"
-                    class="flex-1 bg-gray-200 hover:bg-gray-300 text-gray-800 px-6 py-3 rounded-lg font-medium text-center"
+                    class="flex-1 bg-gray-200 hover:bg-gray-300 text-gray-800 dark:bg-gray-700 dark:hover:bg-gray-600 dark:text-gray-300 px-6 py-3 rounded-lg font-medium text-center"
                 >
                     Скасувати
                 </a>
@@ -202,5 +202,39 @@
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.1/dist/flowbite.min.js"></script>
+    <script>
+        const themeSelect = document.getElementById('theme');
+        const html = document.documentElement;
+
+        function applyTheme(theme) {
+            if (theme === 'dark' || (theme === 'auto' && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                html.classList.add('dark');
+            } else {
+                html.classList.remove('dark');
+            }
+        }
+
+        // On page load, set the select to the stored value and apply theme
+        const savedTheme = localStorage.getItem('theme') || 'auto';
+        if(themeSelect) {
+            themeSelect.value = savedTheme;
+        }
+        applyTheme(savedTheme);
+
+        if(themeSelect) {
+            themeSelect.addEventListener('change', (e) => {
+                const newTheme = e.target.value;
+                localStorage.setItem('theme', newTheme);
+                applyTheme(newTheme);
+            });
+        }
+
+        // Listen for system theme changes to apply 'auto' mode correctly
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+            if (localStorage.getItem('theme') === 'auto') {
+                applyTheme('auto');
+            }
+        });
+    </script>
 </body>
 </html>

@@ -146,16 +146,16 @@
         });
     </script>
 </head>
-<body class="bg-gray-50">
+<body class="bg-gray-50 dark:bg-gray-900">
     <!-- Navigation Bar -->
-    <nav class="bg-white border-b border-gray-200 sticky top-0 z-40">
+    <nav class="bg-white border-b border-gray-200 sticky top-0 z-40 dark:bg-gray-800 dark:border-gray-700">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
                 <!-- Logo/Brand -->
                 <div class="flex items-center">
                     <a href="index.html" class="flex items-center gap-2">
                         <div class="text-2xl font-bold text-blue-600">📚</div>
-                        <span class="text-xl font-bold text-gray-900">GoodWords</span>
+                        <span class="text-xl font-bold text-gray-900 dark:text-gray-100">GoodWords</span>
                     </a>
                 </div>
 
@@ -163,116 +163,125 @@
                 <div class="flex items-center gap-3">
                     <!-- Language Selector -->
                     <div class="relative">
-                        <button id="language-button" onclick="toggleLanguageMenu()" class="p-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors" title="Мова інтерфейсу">
+                        <button id="language-button" onclick="toggleLanguageMenu()" class="p-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-700" title="Мова інтерфейсу">
                             <span id="language-icon" class="text-2xl">🇺🇦</span>
                         </button>
-                        <div id="language-menu" class="hidden absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 py-1">
-                            <a href="#" onclick="changeLanguage('uk', '🇺🇦', 'Українська'); return false;" class="language-option flex items-center gap-3 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" data-lang="uk">
+                        <div id="language-menu" class="hidden absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 py-1 dark:bg-gray-800 dark:border-gray-700">
+                            <a href="#" onclick="changeLanguage('uk', '🇺🇦', 'Українська'); return false;" class="language-option flex items-center gap-3 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700" data-lang="uk">
                                 <span class="text-xl">🇺🇦</span>
                                 <span>Українська</span>
-                                <span class="ml-auto text-blue-600 active-check hidden">✓</span>
+                                <span class="ml-auto text-blue-600 active-check hidden dark:text-blue-400">✓</span>
                             </a>
-                            <a href="#" onclick="changeLanguage('en', '🇬🇧', 'English'); return false;" class="language-option flex items-center gap-3 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" data-lang="en">
+                            <a href="#" onclick="changeLanguage('en', '🇬🇧', 'English'); return false;" class="language-option flex items-center gap-3 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700" data-lang="en">
                                 <span class="text-xl">🇬🇧</span>
                                 <span>English</span>
-                                <span class="ml-auto text-blue-600 active-check hidden">✓</span>
+                                <span class="ml-auto text-blue-600 active-check hidden dark:text-blue-400">✓</span>
                             </a>
-                            <a href="#" onclick="changeLanguage('pl', '🇵🇱', 'Polski'); return false;" class="language-option flex items-center gap-3 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" data-lang="pl">
+                            <a href="#" onclick="changeLanguage('pl', '🇵🇱', 'Polski'); return false;" class="language-option flex items-center gap-3 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700" data-lang="pl">
                                 <span class="text-xl">🇵🇱</span>
                                 <span>Polski</span>
-                                <span class="ml-auto text-blue-600 active-check hidden">✓</span>
+                                <span class="ml-auto text-blue-600 active-check hidden dark:text-blue-400">✓</span>
                             </a>
                         </div>
                     </div>
 
                     <!-- Notifications -->
                     <div class="relative">
-                        <button id="notifications-button" onclick="toggleNotificationsMenu()" class="p-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors relative" title="Сповіщення">
+                        <button id="notifications-button" onclick="toggleNotificationsMenu()" class="p-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors relative dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-700" title="Сповіщення">
                             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path>
                             </svg>
                             <!-- Notification Badge -->
                             <span id="notification-badge" class="absolute top-1 right-1 block h-2 w-2 rounded-full bg-red-500"></span>
                         </button>
-                        <div id="notifications-menu" class="hidden absolute right-0 mt-2 w-80 bg-white rounded-lg shadow-lg border border-gray-200 py-2">
-                            <div class="px-4 py-2 border-b border-gray-200">
-                                <h3 class="font-semibold text-gray-900">Сповіщення</h3>
+                        <div id="notifications-menu" class="hidden absolute right-0 mt-2 w-80 bg-white rounded-lg shadow-lg border border-gray-200 py-2 dark:bg-gray-800 dark:border-gray-700">
+                            <div class="px-4 py-2 border-b border-gray-200 dark:border-gray-700">
+                                <h3 class="font-semibold text-gray-900 dark:text-gray-100">Сповіщення</h3>
                             </div>
                             <div class="max-h-96 overflow-y-auto">
                                 <!-- Notification Item -->
-                                <a href="#" class="block px-4 py-3 hover:bg-gray-50 transition-colors border-b border-gray-100">
+                                <a href="#" class="block px-4 py-3 hover:bg-gray-50 transition-colors border-b border-gray-100 dark:hover:bg-gray-700 dark:border-gray-700">
                                     <div class="flex gap-3">
                                         <div class="flex-shrink-0 text-2xl">🎉</div>
                                         <div class="flex-1 min-w-0">
-                                            <p class="text-sm font-medium text-gray-900">Вітаємо з досягненням!</p>
-                                            <p class="text-sm text-gray-600">Ви вивчили 100 слів</p>
-                                            <p class="text-xs text-gray-400 mt-1">2 години тому</p>
+                                            <p class="text-sm font-medium text-gray-900 dark:text-gray-100">Вітаємо з досягненням!</p>
+                                            <p class="text-sm text-gray-600 dark:text-gray-400">Ви вивчили 100 слів</p>
+                                            <p class="text-xs text-gray-400 mt-1 dark:text-gray-500">2 години тому</p>
                                         </div>
                                         <div class="flex-shrink-0">
                                             <span class="block h-2 w-2 rounded-full bg-blue-500"></span>
                                         </div>
                                     </div>
                                 </a>
-                                <a href="#" class="block px-4 py-3 hover:bg-gray-50 transition-colors border-b border-gray-100">
+                                <a href="#" class="block px-4 py-3 hover:bg-gray-50 transition-colors border-b border-gray-100 dark:hover:bg-gray-700 dark:border-gray-700">
                                     <div class="flex gap-3">
                                         <div class="flex-shrink-0 text-2xl">📚</div>
                                         <div class="flex-1 min-w-0">
-                                            <p class="text-sm font-medium text-gray-900">Час повторити!</p>
-                                            <p class="text-sm text-gray-600">У вас є 15 карток для повторення</p>
-                                            <p class="text-xs text-gray-400 mt-1">5 годин тому</p>
+                                            <p class="text-sm font-medium text-gray-900 dark:text-gray-100">Час повторити!</p>
+                                            <p class="text-sm text-gray-600 dark:text-gray-400">У вас є 15 карток для повторення</p>
+                                            <p class="text-xs text-gray-400 mt-1 dark:text-gray-500">5 годин тому</p>
                                         </div>
                                     </div>
                                 </a>
-                                <a href="#" class="block px-4 py-3 hover:bg-gray-50 transition-colors border-b border-gray-100">
+                                <a href="#" class="block px-4 py-3 hover:bg-gray-50 transition-colors border-b border-gray-100 dark:hover:bg-gray-700 dark:border-gray-700">
                                     <div class="flex gap-3">
                                         <div class="flex-shrink-0 text-2xl">🔥</div>
                                         <div class="flex-1 min-w-0">
-                                            <p class="text-sm font-medium text-gray-900">Серія 7 днів!</p>
-                                            <p class="text-sm text-gray-600">Ви навчаєтесь 7 днів поспіль</p>
-                                            <p class="text-xs text-gray-400 mt-1">1 день тому</p>
+                                            <p class="text-sm font-medium text-gray-900 dark:text-gray-100">Серія 7 днів!</p>
+                                            <p class="text-sm text-gray-600 dark:text-gray-400">Ви навчаєтесь 7 днів поспіль</p>
+                                            <p class="text-xs text-gray-400 mt-1 dark:text-gray-500">1 день тому</p>
                                         </div>
                                     </div>
                                 </a>
                             </div>
-                            <div class="px-4 py-2 border-t border-gray-200">
-                                <a href="#" class="text-sm text-blue-600 hover:text-blue-700 font-medium">Переглянути всі</a>
+                            <div class="px-4 py-2 border-t border-gray-200 dark:border-gray-700">
+                                <a href="#" class="text-sm text-blue-600 hover:text-blue-700 font-medium dark:text-blue-400 dark:hover:text-blue-300">Переглянути всі</a>
                             </div>
                         </div>
                     </div>
 
                     <!-- User Menu -->
                     <div class="relative">
-                        <button id="user-menu-button" onclick="toggleUserMenu()" class="flex items-center gap-2 p-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors">
+                        <button id="user-menu-button" onclick="toggleUserMenu()" class="flex items-center gap-2 p-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-700">
                             <div class="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center text-white font-medium">
                                 S
                             </div>
                         </button>
-                        <div id="user-menu" class="hidden absolute right-0 mt-2 w-56 bg-white rounded-lg shadow-lg border border-gray-200 py-1">
-                            <div class="px-4 py-3 border-b border-gray-200">
-                                <p class="text-sm font-medium text-gray-900">Savio</p>
-                                <p class="text-sm text-gray-500">savio@example.com</p>
+                        <div id="user-menu" class="hidden absolute right-0 mt-2 w-56 bg-white rounded-lg shadow-lg border border-gray-200 py-1 dark:bg-gray-800 dark:border-gray-700">
+                            <div class="px-4 py-3 border-b border-gray-200 dark:border-gray-700">
+                                <p class="text-sm font-medium text-gray-900 dark:text-gray-100">Savio</p>
+                                <p class="text-sm text-gray-500 dark:text-gray-400">savio@example.com</p>
                             </div>
-                            <a href="#" class="flex items-center gap-3 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                            <a href="#" class="flex items-center gap-3 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700">
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
                                 </svg>
                                 Профіль
                             </a>
-                            <a href="#" class="flex items-center gap-3 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                            <a href="#" class="flex items-center gap-3 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700">
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
                                 </svg>
                                 Статистика
                             </a>
-                            <a href="#" class="flex items-center gap-3 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                            <a href="settings.html" class="flex items-center gap-3 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700">
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
                                 </svg>
                                 Налаштування
                             </a>
-                            <div class="border-t border-gray-200 my-1"></div>
-                            <a href="#" class="flex items-center gap-3 px-4 py-2 text-sm text-red-600 hover:bg-red-50">
+                            <div class="border-t border-gray-200 my-1 dark:border-gray-700"></div>
+                            <div class="px-4 py-2">
+                                <label for="theme" class="text-sm text-gray-700 dark:text-gray-300">Тема</label>
+                                <select id="theme" class="w-full px-2 py-1 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white">
+                                    <option value="light">☀️ Світла</option>
+                                    <option value="dark">🌙 Темна</option>
+                                    <option value="auto">🔄 Авто</option>
+                                </select>
+                            </div>
+                            <div class="border-t border-gray-200 my-1 dark:border-gray-700"></div>
+                            <a href="#" class="flex items-center gap-3 px-4 py-2 text-sm text-red-600 hover:bg-red-50 dark:hover:bg-red-600/10 dark:text-red-500">
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
                                 </svg>
@@ -289,8 +298,8 @@
         <!-- Header -->
         <div class="mb-6 sm:mb-8">
             <div>
-                <h1 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">Мої колоди</h1>
-                <p class="text-sm sm:text-base text-gray-600">Виберіть колоду для навчання</p>
+                <h1 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-2 dark:text-gray-100">Мої колоди</h1>
+                <p class="text-sm sm:text-base text-gray-600 dark:text-gray-400">Виберіть колоду для навчання</p>
             </div>
             <div class="hidden"  <!-- OLD MENU PLACEHOLDER -->
                 <div class="flex items-center gap-2">
@@ -477,16 +486,16 @@
 
         <!-- Start Learning All -->
         <div class="mb-6">
-            <a href="study.html" class="block bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white p-6 rounded-lg shadow-md transition-all">
+            <a href="study.html" class="block bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white p-6 rounded-lg shadow-md transition-all dark:from-blue-700 dark:to-blue-800 dark:hover:from-blue-800 dark:hover:to-blue-900">
                 <div class="flex items-center justify-between">
                     <div>
                         <h2 class="text-xl font-bold mb-1">Почати навчання</h2>
-                        <p class="text-blue-100 text-sm">Вивчати картки з усіх колод</p>
+                        <p class="text-blue-100 text-sm dark:text-blue-200">Вивчати картки з усіх колод</p>
                     </div>
                     <div class="flex items-center gap-4">
                         <div class="text-right hidden sm:block">
                             <div class="text-2xl font-bold">23</div>
-                            <div class="text-xs text-blue-100">карток готові</div>
+                            <div class="text-xs text-blue-100 dark:text-blue-200">карток готові</div>
                         </div>
                         <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
@@ -503,24 +512,24 @@
                 <svg class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
                 </svg>
-                <input type="text" placeholder="Пошук колод..." class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                <input type="text" placeholder="Пошук колод..." class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white">
             </div>
             <!-- Add New Deck Split Button -->
             <div class="relative flex">
-                <a href="deck-create.html" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-l-lg font-medium flex items-center justify-center gap-2 whitespace-nowrap">
+                <a href="deck-create.html" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-l-lg font-medium flex items-center justify-center gap-2 whitespace-nowrap dark:bg-blue-700 dark:hover:bg-blue-800">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
                     </svg>
                     Створити нову колоду
                 </a>
-                <button id="create-button" onclick="toggleCreateMenu()" class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-3 rounded-r-lg border-l border-blue-500">
+                <button id="create-button" onclick="toggleCreateMenu()" class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-3 rounded-r-lg border-l border-blue-500 dark:bg-blue-700 dark:hover:bg-blue-800 dark:border-blue-600">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                     </svg>
                 </button>
                 <div id="create-menu-container">
-                    <div id="create-menu" class="hidden absolute right-0 top-full mt-2 bg-white rounded-lg shadow-lg border border-gray-200 py-1 w-48 z-10">
-                        <a href="deck-import.html" class="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                    <div id="create-menu" class="hidden absolute right-0 top-full mt-2 bg-white rounded-lg shadow-lg border border-gray-200 py-1 w-48 z-10 dark:bg-gray-800 dark:border-gray-700">
+                        <a href="deck-import.html" class="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path>
                             </svg>
@@ -534,49 +543,49 @@
         <!-- Decks Grid -->
         <div class="grid gap-3 sm:gap-4 md:grid-cols-2">
             <!-- Deck Card 1 -->
-            <div class="bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow p-6 border border-gray-200 cursor-pointer" onclick="window.location.href='deck-cards.html'">
+            <div class="bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow p-6 border border-gray-200 cursor-pointer dark:bg-gray-800 dark:border-gray-700 dark:hover:shadow-lg dark:hover:shadow-white/5" onclick="window.location.href='deck-cards.html'">
                 <div class="flex justify-between items-start mb-4">
                     <div class="flex-1">
-                        <h3 class="text-xl font-semibold text-gray-900 mb-2">Базова англійська</h3>
+                        <h3 class="text-xl font-semibold text-gray-900 mb-2 dark:text-gray-100">Базова англійська</h3>
                         <div class="flex items-center gap-2">
-                            <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-gray-100 text-gray-700">
+                            <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-gray-100 text-gray-700 dark:bg-gray-700 dark:text-gray-300">
                                 🇺🇦 Українська
                             </span>
                             <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
                             </svg>
-                            <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-blue-100 text-blue-800">
+                            <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-blue-100 text-blue-800 dark:bg-blue-900/50 dark:text-blue-300">
                                 🇬🇧 Англійська
                             </span>
                         </div>
                     </div>
                     <div class="relative">
-                        <button class="deck-menu-button text-gray-400 hover:text-gray-600" onclick="event.stopPropagation(); toggleDeckMenu(1);">
+                        <button class="deck-menu-button text-gray-400 hover:text-gray-600 dark:hover:text-gray-300" onclick="event.stopPropagation(); toggleDeckMenu(1);">
                             <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
                                 <path d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z"></path>
                             </svg>
                         </button>
-                        <div id="deck-menu-1" class="hidden absolute right-0 top-8 bg-white rounded-lg shadow-lg border border-gray-200 py-1 w-48 z-10">
-                            <a href="deck-edit.html" class="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                        <div id="deck-menu-1" class="hidden absolute right-0 top-8 bg-white rounded-lg shadow-lg border border-gray-200 py-1 w-48 z-10 dark:bg-gray-800 dark:border-gray-700">
+                            <a href="deck-edit.html" class="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
                                 </svg>
                                 Редагувати
                             </a>
-                            <a href="deck-merge.html" class="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                            <a href="deck-merge.html" class="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"></path>
                                 </svg>
                                 Об'єднати
                             </a>
-                            <a href="deck-export.html" class="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                            <a href="deck-export.html" class="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
                                 </svg>
                                 Експортувати
                             </a>
-                            <div class="border-t border-gray-200 my-1"></div>
-                            <button onclick="showDeleteModal(event, 1, 'Базова англійська')" class="flex items-center gap-2 px-4 py-2 text-sm text-red-600 hover:bg-red-50 w-full text-left">
+                            <div class="border-t border-gray-200 my-1 dark:border-gray-700"></div>
+                            <button onclick="showDeleteModal(event, 1, 'Базова англійська')" class="flex items-center gap-2 px-4 py-2 text-sm text-red-600 hover:bg-red-50 w-full text-left dark:text-red-500 dark:hover:bg-red-600/10">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
                                 </svg>
@@ -585,56 +594,56 @@
                         </div>
                     </div>
                 </div>
-                <div class="flex items-center justify-between text-sm text-gray-500">
+                <div class="flex items-center justify-between text-sm text-gray-500 dark:text-gray-400">
                     <span>150 карток</span>
                     <span>Оновлено 2 дні тому</span>
                 </div>
             </div>
 
             <!-- Deck Card 2 - Empty Deck -->
-            <div class="bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow p-6 border border-gray-200 cursor-pointer" onclick="window.location.href='deck-cards-empty.html'">
+            <div class="bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow p-6 border border-gray-200 cursor-pointer dark:bg-gray-800 dark:border-gray-700 dark:hover:shadow-lg dark:hover:shadow-white/5" onclick="window.location.href='deck-cards-empty.html'">
                 <div class="flex justify-between items-start mb-4">
                     <div class="flex-1">
-                        <h3 class="text-xl font-semibold text-gray-900 mb-2">Німецька для початківців</h3>
+                        <h3 class="text-xl font-semibold text-gray-900 mb-2 dark:text-gray-100">Німецька для початківців</h3>
                         <div class="flex items-center gap-2">
-                            <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-gray-100 text-gray-700">
+                            <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-gray-100 text-gray-700 dark:bg-gray-700 dark:text-gray-300">
                                 🇺🇦 Українська
                             </span>
                             <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
                             </svg>
-                            <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-yellow-100 text-yellow-800">
+                            <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-yellow-100 text-yellow-800 dark:bg-yellow-900/50 dark:text-yellow-300">
                                 🇩🇪 Німецька
                             </span>
                         </div>
                     </div>
                     <div class="relative">
-                        <button class="deck-menu-button text-gray-400 hover:text-gray-600" onclick="event.stopPropagation(); toggleDeckMenu(2);">
+                        <button class="deck-menu-button text-gray-400 hover:text-gray-600 dark:hover:text-gray-300" onclick="event.stopPropagation(); toggleDeckMenu(2);">
                             <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
                                 <path d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z"></path>
                             </svg>
                         </button>
-                        <div id="deck-menu-2" class="hidden absolute right-0 top-8 bg-white rounded-lg shadow-lg border border-gray-200 py-1 w-48 z-10">
-                            <a href="deck-edit.html" class="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                        <div id="deck-menu-2" class="hidden absolute right-0 top-8 bg-white rounded-lg shadow-lg border border-gray-200 py-1 w-48 z-10 dark:bg-gray-800 dark:border-gray-700">
+                            <a href="deck-edit.html" class="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
                                 </svg>
                                 Редагувати
                             </a>
-                            <a href="deck-merge.html" class="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                            <a href="deck-merge.html" class="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"></path>
                                 </svg>
                                 Об'єднати
                             </a>
-                            <a href="deck-export.html" class="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                            <a href="deck-export.html" class="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
                                 </svg>
                                 Експортувати
                             </a>
-                            <div class="border-t border-gray-200 my-1"></div>
-                            <button onclick="showDeleteModal(event, 2, 'Німецька для початківців')" class="flex items-center gap-2 px-4 py-2 text-sm text-red-600 hover:bg-red-50 w-full text-left">
+                            <div class="border-t border-gray-200 my-1 dark:border-gray-700"></div>
+                            <button onclick="showDeleteModal(event, 2, 'Німецька для початківців')" class="flex items-center gap-2 px-4 py-2 text-sm text-red-600 hover:bg-red-50 w-full text-left dark:text-red-500 dark:hover:bg-red-600/10">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
                                 </svg>
@@ -645,54 +654,54 @@
                 </div>
                 <div class="flex items-center justify-between text-sm">
                     <span class="text-gray-400 italic">Колода порожня</span>
-                    <span class="text-gray-500">Створено сьогодні</span>
+                    <span class="text-gray-500 dark:text-gray-400">Створено сьогодні</span>
                 </div>
             </div>
 
             <!-- Deck Card 3 -->
-            <div class="bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow p-6 border border-gray-200 cursor-pointer">
+            <div class="bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow p-6 border border-gray-200 cursor-pointer dark:bg-gray-800 dark:border-gray-700 dark:hover:shadow-lg dark:hover:shadow-white/5">
                 <div class="flex justify-between items-start mb-4">
                     <div class="flex-1">
-                        <h3 class="text-xl font-semibold text-gray-900 mb-2">Французька: їжа та напої</h3>
+                        <h3 class="text-xl font-semibold text-gray-900 mb-2 dark:text-gray-100">Французька: їжа та напої</h3>
                         <div class="flex items-center gap-2">
-                            <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-gray-100 text-gray-700">
+                            <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-gray-100 text-gray-700 dark:bg-gray-700 dark:text-gray-300">
                                 🇺🇦 Українська
                             </span>
                             <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
                             </svg>
-                            <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-purple-100 text-purple-800">
+                            <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-purple-100 text-purple-800 dark:bg-purple-900/50 dark:text-purple-300">
                                 🇫🇷 Французька
                             </span>
                         </div>
                     </div>
                     <div class="relative">
-                        <button class="deck-menu-button text-gray-400 hover:text-gray-600" onclick="toggleDeckMenu(3);">
+                        <button class="deck-menu-button text-gray-400 hover:text-gray-600 dark:hover:text-gray-300" onclick="toggleDeckMenu(3);">
                             <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
                                 <path d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z"></path>
                             </svg>
                         </button>
-                        <div id="deck-menu-3" class="hidden absolute right-0 top-8 bg-white rounded-lg shadow-lg border border-gray-200 py-1 w-48 z-10">
-                            <a href="deck-edit.html" class="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                        <div id="deck-menu-3" class="hidden absolute right-0 top-8 bg-white rounded-lg shadow-lg border border-gray-200 py-1 w-48 z-10 dark:bg-gray-800 dark:border-gray-700">
+                            <a href="deck-edit.html" class="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
                                 </svg>
                                 Редагувати
                             </a>
-                            <a href="deck-merge.html" class="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                            <a href="deck-merge.html" class="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"></path>
                                 </svg>
                                 Об'єднати
                             </a>
-                            <a href="deck-export.html" class="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                            <a href="deck-export.html" class="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
                                 </svg>
                                 Експортувати
                             </a>
-                            <div class="border-t border-gray-200 my-1"></div>
-                            <button onclick="showDeleteModal(event, 3, 'Французька: їжа та напої')" class="flex items-center gap-2 px-4 py-2 text-sm text-red-600 hover:bg-red-50 w-full text-left">
+                            <div class="border-t border-gray-200 my-1 dark:border-gray-700"></div>
+                            <button onclick="showDeleteModal(event, 3, 'Французька: їжа та напої')" class="flex items-center gap-2 px-4 py-2 text-sm text-red-600 hover:bg-red-50 w-full text-left dark:text-red-500 dark:hover:bg-red-600/10">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
                                 </svg>
@@ -701,56 +710,56 @@
                         </div>
                     </div>
                 </div>
-                <div class="flex items-center justify-between text-sm text-gray-500">
+                <div class="flex items-center justify-between text-sm text-gray-500 dark:text-gray-400">
                     <span>45 карток</span>
                     <span>Оновлено тиждень тому</span>
                 </div>
             </div>
 
             <!-- Deck Card 4 -->
-            <div class="bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow p-6 border border-gray-200 cursor-pointer">
+            <div class="bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow p-6 border border-gray-200 cursor-pointer dark:bg-gray-800 dark:border-gray-700 dark:hover:shadow-lg dark:hover:shadow-white/5">
                 <div class="flex justify-between items-start mb-4">
                     <div class="flex-1">
-                        <h3 class="text-xl font-semibold text-gray-900 mb-2">Іспанська граматика</h3>
+                        <h3 class="text-xl font-semibold text-gray-900 mb-2 dark:text-gray-100">Іспанська граматика</h3>
                         <div class="flex items-center gap-2">
-                            <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-gray-100 text-gray-700">
+                            <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-gray-100 text-gray-700 dark:bg-gray-700 dark:text-gray-300">
                                 🇺🇦 Українська
                             </span>
                             <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
                             </svg>
-                            <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-red-100 text-red-800">
+                            <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-red-100 text-red-800 dark:bg-red-900/50 dark:text-red-300">
                                 🇪🇸 Іспанська
                             </span>
                         </div>
                     </div>
                     <div class="relative">
-                        <button class="deck-menu-button text-gray-400 hover:text-gray-600" onclick="toggleDeckMenu(4);">
+                        <button class="deck-menu-button text-gray-400 hover:text-gray-600 dark:hover:text-gray-300" onclick="toggleDeckMenu(4);">
                             <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
                                 <path d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z"></path>
                             </svg>
                         </button>
-                        <div id="deck-menu-4" class="hidden absolute right-0 top-8 bg-white rounded-lg shadow-lg border border-gray-200 py-1 w-48 z-10">
-                            <a href="deck-edit.html" class="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                        <div id="deck-menu-4" class="hidden absolute right-0 top-8 bg-white rounded-lg shadow-lg border border-gray-200 py-1 w-48 z-10 dark:bg-gray-800 dark:border-gray-700">
+                            <a href="deck-edit.html" class="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
                                 </svg>
                                 Редагувати
                             </a>
-                            <a href="deck-merge.html" class="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                            <a href="deck-merge.html" class="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"></path>
                                 </svg>
                                 Об'єднати
                             </a>
-                            <a href="deck-export.html" class="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                            <a href="deck-export.html" class="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
                                 </svg>
                                 Експортувати
                             </a>
-                            <div class="border-t border-gray-200 my-1"></div>
-                            <button onclick="showDeleteModal(event, 4, 'Іспанська граматика')" class="flex items-center gap-2 px-4 py-2 text-sm text-red-600 hover:bg-red-50 w-full text-left">
+                            <div class="border-t border-gray-200 my-1 dark:border-gray-700"></div>
+                            <button onclick="showDeleteModal(event, 4, 'Іспанська граматика')" class="flex items-center gap-2 px-4 py-2 text-sm text-red-600 hover:bg-red-50 w-full text-left dark:text-red-500 dark:hover:bg-red-600/10">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
                                 </svg>
@@ -759,7 +768,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="flex items-center justify-between text-sm text-gray-500">
+                <div class="flex items-center justify-between text-sm text-gray-500 dark:text-gray-400">
                     <span>203 картки</span>
                     <span>Оновлено 5 днів тому</span>
                 </div>
@@ -778,10 +787,10 @@
 
     <!-- Delete Confirmation Modal -->
     <div id="delete-modal" class="hidden fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4" onclick="closeDeleteModal()">
-        <div class="bg-white rounded-xl shadow-2xl max-w-md w-full p-6" onclick="event.stopPropagation()">
+        <div class="bg-white rounded-xl shadow-2xl max-w-md w-full p-6 dark:bg-gray-800" onclick="event.stopPropagation()">
             <div class="flex items-center justify-between mb-4">
-                <h3 class="text-lg font-bold text-gray-900">Видалити колоду?</h3>
-                <button onclick="closeDeleteModal()" class="text-gray-400 hover:text-gray-600">
+                <h3 class="text-lg font-bold text-gray-900 dark:text-gray-100">Видалити колоду?</h3>
+                <button onclick="closeDeleteModal()" class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
                     </svg>
@@ -789,12 +798,12 @@
             </div>
 
             <div class="mb-6">
-                <p class="text-gray-700 mb-2">Ви впевнені, що хочете видалити колоду <span class="font-semibold" id="delete-deck-name"></span>?</p>
-                <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-3 flex items-start gap-2 mt-4">
-                    <svg class="w-5 h-5 text-yellow-600 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <p class="text-gray-700 mb-2 dark:text-gray-300">Ви впевнені, що хочете видалити колоду <span class="font-semibold" id="delete-deck-name"></span>?</p>
+                <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-3 flex items-start gap-2 mt-4 dark:bg-yellow-900/20 dark:border-yellow-700/50">
+                    <svg class="w-5 h-5 text-yellow-600 mt-0.5 flex-shrink-0 dark:text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
                     </svg>
-                    <div class="text-sm text-yellow-800">
+                    <div class="text-sm text-yellow-800 dark:text-yellow-200">
                         <p class="font-medium">Увага! Ця дія незворотна</p>
                         <p class="mt-1">Всі картки та статистика вивчення будуть видалені назавжди.</p>
                     </div>
@@ -802,10 +811,10 @@
             </div>
 
             <div class="flex gap-3">
-                <button onclick="closeDeleteModal()" class="flex-1 bg-gray-200 hover:bg-gray-300 text-gray-800 px-6 py-3 rounded-lg font-medium">
+                <button onclick="closeDeleteModal()" class="flex-1 bg-gray-200 hover:bg-gray-300 text-gray-800 px-6 py-3 rounded-lg font-medium dark:bg-gray-700 dark:hover:bg-gray-600 dark:text-gray-300">
                     Скасувати
                 </button>
-                <button onclick="closeDeleteModal()" class="flex-1 bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-lg font-medium">
+                <button onclick="closeDeleteModal()" class="flex-1 bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-lg font-medium dark:bg-red-700 dark:hover:bg-red-800">
                     Видалити
                 </button>
             </div>
@@ -813,5 +822,39 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.1/dist/flowbite.min.js"></script>
+    <script>
+        const themeSelect = document.getElementById('theme');
+        const html = document.documentElement;
+
+        function applyTheme(theme) {
+            if (theme === 'dark' || (theme === 'auto' && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                html.classList.add('dark');
+            } else {
+                html.classList.remove('dark');
+            }
+        }
+
+        // On page load, set the select to the stored value and apply theme
+        const savedTheme = localStorage.getItem('theme') || 'auto';
+        if(themeSelect) {
+            themeSelect.value = savedTheme;
+        }
+        applyTheme(savedTheme);
+
+        if(themeSelect) {
+            themeSelect.addEventListener('change', (e) => {
+                const newTheme = e.target.value;
+                localStorage.setItem('theme', newTheme);
+                applyTheme(newTheme);
+            });
+        }
+
+        // Listen for system theme changes to apply 'auto' mode correctly
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+            if (localStorage.getItem('theme') === 'auto') {
+                applyTheme('auto');
+            }
+        });
+    </script>
 </body>
 </html>
