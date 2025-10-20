@@ -652,55 +652,70 @@
             </div>
 
             <!-- Second Row: Filter, Add, Select on mobile / All in one row on desktop -->
-            <div class="flex gap-3 sm:contents">
-                <select class="flex-1 sm:flex-none h-[42px] px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-                    <option>Всі картки</option>
-                    <option>Нові</option>
-                    <option>В процесі</option>
-                    <option>Вивчені</option>
-                </select>
-                <div id="add-menu-container" class="relative">
-                    <div class="flex h-[42px] bg-green-600 rounded-lg overflow-hidden">
-                        <a href="card-create.html" class="hover:bg-green-700 text-white px-4 sm:px-6 py-2 font-medium flex items-center gap-2">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
-                            </svg>
-                            <span class="hidden sm:inline">Додати картку</span>
-                        </a>
-                        <button onclick="toggleAddMenu()" class="hover:bg-green-700 text-white px-3 border-l border-green-700">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-                            </svg>
-                        </button>
-                    </div>
+            <div class="flex flex-wrap sm:flex-nowrap gap-3">
+                <div class="flex w-full sm:w-auto gap-3">
+                    <select class="h-[42px] px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent flex-1 sm:flex-none">
+                        <option>Всі картки</option>
+                        <option>Нові</option>
+                        <option>В процесі</option>
+                        <option>Вивчені</option>
+                    </select>
 
-                    <!-- Dropdown Menu -->
-                    <div id="add-menu" class="hidden absolute left-0 top-full mt-2 bg-white rounded-lg shadow-lg border border-gray-200 py-1 w-64 z-10">
-                        <a href="card-bulk-create.html" class="flex items-center gap-3 px-4 py-3 text-sm text-gray-700 hover:bg-gray-100">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 13h6m-3-3v6m5 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-                            </svg>
-                            <div>
-                                <div class="font-medium">Додати кілька карток</div>
-                                <div class="text-xs text-gray-500">Швидке додавання з списку</div>
-                            </div>
-                        </a>
-                        <button onclick="openImportModal()" class="w-full flex items-center gap-3 px-4 py-3 text-sm text-gray-700 hover:bg-gray-100 text-left">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
-                            </svg>
-                            <div>
-                                <div class="font-medium">Імпортувати з файлу</div>
-                                <div class="text-xs text-gray-500">TXT, CSV, JSON</div>
-                            </div>
-                        </button>
-                    </div>
+                    <select class="h-[42px] px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent flex-1 sm:flex-none">
+                        <option>Сортувати за...</option>
+                        <option>Алфавіт (A-Z)</option>
+                        <option>Алфавіт (Я-А)</option>
+                        <option>Дата (новіші)</option>
+                        <option>Дата (старіші)</option>
+                                            <option>Прогрес ↑</option>
+                                            <option>Прогрес ↓</option>
+                                            <option>Складність ↑</option>
+                                            <option>Складність ↓</option>                    </select>
                 </div>
-                <button onclick="toggleSelectionMode()" id="select-mode-btn" class="h-[42px] px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 font-medium text-gray-700" title="Вибрати">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path>
-                    </svg>
-                </button>
+                <div class="flex w-full sm:w-auto gap-3">
+                    <div id="add-menu-container" class="relative flex-grow">
+                        <div class="flex h-[42px] bg-green-600 rounded-lg overflow-hidden">
+                            <a href="card-create.html" class="w-full justify-center hover:bg-green-700 text-white px-4 sm:px-6 py-2 font-medium flex items-center gap-2">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+                                </svg>
+                                <span class="sm:inline">Додати картку</span>
+                            </a>
+                            <button onclick="toggleAddMenu()" class="hover:bg-green-700 text-white px-3 border-l border-green-700">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                </svg>
+                            </button>
+                        </div>
+
+                        <!-- Dropdown Menu -->
+                        <div id="add-menu" class="hidden absolute left-0 top-full mt-2 bg-white rounded-lg shadow-lg border border-gray-200 py-1 w-64 z-10">
+                            <a href="card-bulk-create.html" class="flex items-center gap-3 px-4 py-3 text-sm text-gray-700 hover:bg-gray-100">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 13h6m-3-3v6m5 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                                </svg>
+                                <div>
+                                    <div class="font-medium">Додати кілька карток</div>
+                                    <div class="text-xs text-gray-500">Швидке додавання з списку</div>
+                                </div>
+                            </a>
+                            <button onclick="openImportModal()" class="w-full flex items-center gap-3 px-4 py-3 text-sm text-gray-700 hover:bg-gray-100 text-left">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
+                                </svg>
+                                <div>
+                                    <div class="font-medium">Імпортувати з файлу</div>
+                                    <div class="text-xs text-gray-500">TXT, CSV, JSON</div>
+                                </div>
+                            </button>
+                        </div>
+                    </div>
+                    <button onclick="toggleSelectionMode()" id="select-mode-btn" class="h-[42px] px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 font-medium text-gray-700" title="Вибрати">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path>
+                        </svg>
+                    </button>
+                </div>
             </div>
         </div>
 
